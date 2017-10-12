@@ -37,8 +37,10 @@ Para ejecutar el entorno de Desarrollo fue considerado el uso de contenedores en
 2.- Estructura de carpetas`:  Se considero el uso de la siguiente estructura 
 	
 ```
-│   ├── FUENTES
-│   └── APIv1
+│   ├── build
+│   ├── config
+│   ├── node_modules
+│   └── src
 │       ├── README.md
 │       ├── app
 │       ├── config.js
@@ -49,22 +51,13 @@ Para ejecutar el entorno de Desarrollo fue considerado el uso de contenedores en
 │       ├── package.json
 │       ├── test
 │       └── yarn.lock
-├── docker-compose.yml
-├── publicApi
-├── publicData
-└── publicWww
+├── static
+├── test
+├── index.html
+├── package.json
+└── ---
 ```
-Donde:
 
-* FUENTES				:  Corresponde a la carpeta donde se encuentra el Código fuente de la Aplicación y de la API	
-
-* docker-compose.yml    :  Archivo de configuración YAML, donde se definiden los servicios, redes y Volúmenes. [Más información](https://jsitech1.gitbooks.io/meet-docker/content/archivo_docker-compose_en_detalle.html)  
-
-* publicApi				: Carpeta donde se aloja la versión en ejecución de la API, de esta carpeta se sirve el servicio de docker que levanta una instancia de Node
-
-* publicData			: Carpeta que contiene los archivos fisicos de la Base de Datos 
-
-* publicWww				: Carpeta que contiene los archivos del servidor Web utilizado
 
 
 ___________________________________________________________________________
@@ -73,20 +66,10 @@ ___________________________________________________________________________
 * POST:     Permite crear un nuevo recurso
 * PUT:      Permite editar un recurso
 * DELETE:   Elimina un recurso  
-* PATCH:    Permite editar partes concretas de un recurso, recibe los datos mediante x-www-form-urlencode
+* PATCH:    Permite editar partes concretas de un recurso
 
 
 ___________________________________________________________________________
 ## TEST  ##
-Se considera test a las rutas expuestas, para esto se utilizan los módulos 'mocha', 'chai' y 'axios'. Los test deben ser generados en la carpeta test como se muestra a continuación
-```
-│   └── APIv1
-│       ├── test
-│       	├── persona.js
-```
-* Los test se ejecutan con el comando npm test / yarn test
 
-___________________________________________________________________________
-## INFORMACION GENERAL  ##
-
-* [Código de Estado de HTTP](http://librosweb.es/tutorial/los-codigos-de-estado-de-http/)  
+*Pendiente*
