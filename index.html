@@ -1,11 +1,27 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Importar materialize.css-->
+    <link type="text/css" rel="stylesheet" href="./static/css/materialize.min.css"  media="screen,projection"/>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>delbarrioapp</title>
+    <link rel="stylesheet" href="static/style-login.css">
   </head>
   <body>
+    <!-- Contenedor principal -->
     <div id="app"></div>
-    <!-- built files will be auto injected -->
+
+    <!-- Scripts estáticos -->
+    <script type="text/javascript" src="./static/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="./static/js/materialize.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".button-collapse").sideNav();
+            $(".dropdown-button").dropdown();
+        });
+    </script>
   </body>
 </html>
