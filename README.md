@@ -19,6 +19,7 @@ Se consideran las siguientes tecnologías para el desarrollo del cliente REST.
 * Validaciones por modelo junto a controladores
 * Permisos de ruta por JWT -> LocalStorage + SessionStorage
 * Formato establecido para descripciones de métodos
+* Utilización de ES6
 
 ___________________________________________________________________________
 ## INSTALACION  ##
@@ -29,28 +30,19 @@ ___________________________________________________________________________
 ___________________________________________________________________________
 ## EJECUCION ENTORNO DE DESARROLLO  ##
 
-Para ejecutar el entorno de Desarrollo fue considerado el uso de contenedores en Docker, actualmente fue solamente considerado una instancia de PostgreSQl para gestionar la base de datos.
 
-1.- Instalación y Pre-Requisitos para instalar Docker-Compose`: 
-	* [Procedimeinto de instalación](https://docs.docker.com/compose/install/#prerequisites)  
-
-2.- Estructura de carpetas`:  Se considero el uso de la siguiente estructura 
+1.- Estructura de carpetas`:  Se considero el uso de la siguiente estructura 
 	
 ```
 │   ├── build
 │   ├── config
 │   ├── node_modules
 │   └── src
-│       ├── README.md
-│       ├── app
-│       ├── config.js
-│       ├── index.js
-│       ├── log
-│       ├── main.js
-│       ├── node_modules
-│       ├── package.json
-│       ├── test
-│       └── yarn.lock
+│       ├── assets
+│       ├── components
+│       ├── router
+│       ├── App.vue
+│       └── main.js
 ├── static
 ├── test
 ├── index.html
@@ -58,6 +50,17 @@ Para ejecutar el entorno de Desarrollo fue considerado el uso de contenedores en
 └── ---
 ```
 
+Donde:
+
+* src					:  Carpeta donde se encuentra el código fuente de la aplicación	
+
+* static			    :  Carpeta en la cual se encuentran elementos estáticos como .css y plugins .js que no corresponden a módulos npm
+
+* index.html			:  Archivo base donde se cargan elementos estáticos como las hojas de estilo .css, jquery y otros. Tiene el contenedor con id #app dentro del cual occurre la ejecución de la aplicación
+
+* config				:  Carpeta que contiene los archivos de configuración para entornos productivos y de desarrollo
+
+* components			:  Carpeta que contiene los módulos o "Componentes" de la aplicación
 
 
 ___________________________________________________________________________
