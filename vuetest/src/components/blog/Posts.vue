@@ -24,4 +24,3 @@
     }
   }
 </script>
-<style></style>

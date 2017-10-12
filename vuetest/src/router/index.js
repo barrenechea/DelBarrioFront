@@ -4,6 +4,7 @@ import Blog from '@/components/main/Blog'
 import Login from '@/components/main/Login'
 import Posts from '@/components/blog/Posts'
 import NewPost from '@/components/blog/NewPost'
+import EditPost from '@/components/blog/EditPost'
 
 Vue.use(Router)
 
@@ -24,6 +25,11 @@ export default new Router({
           path: 'posts-new',
           name: 'New Post',
           component: NewPost
+        },
+        {
+          path: 'posts-edit',
+          name: 'Edit Post',
+          component: EditPost
         }
       ]
     },

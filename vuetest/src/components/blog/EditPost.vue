@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h3>Nuevo Post</h3>
+    <h3>Editar Post</h3>
     <div class="row">
       <div class="input-field col s6">
         <input placeholder="Título" type="text" v-model="post.title" id="title" />
@@ -14,28 +14,31 @@
       </div>
     </div>
     <div class="row">
-      <button class="waves-effect waves-light btn" v-on:click="addPost">Aceptar</button>
+      <button class="waves-effect waves-light btn" v-on:click="updatePost">Guardar</button>
     </div>
   </div>
 </template>
 
 <script>
-  import postcontroller from '@/components/blog/controller/postcontroller.js'
-  export default {
-    name: 'newposts',
-    data () {
-      return {
-        post: {}
-      }
-    },
-    methods: {
-      // Llamar función addPost en controller
-      addPost (event) {
-        event.preventDefault()
-        postcontroller.addPost(this)
-      }
+import postcontroller from '@/components/blog/controller/postcontroller.js'
+export default {
+  name: 'editposts',
+  data () {
+    return {
+      post: {}
+    }
+  },
+  mounted () {
+    postcontroller.getPost(this, 1)
+  },
+  methods: {
+    // Llamar a la función updatePost en controller
+    updatePost (event) {
+      event.preventDefault()
+      postcontroller.updatePost(this)
     }
   }
+}
 </script>
 
 <style>
