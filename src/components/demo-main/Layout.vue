@@ -11,6 +11,8 @@
   <ul id="dropdown-account" class="dropdown-content" data-beloworigin="true">
     <li><a href="#!">Configuración</a></li>
     <li class="divider"></li>
+    <li><a href="/nueva-publicacion">Nueva publicacón</a></li>
+    <li class="divider"></li>
     <li><a href="#!">Cerrar Sesión</a></li>
   </ul>
   <!-- Fin Listado de la cuenta de administrador-->

@@ -37,6 +37,11 @@ export default new Router({
           path: '/demo-posts-edit',
           name: 'Demo-EditPost',
           component: components.EditPost
+        },
+        {
+          path: '/nueva-publicacion',
+          name: 'Demo-NuevaPublicacion',
+          component: components.NuevaPublicacion
         }
       ]
     },
