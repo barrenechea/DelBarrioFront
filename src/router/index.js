@@ -42,6 +42,16 @@ export default new Router({
           path: '/nueva-publicacion',
           name: 'Demo-NuevaPublicacion',
           component: components.NuevaPublicacion
+        },
+        {
+          path: '/nuevo-cliente',
+          name: 'Demo-NuevoCliente',
+          component: components.NuevoCliente
+        },
+        {
+          path: '/nuevo-emprendedor',
+          name: 'Demo-NuevoCliente',
+          component: components.NuevoEmprendedor
         }
       ]
     },

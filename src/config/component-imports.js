@@ -7,6 +7,8 @@ import Posts from '@/components/demo-posts/Posts'
 import NewPost from '@/components/demo-posts/NewPost'
 import EditPost from '@/components/demo-posts/EditPost'
 import NuevaPublicacion from '@/components/demo-posts/NuevaPublicacion'
+import NuevoCliente from '@/components/demo-posts/NuevoCliente'
+import NuevoEmprendedor from '@/components/demo-posts/NuevoEmprendedor'
 
 export default {
   // DEMO - Main
@@ -17,5 +19,7 @@ export default {
   Posts,
   NewPost,
   EditPost,
-  NuevaPublicacion
+  NuevaPublicacion,
+  NuevoCliente,
+  NuevoEmprendedor
 }

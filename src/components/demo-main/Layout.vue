@@ -12,6 +12,8 @@
     <li><a href="#!">Configuración</a></li>
     <li class="divider"></li>
     <li><a href="/nueva-publicacion">Nueva publicacón</a></li>
+    <li><a href="/nuevo-cliente">Registrarse</a></li>
+    <li><a href="/nuevo-emprendedor">Nuevo Emprendedor * OPCION DE ADMIN </a></li> <!-- Opción de admin -->
     <li class="divider"></li>
     <li><a href="#!">Cerrar Sesión</a></li>
   </ul>
