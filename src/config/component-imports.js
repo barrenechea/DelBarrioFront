@@ -6,6 +6,7 @@ import Layout from '@/components/demo-main/Layout'
 import Posts from '@/components/demo-posts/Posts'
 import NewPost from '@/components/demo-posts/NewPost'
 import EditPost from '@/components/demo-posts/EditPost'
+import Categories from '@/components/categories/newCategory'
 
 export default {
   // DEMO - Main
@@ -14,6 +15,7 @@ export default {
 
   // DEMO - Posts
   Posts,
+  Categories,
   NewPost,
   EditPost
 }

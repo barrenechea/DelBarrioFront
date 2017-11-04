@@ -1,28 +1,77 @@
 <template>
 <div>
-
-  <div class="header hide-on-med-and-down">
+  <div class="header hidden-md-down">
       <div class="row">
-        <div class="col s4"><img class="img-delbarrio" v-bind:src="'/static/img/delbarriologo.png'"/></div>
-        <div class="col s4 offset-s4" ><img class="img-emprende" v-bind:src="'/static/img/emprendelogo.png'"/></div>
+        <div class="col-md-4"><img class="img-delbarrio" v-bind:src="'/static/img/delbarriologo.png'"/></div>
+        <div class="col-md-4 offset-md-3"><img class="img-emprende" v-bind:src="'/static/img/emprendelogo.png'"/></div>
       </div>
   </div>
-  <!-- Listado de la cuenta de administrador-->
+
+<div class="navbar navbar-expand-lg navbar-light bg-faded" style="">
+        <a href="../" class="navbar-brand">Bootswatch</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="true" aria-label="Toggle navigation" style="">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse show" id="navbarResponsive" style="">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Publicaciones</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Denuncias</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Emprendedores</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Clientes</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="administration">Administración <span class="caret"></span></a>
+              <div class="dropdown-menu" aria-labelledby="administration">
+                <a class="dropdown-item" href="#">Categorías</a>
+                <a class="dropdown-item" href="#">Rubros</a>
+                <a class="dropdown-item" href="#">Términos y Condiciones</a>
+                <a class="dropdown-item" href="#">Preguntas frecuentesx</a>
+              </div>
+            </li>
+          </ul>
+
+          <ul class="nav navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="adminName"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Nombre de Administrador <span class="caret"></span></a>
+              <div class="dropdown-menu" aria-labelledby="adminName">
+                <a class="dropdown-item" href="#">Configuración</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Cerrar Sesión</a>
+              </div>
+            </li>
+          </ul>
+
+        </div>
+</div>
+
+
+
+
+
+  <!--
+      <!-- Listado de la cuenta de administrador
   <ul id="dropdown-account" class="dropdown-content" data-beloworigin="true">
     <li><a href="#!">Configuración</a></li>
     <li class="divider"></li>
     <li><a href="#!">Cerrar Sesión</a></li>
   </ul>
-  <!-- Fin Listado de la cuenta de administrador-->
+  <!-- Fin Listado de la cuenta de administrador
 
-  <!-- Listado de administración de cuenta Administrador-->
+  <!-- Listado de administración de cuenta Administrador
   <ul id="dropdown-admin" class="dropdown-content" data-beloworigin="true">
     <li><a href="#!">Categorías</a></li>
     <li><a href="#!">Rubros</a></li>
     <li><a href="#!">Términos y condiciones</a></li>
     <li><a href="#!">Preguntas frecuentes</a></li>
   </ul>
-  <!-- Fin Listado de administración de cuenta Administrador-->
+  <!-- Fin Listado de administración de cuenta Administrador
 
   <nav>
     <div class="nav-wrapper">
@@ -36,7 +85,7 @@
         <li><a class="dropdown-button" href="#!" data-activates="dropdown-account"><i class="material-icons left">account_circle</i> Nombre de Administrador<i class="material-icons right">arrow_drop_down</i></a></li>
       </ul>
       <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-      <!--Inicio Menú mobile (Administrador) -->
+      <!--Inicio Menú mobile (Administrador)
       <ul class="side-nav" id="mobile-demo">
         <div class="container">
         <li class="logo">
@@ -66,9 +115,10 @@
           </ul>  
         </li>
       </ul>
-      <!--Fin Menú mobile (Administrador)-->
+      <!--Fin Menú mobile (Administrador)
     </div>    
   </nav>
+  -->
   <router-view></router-view>
 </div>
 </template>
