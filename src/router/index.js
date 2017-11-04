@@ -4,6 +4,10 @@ import components from '@/config/component-imports.js'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import VeeValidate from 'vee-validate'
+
+Vue.use(VeeValidate)
+
 Vue.use(BootstrapVue)
 
 Vue.use(Router)
@@ -50,7 +54,7 @@ export default new Router({
         },
         {
           path: '/nuevo-emprendedor',
-          name: 'Demo-NuevoCliente',
+          name: 'Demo-NuevoEmprendedor',
           component: components.NuevoEmprendedor
         }
       ]

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h3><br>Registro</h3>
-    <form id="someform">
+   <div class="form-group" :class="{'has-error': errors.has('email') }" >
 
       <div class="row center">
         <div class="input-field col s12">
@@ -9,44 +9,59 @@
         </div>
       </div>
 
+      <!--Nombre-->
       <div class="row">
         <div class="input-field col s12">
-          <input placeholder="Juan" type="text" v-model="post.nombre" id="nombre" />
+          <input v-validate data-vv-rules="required|alpha_spaces" data-vv-as="nombre" name="nombre" type="text" placeholder="Juan Antonio">
+          <span v-show="errors.has('nombre')" class="help is-danger">{{ errors.first('nombre') }}</span>
           <label for="nombre">Nombre</label>
         </div>
       </div>
-      <div class="row">
+
+      <!--Apellidos-->
+       <div class="row">
         <div class="input-field col s12">
-          <input placeholder="Pérez" type="text" v-model="post.apellido" id="apellido" />
+          <input v-validate data-vv-rules="required|alpha_spaces" data-vv-as="apellido" name="apellido" type="text" placeholder="Pérez Gonzalez">
+          <span v-show="errors.has('apellido')" class="help is-danger">{{ errors.first('apellido') }}</span>
           <label for="apellido">Apellido</label>
         </div>
       </div>
 
+      <!--Rut-->
       <div class="row">
         <div class="input-field col s12">
-          <input placeholder="1234567-8" type="number" v-model="post.rut" id="rut" />
-          <label for="precio">Rut</label>
+          <input v-rut v-validate data-vv-rules="required" data-vv-as="rut" name="rut" type="text" placeholder="12345678-9" v-model="rut">
+          <span v-show="errors.has('rut')" class="help is-danger">{{ errors.first('rut') }}</span>
+          <label for="Rut">Rut</label>
         </div>
       </div>
       
-      <div class="row">
-        <div class="input-field col s12">
-          <input placeholder="Ejemplo@mail.com" type="text" v-model="post.email" id="email" />
-          <label for="email">Email</label>
-        </div>
+    <!--Email-->
+     <div class="column is-12">
+          <label class="label" for="email">Email</label>
+          <p :class="{ 'control': true }">
+              <input v-validate data-vv-rules="required|email" data-vv-as="email" name="email" type="text" placeholder="Email">
+              <span v-show="errors.has('email')" class="help is-danger">{{ errors.first('email') }}</span>
+          </p>
       </div>
 
+    <!--Contraseña-->
      <div class="row">
         <div class="input-field col s12">
-          <input placeholder="********" type="password" v-model="post.password" id="password" />
-          <label for="password">Contraseña</label>
+        <input v-validate data-vv-rules="required|min:4" data-vv-as="Contraseña" name="Contraseña"  type="password" class="form-control">
+          <label for="contraseña">Contraseña</label>
+          <span v-show="errors.has('Contraseña')">{{ errors.first('Contraseña') }}</span>
         </div>
       </div>
-
+    <!--Repetir contraseña-->
       <div class="row">
         <div class="input-field col s12">
-          <input placeholder="********" type="password" v-model="post.rep_password" id="rep_password" />
-          <label for="rep_password">Confirmación de contraseña</label>
+            <p :class="{ 'control': true }">
+            <input v-validate data-vv-rules="required|confirmed:Contraseña" name="Confirmar contraseña" type="password" class="form-control">
+            <span v-show="errors.has('Confirmar contraseña')">{{ errors.first('Confirmar contraseña') }}</span>
+    <label for="Confirmar contraseña">Confirmar contraseña</label>
+
+          </p>
         </div>
       </div>
 
@@ -54,7 +69,7 @@
         <button class="waves-effect waves-light btn" v-on:click="addPost">Publicar</button>
       </div>
 
-    </form>
+    </div>
   </div>
 </template>
 
@@ -64,8 +79,8 @@
     name: 'demo-newposts',
     data () {
       return {
-        post: {},
-        checkedNames: []
+        post: [],
+        rut: null
       }
     },
     methods: {
