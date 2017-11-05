@@ -33,14 +33,14 @@ export default new Router({
           path: '/demo-posts-edit',
           name: 'Demo-EditPost',
           component: components.EditPost
+        },
+        {
+          // DEMO - Login
+          path: '/login',
+          name: 'Login',
+          component: components.Login
         }
       ]
-    },
-    {
-      // DEMO - Login
-      path: '/demo-login',
-      name: 'Demo-Login',
-      component: components.Login
     }
   ]
 })
