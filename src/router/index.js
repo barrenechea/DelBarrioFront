@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import components from '@/config/component-imports.js'
+import VeeValidate from 'vee-validate'
+Vue.use(VeeValidate)
 
 Vue.use(Router)
 
