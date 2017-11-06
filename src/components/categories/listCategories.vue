@@ -18,18 +18,20 @@
       <th>ID</th>
       <th>Categoría</th>
       <th>Cat. Padre</th>
+      <th>Descripción</th>
       <th>Acción</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
+    <tr v-for="cat in categories">
       <td>
         <i class="fa fa-check fa-2x" title="Habilitado"></i>
         <i class="fa fa-times fa-2x" title="Deshabilitado"></i>
       </td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>{{cat.IDEN_CATEGORIA}}</td>
+      <td>{{cat.NOMB_CATEGORIA}}</td>
+      <td>{{cat.IDEN_CATEGORIA_PADRE}}</td>
+      <td>{{cat.DESC_CATEGORIAS}}</td>
       <td>
         <a class="btn btn-secondary" href="#">
           <i class="fa fa-pencil-square-o" title="Editar"></i>
@@ -50,12 +52,16 @@
 </template>
 
 <script>
+import categoriescontroller from '@/components/categories/controller/categoriescontroller.js'
 export default {
-  name: 'ListCategories',
+  name: 'categories',
   data () {
-    return { }
+    return {
+      categories: {}
+    }
   },
-  mounted () { },
-  methods: { }
+  mounted () {
+    categoriescontroller.listCategories(this)
+  }
 }
 </script>

@@ -8,10 +8,11 @@ export default {
   //         ingresado como parámetro.
   // =======================================================================================
   listCategories (context) {
+    // error = "";
     axios.get(globalConst().localUrl + 'categoria/')
     .then(response => {
       context.categories = response.data
-      console.log(response.data)
+      console.log(context.categories)
     }).catch(errors => {
       console.log(errors)
     })
