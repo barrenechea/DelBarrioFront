@@ -16,8 +16,8 @@ export default {
         password: context.auth.password
       }
     ).then(response => {
-      console.log(response)
-      sessionStorage.setItem('id_token', response.data.token)
+      console.log(response.data)
+      sessionStorage.setItem('id_token', response.data.data.token)
     })
   }
 }

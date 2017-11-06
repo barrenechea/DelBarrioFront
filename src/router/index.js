@@ -18,11 +18,21 @@ export default new Router({
         }
       }, */
       children: [
-        // DEMO - POSTS
+        // CATEGORIES
         {
-          path: '',
-          name: 'Categories',
-          component: components.Categories
+          path: '/administracion/categorias',
+          name: 'ListCategories',
+          component: components.ListCategories
+        },
+        {
+          path: '/administracion/nueva-categoria',
+          name: 'NewCategory',
+          component: components.NewCategory
+        },
+        {
+          path: '/administracion/editar-categoria',
+          name: 'EditCategory',
+          component: components.EditCategory
         },
         {
           path: '/demo-posts-new',

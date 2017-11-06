@@ -1,6 +1,6 @@
 const CFG = {
   apiUrl: 'https://jsonplaceholder.typicode.com/',
-  localUrl: 'localhost:3000/'
+  localUrl: 'http://delbarrio.barrenechea.cl/api/'
 }
 
 export function globalConst () {

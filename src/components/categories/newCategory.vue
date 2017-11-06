@@ -3,7 +3,10 @@
     <div col-md-12><br/></div> <!--Esto está ordinario. Cambiar-->
     <div class="bs-component">
       <div class="jumbotron">
-      <h3 class="display-4">Nueva categoría</h3>
+      <h1>Nueva categoría</h1>
+      <div class="form-group">
+
+      </div>
       
       </div>
     </div>
@@ -12,7 +15,7 @@
 
 <script>
 export default {
-  name: 'Category',
+  name: 'NewCategory',
   data () {
     return { }
   },
