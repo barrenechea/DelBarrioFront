@@ -11,7 +11,7 @@ export default {
     // error = "";
     axios.get(globalConst().localUrl + 'categoria/')
     .then(response => {
-      context.categories = response.data
+      context.categories = response.data.data
       console.log(context.categories)
     }).catch(errors => {
       console.log(errors)
