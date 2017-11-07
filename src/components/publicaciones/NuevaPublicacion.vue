@@ -10,30 +10,37 @@
         </div>
       </div>
 
+      <!--Nombre-->
       <div class="row">
         <div class="input-field col s12">
-          <input placeholder="Nombre" type="text" v-model="post.nombre" id="nombre" />
+          <input v-validate data-vv-rules="required|alpha_spaces" data-vv-as="nombre" name="nombre" type="text" placeholder="Juan Antonio">
+          <span v-show="errors.has('nombre')" class="help is-danger">{{ errors.first('nombre') }}</span>
           <label for="nombre">Nombre</label>
         </div>
       </div>
 
-      <div class="row">
+      <!--Precio-->
+       <div class="row">
         <div class="input-field col s12">
-          <input placeholder="$0.000" type="number" v-model="post.precio" id="Precio" />
+          <input v-validate data-vv-rules="required|numeric|min_value:1|max_value:4294967295|numeric" data-vv-as="Precio" name="precio" type="text" placeholder="10000">
+          <span v-show="errors.has('precio')" class="help is-danger">{{ errors.first('precio') }}</span>
           <label for="precio">Precio</label>
         </div>
       </div>
       
+      <!--Descripción-->
       <div class="row">
         <div class="input-field col s12">
-          <input placeholder="Descripción..." type="text" v-model="post.descripcion" id="descripcion" />
+          <input v-validate data-vv-rules="required|max:10000" data-vv-as="descripcion" name="descripcion" type="text" placeholder="Escriba aqui la descripción de su publicación...">
+          <span v-show="errors.has('descripcion')" class="help is-danger">{{ errors.first('descripcion') }}</span>
           <label for="descripcion">Descripción</label>
         </div>
       </div>
 
+      <!--Contenido Adultos -->
       <div class="row">        
         <div class="input-field col s12">
-          <input type="checkbox" id="mayores" value="1" v-model="checkedNames">
+          <input type="checkbox" id="mayores" value="1" v-model="adultcontent">
           <label for="mayores">Mayores de 18</label><br>
           <br>
         </div>
@@ -68,7 +75,7 @@
     data () {
       return {
         post: {},
-        checkedNames: []
+        adultcontent: []
       }
     },
     methods: {
@@ -82,6 +89,7 @@
 </script>
 
 <style>
+/*
   .btn {
     background-color: #372d57;
   }
@@ -99,5 +107,5 @@
     box-shadow: 0 1px 0 0 #888 !important;
   }
 
-
+*/
 </style>

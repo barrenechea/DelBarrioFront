@@ -44,17 +44,17 @@ export default new Router({
         },
         {
           path: '/nueva-publicacion',
-          name: 'Demo-NuevaPublicacion',
+          name: 'NuevaPublicacion',
           component: components.NuevaPublicacion
         },
         {
           path: '/nuevo-cliente',
-          name: 'Demo-NuevoCliente',
+          name: 'NuevoCliente',
           component: components.NuevoCliente
         },
         {
           path: '/nuevo-emprendedor',
-          name: 'Demo-NuevoEmprendedor',
+          name: 'NuevoEmprendedor',
           component: components.NuevoEmprendedor
         }
       ]

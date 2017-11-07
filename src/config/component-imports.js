@@ -6,9 +6,9 @@ import Layout from '@/components/demo-main/Layout'
 import Posts from '@/components/demo-posts/Posts'
 import NewPost from '@/components/demo-posts/NewPost'
 import EditPost from '@/components/demo-posts/EditPost'
-import NuevaPublicacion from '@/components/demo-posts/NuevaPublicacion'
-import NuevoCliente from '@/components/demo-posts/NuevoCliente'
-import NuevoEmprendedor from '@/components/demo-posts/NuevoEmprendedor'
+import NuevaPublicacion from '@/components/publicaciones/NuevaPublicacion'
+import NuevoCliente from '@/components/clientes/NuevoCliente'
+import NuevoEmprendedor from '@/components/emprendedores/NuevoEmprendedor'
 
 export default {
   // DEMO - Main

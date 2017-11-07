@@ -1,14 +1,14 @@
 <template>
   <div class="container">
-    <h3><br>Registro</h3>
-   <div class="form-group" :class="{'has-error': errors.has('email') }" >
+    <h3><br>Nuevo Emprendedor</h3>
+    <div class="form-group" >
 
       <div class="row center">
         <div class="input-field col s12">
             <i class="material-icons large">account_circle</i>
         </div>
       </div>
-
+      
       <!--Nombre-->
       <div class="row">
         <div class="input-field col s12">
@@ -18,6 +18,7 @@
         </div>
       </div>
 
+  
       <!--Apellidos-->
        <div class="row">
         <div class="input-field col s12">
@@ -26,6 +27,7 @@
           <label for="apellido">Apellido</label>
         </div>
       </div>
+
 
       <!--Rut-->
       <div class="row">
@@ -45,28 +47,29 @@
           </p>
       </div>
 
-    <!--Contraseña-->
+
+    <!-- Clave Emprendedor-->
      <div class="row">
         <div class="input-field col s12">
-        <input v-validate data-vv-rules="required|min:4" data-vv-as="Contraseña" name="Contraseña"  type="password" class="form-control">
-          <label for="contraseña">Contraseña</label>
-          <span v-show="errors.has('Contraseña')">{{ errors.first('Contraseña') }}</span>
-        </div>
-      </div>
-    <!--Repetir contraseña-->
-      <div class="row">
-        <div class="input-field col s12">
-            <p :class="{ 'control': true }">
-            <input v-validate data-vv-rules="required|confirmed:Contraseña" name="Confirmar contraseña" type="password" class="form-control">
-            <span v-show="errors.has('Confirmar contraseña')">{{ errors.first('Confirmar contraseña') }}</span>
-    <label for="Confirmar contraseña">Confirmar contraseña</label>
-
-          </p>
+          <input placeholder="Clave secreta" name="Clave_secreta" v-validate data-vv-rules="required|min:4" data-vv-as="Clave emprendedor" type="text" v-model="post.clave" id="Clave_secreta" />
+          <label for="Clave_secreta">Clave emprendedor</label>
+           <span v-show="errors.has('Clave_secreta')">{{ errors.first('Clave_secreta') }}</span>
         </div>
       </div>
 
+      <!--Rubros-->
+      <div class="select">
+        Rubro <br>
+      <v-select  v-validate data-vv-rules="required" data-vv-as="Rubro" name="rubro" id="rubro" placeholder="(Seleccionar)" :options="['Rubro 1','Rubro 2']">
+      </v-select>
+      <span v-show="errors.has('rubro')">{{ errors.first('rubro') }}</span>
+      </div>
+     <br> 
+    <!-- FALTA VALIDAR QUE SE HAYA SELECCIONADO EL SELECT.. LO QUE SALE AHI NO FUNCIONA U w U  -->
+
+     <!-- Botón -->
       <div class="row">
-        <button class="waves-effect waves-light btn" v-on:click="addPost">Publicar</button>
+        <button class="waves-effect waves-light btn" v-on:click="addPost">Ingresar</button>
       </div>
 
     </div>
@@ -79,7 +82,7 @@
     name: 'demo-newposts',
     data () {
       return {
-        post: [],
+        post: {},
         rut: null
       }
     },
