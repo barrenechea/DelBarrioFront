@@ -7,6 +7,20 @@ export default {
   // Return: llena con los datos obtenidos de la ruta ingresada el objeto "posts" del contexto
   //         ingresado como parámetro.
   // =======================================================================================
+  getCategory (context) {
+    // aquí tiene que ir el id recibido desde la vista de listado.
+    axios.get(globalConst().localUrl + 'categoria/' + context.$route.params.id + '/')
+    .then(response => {
+      context.cat = response.data.data
+    }).catch(errors => {
+      console.log(errors)
+    })
+  },
+  // Obtener posts de la fuente. En este caso se utilizó placeholder.
+  // Param.: context -> Contexto de la vista .vue, contiene los objetos instanciados en "data".
+  // Return: llena con los datos obtenidos de la ruta ingresada el objeto "posts" del contexto
+  //         ingresado como parámetro.
+  // =======================================================================================
   listCategories (context) {
     // error = "";
     axios.get(globalConst().localUrl + 'categoria/')
@@ -55,9 +69,9 @@ export default {
   //                      id:     int (req | post-exists)
   //                    }
   // =======================================================================================
-  updatePost (context) {
+  editCategory (context) {
     axios.put(
-      globalConst().localUrl + 'categorias/' + context.cat.DESC_CATEGORIA + '/',
+      globalConst().localUrl + 'categorias/' + context.cat.IDEN_CATEGORIA + '/',
       {
         post: context.post
       }

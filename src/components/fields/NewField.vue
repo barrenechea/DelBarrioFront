@@ -3,25 +3,18 @@
     <div col-md-12><br/></div> <!--Esto está ordinario. Cambiar-->
     <div class="bs-component">
       <div class="jumbotron">
-        <h1>Editar categoría</h1>
+        <h1>Nueva categoría</h1>
         <div>
           <label>Nombre</label>
           <input v-validate data-vv-rules="required" data-vv-as="nombre" name="name" type="text" v-model="cat.NOMB_CATEGORIA"/>
           <span v-show="errors.has('name')">{{ errors.first('name') }}</span>
         </div>
         <div>
-          <label>Descripción</label>
-          <input v-validate data-vv-rules="required" data-vv-as="descripción" name="description" type="text" v-model="cat.DESC_CATEGORIA"/>
-          <span v-show="errors.has('description')">{{ errors.first('description') }}</span>
-        </div>
-        <div v-if="cat.subcategorias.length == 0">
           <label>Categoria Padre</label>
-          <select v-model="cat.IDEN_CATEGORIA_PADRE">
-            <option v-for="c in categories" v-bind:value="c.IDEN_CATEGORIA">{{c.NOMB_CATEGORIA}}</option>
-          </select>
+          <v-select label="NOMB_CATEGORIA" :value="cat.IDEN_CATEGORIA" :options="categories"></v-select>
         </div>
         <div>
-          <button class="btn btn-success" v-on:click="editCategory">Agregar</button>
+          <button class="btn btn-success" v-on:click="addCategory">Agregar</button>
         </div>
         <div>
           <span v-show='error'>Error</span>
@@ -34,8 +27,7 @@
 <script>
 import categoriescontroller from '@/components/categories/controller/categoriescontroller.js'
 export default {
-  name: 'EditCategory',
-  category: ['id'],
+  name: 'NewCategory',
   data () {
     return {
       cat: {},
@@ -45,12 +37,12 @@ export default {
   },
   mounted () {
     categoriescontroller.listCategories(this)
-    categoriescontroller.getCategory(this)
   },
   methods: {
-    editCategory (event) {
+    // Llamar función addCategory en controller
+    addCategory (event) {
       event.preventDefault()
-      categoriescontroller.editCategory(this)
+      categoriescontroller.addCategory(this)
     }
   }
 }

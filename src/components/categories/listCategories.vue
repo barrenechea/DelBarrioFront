@@ -26,8 +26,8 @@
             </td>
             <td>{{cat.NOMB_CATEGORIA}}</td>
             <td>
-              <a class="btn btn-secondary" href="#">
-                <i class="fa fa-pencil-square-o" title="Editar" v-bind:href="'/administracion/editar-categoria/'"></i>
+              <a class="btn btn-secondary" v-bind:href="'/administracion/editar-categoria/'+cat.IDEN_CATEGORIA">
+                <i class="fa fa-pencil-square-o" title="Editar"></i>
               </a>
               <a class="btn btn-danger" href="#" v-show='cat.FLAG_VIGENTE'>
                 <i class="fa fa-times" title="Deshabilitar"></i>

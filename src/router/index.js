@@ -32,9 +32,10 @@ export default new Router({
           component: components.NewCategory
         },
         {
-          path: '/administracion/editar-categoria',
+          path: '/administracion/editar-categoria/:id',
           name: 'EditCategory',
-          component: components.EditCategory
+          component: components.EditCategory,
+          category: true
         },
         {
           path: '/demo-posts-new',
