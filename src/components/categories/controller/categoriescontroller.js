@@ -42,5 +42,29 @@ export default {
       console.log(errors)
       context.error = true
     })
+  },
+
+  // Enviar PUT request a la fuente. Se utilizó placeholder.
+  // Param.:       context -> Contexto de la vista .vue, contiene los objetos instanciados en
+  //               "data".
+  // Return:       Retorna los datos del PUT response por consola js.
+  // Constraints:  post {
+  //                      title:  string (req | len < 255)
+  //                      body:   string (req | len < 255)
+  //                      userId: int (req | user-exists)
+  //                      id:     int (req | post-exists)
+  //                    }
+  // =======================================================================================
+  updatePost (context) {
+    axios.put(
+      globalConst().localUrl + 'categorias/' + context.cat.DESC_CATEGORIA + '/',
+      {
+        post: context.post
+      }
+    ).then(response => {
+      console.log(response.data)
+    }).catch(errors => {
+      console.log(errors)
+    })
   }
 }

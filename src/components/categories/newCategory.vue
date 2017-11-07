@@ -10,19 +10,11 @@
           <span v-show="errors.has('name')">{{ errors.first('name') }}</span>
         </div>
         <div>
-          <label>Descripción</label>
-          <input v-validate data-vv-rules="required" data-vv-as="descripción" name="description" type="text" v-model="cat.DESC_CATEGORIA"/>
-          <span v-show="errors.has('description')">{{ errors.first('description') }}</span>
-        </div>
-        <div>
           <label>Categoria Padre</label>
-          <select v-validate data-vv-rules="required" data-vv-as="categoría padre" name="parent" v-model="cat.IDEN_CATEGORIA_PADRE">
-            <option v-bind:key="cat.IDEN_CATEGORIA" v-for="cat in categories" v-if='cat.FLAG_VIGENTE' :value="cat.IDEN_CATEGORIA">{{ cat.NOMB_CATEGORIA }}</option>
-          </select>
-          <span v-show="errors.has('parent')">{{ errors.first('parent') }}</span>
+          <v-select label="NOMB_CATEGORIA" :value="cat.IDEN_CATEGORIA" :options="categories"></v-select>
         </div>
         <div>
-          <button class="btn btn-success" v-on:click="addCategory">Agegar</button>
+          <button class="btn btn-success" v-on:click="addCategory">Agregar</button>
         </div>
         <div>
           <span v-show='error'>Error</span>
@@ -47,7 +39,7 @@ export default {
     categoriescontroller.listCategories(this)
   },
   methods: {
-    // Llamar función addPost en controller
+    // Llamar función addCategory en controller
     addCategory (event) {
       event.preventDefault()
       categoriescontroller.addCategory(this)

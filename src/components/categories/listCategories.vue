@@ -14,10 +14,7 @@
         <thead>
           <tr>
             <th>Estado</th>
-            <th>ID</th>
-            <th>Categoría</th>
-            <th>Cat. Padre</th>
-            <th>Descripción</th>
+            <th>Nombre</th>
             <th>Acción</th>
           </tr>
         </thead>
@@ -27,16 +24,10 @@
               <i class="fa fa-check fa-2x" title="Habilitado" v-show='cat.FLAG_VIGENTE'></i>
               <i class="fa fa-times fa-2x" title="Deshabilitado" v-show='!cat.FLAG_VIGENTE'></i>
             </td>
-            <td>{{cat.IDEN_CATEGORIA}}</td>
             <td>{{cat.NOMB_CATEGORIA}}</td>
             <td>
-              <span v-show='cat.IDEN_CATEGORIA_PADRE == null'>No posee{{cat.IDEN_CATEGORIA_PADRE}}</span>
-              <span v-show='cat.IDEN_CATEGORIA_PADRE != null'>{{cat.IDEN_CATEGORIA_PADRE}}</span>
-            </td>
-            <td>{{cat.DESC_CATEGORIA}}</td>
-            <td>
               <a class="btn btn-secondary" href="#">
-                <i class="fa fa-pencil-square-o" title="Editar" v-bind:href="'/administracion/editar-categoria'"></i>
+                <i class="fa fa-pencil-square-o" title="Editar" v-bind:href="'/administracion/editar-categoria/'"></i>
               </a>
               <a class="btn btn-danger" href="#" v-show='cat.FLAG_VIGENTE'>
                 <i class="fa fa-times" title="Deshabilitar"></i>
