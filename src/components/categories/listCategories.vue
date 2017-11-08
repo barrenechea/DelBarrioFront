@@ -26,20 +26,20 @@
             </td>
             <td>{{cat.NOMB_CATEGORIA}}</td>
             <td>
-              <a class="btn btn-secondary" v-bind:href="'/administracion/editar-categoria/'+cat.IDEN_CATEGORIA">
+              <a class="btn btn-secondary" v-bind:href="'/administracion/categorias/editar/'+cat.IDEN_CATEGORIA">
                 <i class="fa fa-pencil-square-o" title="Editar"></i>
               </a>
-              <a class="btn btn-danger" href="#" v-show='cat.FLAG_VIGENTE'>
+              <a class="btn btn-danger" v-on:click="setState(cat.IDEN_CATEGORIA, false)" v-show='cat.FLAG_VIGENTE'>
                 <i class="fa fa-times" title="Deshabilitar"></i>
               </a>
-              <a class="btn btn-success" href="#" v-show='!cat.FLAG_VIGENTE'>
+              <a class="btn btn-success" v-on:click="setState(cat.IDEN_CATEGORIA, true)" v-show='!cat.FLAG_VIGENTE'>
                 <i class="fa fa-check" title="Habilitar"></i>
               </a>
             </td>
           </tr>
         </tbody>
       </table>
-      <a class="btn btn-success" v-bind:href="'/administracion/nueva-categoria'">Agregar</a>
+      <a class="btn btn-success" v-bind:href="'/administracion/categorias/nueva'">Agregar</a>
     </div>
   </div>
 </div>
@@ -56,6 +56,12 @@ export default {
   },
   mounted () {
     categoriescontroller.listCategories(this)
+  },
+  methods: {
+    setState: function (id, state) {
+      event.preventDefault()
+      categoriescontroller.setState(id, state, this)
+    }
   }
 }
 </script>

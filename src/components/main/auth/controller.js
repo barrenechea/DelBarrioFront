@@ -9,6 +9,7 @@ export default {
     }
   },
   login (context) {
+    context.error = ''
     axios.post( // ####### CAMBIAR POR URL DE GLOBAL CONFIG #######
       globalConst().localUrl + 'auth/',
       {
@@ -18,6 +19,7 @@ export default {
     ).then(response => {
       console.log(response.data)
       sessionStorage.setItem('id_token', response.data.data.token)
+      context.error = response.error
     })
   }
 }

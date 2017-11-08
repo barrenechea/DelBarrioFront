@@ -11,6 +11,19 @@ import ListCategories from '@/components/categories/listCategories'
 import NewCategory from '@/components/categories/newCategory'
 import EditCategory from '@/components/categories/editCategory'
 
+// ADMINISTRATION - FIELDS
+import ListFields from '@/components/fields/ListFields'
+import NewField from '@/components/fields/NewField'
+import EditField from '@/components/fields/EditField'
+
+// ADMINISTRATION - FAQS
+import ListFaq from '@/components/FAQ/ListFaq'
+import NewFaq from '@/components/FAQ/NewFaq'
+import EditFaq from '@/components/FAQ/EditFaq'
+
+// ADMINISTRATION - TERMS AND CONDITIONS
+import TAC from '@/components/terms-and-conditions/terms-conditions'
+
 // Main components
 import Login from '@/components/main/Login'
 
@@ -20,6 +33,18 @@ export default {
   NewCategory,
   EditCategory,
 
+  // ADMINSITRATION - FIELDS
+  ListFields,
+  NewField,
+  EditField,
+
+  // ADMINISTRATION - FAQ
+  ListFaq,
+  NewFaq,
+  EditFaq,
+
+  // ADMINISTRATION - TERMS AND CONDITIONS
+  TAC,
   // DEMO - Main
   Layout,
 

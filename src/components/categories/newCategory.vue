@@ -11,7 +11,9 @@
         </div>
         <div>
           <label>Categoria Padre</label>
-          <v-select label="NOMB_CATEGORIA" :value="cat.IDEN_CATEGORIA" :options="categories"></v-select>
+          <select v-model="cat.IDEN_CATEGORIA_PADRE">
+            <option v-for="c in categories" v-bind:value="c.IDEN_CATEGORIA">{{c.NOMB_CATEGORIA}}</option>
+          </select>
         </div>
         <div>
           <button class="btn btn-success" v-on:click="addCategory">Agregar</button>

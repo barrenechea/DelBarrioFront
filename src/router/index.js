@@ -27,15 +27,55 @@ export default new Router({
           component: components.ListCategories
         },
         {
-          path: '/administracion/nueva-categoria',
+          path: '/administracion/categorias/nueva',
           name: 'NewCategory',
           component: components.NewCategory
         },
         {
-          path: '/administracion/editar-categoria/:id',
+          path: '/administracion/categorias/editar/:id',
           name: 'EditCategory',
           component: components.EditCategory,
           category: true
+        },
+        // FIELDS
+        {
+          path: '/administracion/rubros',
+          name: 'ListFields',
+          component: components.ListFields
+        },
+        {
+          path: '/administracion/rubros/nuevo',
+          name: 'NewField',
+          component: components.NewField
+        },
+        {
+          path: '/administracion/rubros/editar/:id',
+          name: 'EditField',
+          component: components.EditField,
+          field: true
+        },
+        // FAQ
+        {
+          path: '/administracion/preguntas-frecuentes',
+          name: 'ListFaq',
+          component: components.ListFaq
+        },
+        {
+          path: '/administracion/preguntas-frecuentes/nueva',
+          name: 'NewFaq',
+          component: components.NewFaq
+        },
+        {
+          path: '/administracion/preguntas-frecuentes/editar/:id',
+          name: 'EditFaq',
+          component: components.EditFaq,
+          faq: true
+        },
+        // TERMS AND CONDITIONS
+        {
+          path: '/administracion/terminos-condiciones',
+          name: 'NewTAC',
+          component: components.TAC
         },
         {
           path: '/demo-posts-new',

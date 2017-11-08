@@ -3,8 +3,17 @@
   <div id="login-form">
     <h3>Inicia Sesión. Sorry por el diseño :(</h3>
     <form class="form" autocomplete="off" v-on:submit="authenticate">
-      <input type="email" placeholder="email" v-model="auth.email" />
-      <input type="password" placeholder="password" v-model="auth.password" />
+      <div>
+        <input type="email" placeholder="email" v-model="auth.email" v-validate data-vv-rules="required" data-vv-as="e-mail" name="email"/>
+        <span v-show="errors.has('email')">{{ errors.first('email') }}</span>
+      </div>
+      <div>
+        <input type="password" placeholder="password" v-model="auth.password" v-validate data-vv-rules="required" data-vv-as="contraseña" name="pass" />
+        <span v-show="errors.has('pass')">{{ errors.first('pass') }}</span>
+      </div>
+      <div>
+        <span v-if="error">{{error}}</span>
+      </div>
       <button type="submit">LOGIN</button>
     </form>
   </div>
@@ -17,7 +26,8 @@ export default {
   name: 'login',
   data () {
     return {
-      auth: {}
+      auth: {},
+      error: ''
     }
   },
   methods: {

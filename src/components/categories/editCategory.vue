@@ -9,19 +9,14 @@
           <input v-validate data-vv-rules="required" data-vv-as="nombre" name="name" type="text" v-model="cat.NOMB_CATEGORIA"/>
           <span v-show="errors.has('name')">{{ errors.first('name') }}</span>
         </div>
-        <div>
-          <label>Descripción</label>
-          <input v-validate data-vv-rules="required" data-vv-as="descripción" name="description" type="text" v-model="cat.DESC_CATEGORIA"/>
-          <span v-show="errors.has('description')">{{ errors.first('description') }}</span>
-        </div>
-        <div v-if="cat.subcategorias.length == 0">
+        <div v-if="cat.subcategorias.length> 0">
           <label>Categoria Padre</label>
           <select v-model="cat.IDEN_CATEGORIA_PADRE">
             <option v-for="c in categories" v-bind:value="c.IDEN_CATEGORIA">{{c.NOMB_CATEGORIA}}</option>
           </select>
         </div>
         <div>
-          <button class="btn btn-success" v-on:click="editCategory">Agregar</button>
+          <button class="btn btn-success" v-on:click="editCategory">Actualizar</button>
         </div>
         <div>
           <span v-show='error'>Error</span>

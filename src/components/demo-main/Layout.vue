@@ -30,9 +30,9 @@
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="administration">Administración <span class="caret"></span></a>
             <div class="dropdown-menu" aria-labelledby="administration">
               <a class="dropdown-item" v-bind:href="'/administracion/categorias'">Categorías</a>
-              <a class="dropdown-item" href="#">Rubros</a>
-              <a class="dropdown-item" href="#">Términos y Condiciones</a>
-              <a class="dropdown-item" href="#">Preguntas frecuentesx</a>
+              <a class="dropdown-item" v-bind:href="'/administracion/rubros'">Rubros</a>
+              <a class="dropdown-item" v-bind:href="'/administracion/terminos-condiciones'">Términos y Condiciones</a>
+              <a class="dropdown-item" v-bind:href="'/administracion/preguntas-frecuentes'">Preguntas frecuentes</a>
             </div>
           </li>
         </ul>
