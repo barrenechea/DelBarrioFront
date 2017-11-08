@@ -6,9 +6,11 @@ import Layout from '@/components/demo-main/Layout'
 import Posts from '@/components/demo-posts/Posts'
 import NewPost from '@/components/demo-posts/NewPost'
 import EditPost from '@/components/demo-posts/EditPost'
-import NuevaPublicacion from '@/components/publicaciones/NuevaPublicacion'
-import NuevoCliente from '@/components/clientes/NuevoCliente'
-import NuevoEmprendedor from '@/components/emprendedores/NuevoEmprendedor'
+import NewPublication from '@/components/publications/NewPublication'
+import NewClient from '@/components/clients/NewClient'
+import NewEntrepreneur from '@/components/entrepreneurs/NewEntrepreneur'
+import ListEntrepreneur from '@/components/entrepreneurs/ListEntrepreneur'
+import EditEntrepreneur from '@/components/entrepreneurs/EditEntrepreneur'
 
 export default {
   // DEMO - Main
@@ -19,7 +21,17 @@ export default {
   Posts,
   NewPost,
   EditPost,
-  NuevaPublicacion,
-  NuevoCliente,
-  NuevoEmprendedor
+
+  // Publicaciones
+  NewPublication,
+
+  // Personas!
+
+  // Clientes
+  NewClient,
+
+  // Emprendedores
+  NewEntrepreneur,
+  ListEntrepreneur,
+  EditEntrepreneur
 }

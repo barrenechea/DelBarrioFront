@@ -43,19 +43,30 @@ export default new Router({
           component: components.EditPost
         },
         {
-          path: '/nueva-publicacion',
-          name: 'NuevaPublicacion',
-          component: components.NuevaPublicacion
+          path: '/publicaciones/nueva',
+          name: 'NewPublication',
+          component: components.NewPublication
         },
         {
-          path: '/nuevo-cliente',
-          name: 'NuevoCliente',
-          component: components.NuevoCliente
+          path: '/clientes/nuevo',
+          name: 'NewClient',
+          component: components.NewClient
         },
         {
-          path: '/nuevo-emprendedor',
-          name: 'NuevoEmprendedor',
-          component: components.NuevoEmprendedor
+          path: '/administracion/emprendedores/nuevo',
+          name: 'NewEntrepreneur',
+          component: components.NewEntrepreneur
+        },
+        {
+          path: '/administracion/emprendedores/',
+          name: 'ListEntrepreneur',
+          component: components.ListEntrepreneur
+        },
+        {
+          path: '/administracion/emprendedores/editar/:id',
+          name: 'EditEntrepreneur',
+          component: components.EditEntrepreneur,
+          category: true
         }
       ]
     },
