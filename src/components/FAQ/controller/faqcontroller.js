@@ -67,6 +67,7 @@ export default {
   // =======================================================================================
   editFaq (context) {
     if (this.validate(context)) {
+      console.log('validado')
       axios.put(
         globalConst().localUrl + 'faq/' + context.f.IDEN_FAQ + '/',
         {
@@ -94,10 +95,11 @@ export default {
     })
   },
   validate (f) {
-    if (f.NOMB_FAQ == null) {
+    if (f.f.NOMB_FAQ == null) {
       return false
     }
-    if (f.context.DESC_FAQ == null) {
+    if (f.f.DESC_FAQ == null) {
+      console.log('falta desc')
       return false
     } else {
       return true
