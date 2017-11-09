@@ -9,29 +9,21 @@
         </div>
       </div>
       
-      <!--Nombre-->
-      <div class="row">
-        <div class="input-field col s12">
-          <input v-validate data-vv-rules="required|alpha_spaces" data-vv-as="nombre" name="nombre" v-model="emp.nosmbres" type="text" placeholder="Juan Antonio">
-          <span v-show="errors.has('nombre')" class="help is-danger">{{ errors.first('nombre') }}</span>
-          <label for="nombre">Nombre</label>
-        </div>
-      </div>
-
-  
-      <!--Apellidos-->
+      <!--Descripciòn de Emprendedor-->
        <div class="row">
         <div class="input-field col s12">
-          <input v-validate data-vv-rules="required|alpha_spaces" data-vv-as="apellido" name="apellido" v-model="emp.apellido"  type="text" placeholder="Pérez Gonzalez">
-          <span v-show="errors.has('apellido')" class="help is-danger">{{ errors.first('apellido') }}</span>
-          <label for="apellido">Apellido</label>
+          <input v-validate data-vv-rules="required|alpha_spaces" data-vv-as="Descripción del Empredendor" name="desc_empresa" v-model="emp.DESC_EMPRENDEDOR"  type="text" placeholder="Pequeña descripción del emprendimientoz">
+          <span v-show="errors.has('desc_empresa')" class="help is-danger">{{ errors.first('desc_empresa') }}</span>
+          <label for="desc_empresa">Descripción del Emprendedor</label>
         </div>
       </div>
-
 
       <!--Rut-->
       <div class="row">
         <div class="input-field col s12">
+          <div style="visibility: hidden;">
+            {{emp.rut = usr.RUT_USUARIO + '-' + usr.DV_USUARIO}}
+          </div>
           <input name="rut" type="text" placeholder="12345678-9" v-model="emp.rut" oninput="checkRut(this)" >
           <span v-show="errors.has('rut')" class="help is-danger">{{ errors.first('rut') }}</span>
           <label for="Rut">Rut</label>
@@ -40,18 +32,19 @@
       
     <!--Email-->
      <div class="column is-12">
-          <label class="label" for="email">Email</label>
+       
           <p :class="{ 'control': true }">
-              <input v-validate data-vv-rules="required|email" data-vv-as="email" name="email" type="text"  v-model="emp.email" placeholder="Email">
+              <input v-validate data-vv-rules="required|email" data-vv-as="email" name="email" type="text"  v-model="usr.EMAIL_USUARIO" placeholder="Email">
               <span v-show="errors.has('email')" class="help is-danger">{{ errors.first('email') }}</span>
           </p>
+            <label class="label" for="email">Email</label>
       </div>
 
 
     <!-- Clave Emprendedor-->
      <div class="row">
         <div class="input-field col s12">
-          <input placeholder="Clave secreta" name="Clave_secreta" v-validate data-vv-rules="required|min:4" data-vv-as="Clave emprendedor" type="text" v-model="emp.clave" id="Clave_secreta" />
+          <input placeholder="Clave secreta" name="Clave_secreta" v-validate data-vv-rules="required|min:4" data-vv-as="Clave emprendedor" type="text" v-model="emp.DESC_CLAVE_MUNICIPALIDAD" id="Clave_secreta" />
           <label for="Clave_secreta">Clave emprendedor</label>
            <span v-show="errors.has('Clave_secreta')">{{ errors.first('Clave_secreta') }}</span>
         </div>
@@ -60,7 +53,7 @@
      <!-- Nombre de Fantasía-->
      <div class="row">
         <div class="input-field col s12">
-          <input placeholder="Opcional" name="nombre_fantasia" v-validate data-vv-rules="min:0|max:255" data-vv-as="Nombre de fantasía " type="text" v-model="emp.nom_fantasia" id="nombre_fantasia" />
+          <input placeholder="Opcional" name="nombre_fantasia" v-validate data-vv-rules="min:0|max:255" data-vv-as="Nombre de fantasía " type="text" v-model="emp.DESC_NOMBRE_FANTASIA" id="nombre_fantasia" />
           <label for="nombre_fantasia">Nombre Fantasía</label>
            <span v-show="errors.has('nombre_fantasia')">{{ errors.first('nombre_fantasia') }}</span>
         </div>
@@ -70,12 +63,11 @@
        <!-- Nombre de empresa -->
      <div class="row">
         <div class="input-field col s12">
-          <input placeholder="Opcional" name="nombre_empresa" v-validate data-vv-rules="min:0|max:255" data-vv-as="Nombre de la empresa" type="text" v-model="emp.nom_empresa" id="nombre_empresa" />
+          <input placeholder="Opcional" name="nombre_empresa" v-validate data-vv-rules="min:0|max:255" data-vv-as="Nombre de la empresa" type="text" v-model="emp.DESC_NOMBRE_EMPRESA" id="nombre_empresa" />
           <label for="nombre_empresa">Nombre Empresa</label>
            <span v-show="errors.has('nombre_empresa')">{{ errors.first('nombre_empresa') }}</span>
         </div>
       </div>
-
 
       <!--Rubros-->
       <div class="select">
@@ -87,7 +79,7 @@
      <br> 
      <!-- Botón -->
       <div class="row">
-        <button class="waves-effect waves-light btn" v-on:click="addEntrepreneur" >Ingresar</button>
+        <button class="waves-effect waves-light btn" v-on:click="updateEntrepreneur" >Ingresar</button>
       </div>
 
     </form>
@@ -97,23 +89,28 @@
 
 <script>
 import entrepreneurcontroller from '@/components/entrepreneurs/controller/entrepreneurcontroller.js'
+import usercontroller from '@/components/users/controller/usercontroller.js'
+
 export default {
   name: 'EditEntrepreneur',
   data () {
     return {
       emp: {},
       entrepreneurs: {},
-      error: false
+      usr: {},
+      error: false,
+      success: false
     }
   },
   mounted () {
-    entrepreneurcontroller.listEntrepreneur(this)
+    entrepreneurcontroller.listEntrepreneurs(this)
+    entrepreneurcontroller.getEntrepreneur(this)
+    usercontroller.getUser(this)
   },
   methods: {
-    // Llamar función addCategory en controller
-    addEntrepreneur (event) {
+    updateEntrepreneur (event) {
       event.preventDefault()
-      entrepreneurcontroller.editEntrepreneur(this)
+      entrepreneurcontroller.updateEntrepreneur(this)
     }
   }
 }

@@ -2,6 +2,18 @@ import axios from 'axios'
 import { globalConst } from '@/config/global.js'
 
 export default {
+  // Obtener categoria especifica según id.
+  // Param.: context -> Contexto de la vista .vue, contiene los objetos instanciados en "data".
+  // Return: Obtiene objeto de la categoría específica seleccionada en la vista "ListCategories"
+  // =======================================================================================
+  getEntrepreneur (context) {
+    axios.get(globalConst().localUrl + 'emprendedor/' + context.$route.params.id + '/')
+    .then(response => {
+      context.emp = response.data.data
+    }).catch(errors => {
+      console.log(errors)
+    })
+  },
   // Obtener posts de la fuente. En este caso se utilizó placeholder.
   // Param.: context -> Contexto de la vista .vue, contiene los objetos instanciados en "data".
   // Return: llena con los datos obtenidos de la ruta ingresada el objeto "posts" del contexto
@@ -26,8 +38,8 @@ export default {
   //                    }
   // =======================================================================================
   addEntrepreneur (context) {
-    var slice2 = context.client.rut.slice(0, -1) // slice2 queda el rut sin el último caracter
-    var dv = context.client.rut.slice(-1) // dv queda con el último caracter
+    var slice2 = context.emp.rut.slice(0, -1) // slice2 queda el rut sin el último caracter
+    var dv = context.emp.rut.slice(-1) // dv queda con el último caracter
     dv = dv.toUpperCase() // DV a mayuscula en caso de ser letra
     var nmrorut = slice2.replace('.', '') // elimina los puntos de slice2
     nmrorut = nmrorut.replace('.', '')    // elimina los puntos de slice2
@@ -50,8 +62,8 @@ export default {
         globalConst().localUrl + 'emprendedor/',
         {
           IDEN_USUARIO: response.data.data.IDEN_USUARIO,
-          DESC_EMPRENDEDOR: context.emp.nombres + ' ' + context.emp.apellidos,
-          DESC_CLAVE_MUNICIPALIDAD: context.clave,
+          DESC_EMPRENDEDOR: context.emp.desc_empresa,
+          DESC_CLAVE_MUNICIPALIDAD: context.emp.clave,
           DESC_NOMBRE_FANTASIA: context.emp.nom_fantasia,
           DESC_NOMBRE_EMPRESA: context.emp.nom_empresa
         }
@@ -75,22 +87,40 @@ export default {
     //                    }
     // =======================================================================================
   updateEntrepreneur (context) {
+    var slice2 = context.emp.rut.slice(0, -1) // slice2 queda el rut sin el último caracter
+    var dv = context.emp.rut.slice(-1) // dv queda con el último caracter
+    dv = dv.toUpperCase() // DV a mayuscula en caso de ser letra
+    var nmrorut = slice2.replace('.', '') // elimina los puntos de slice2
+    nmrorut = nmrorut.replace('.', '')    // elimina los puntos de slice2
+    nmrorut = nmrorut.replace('-', '')    // elimina el guión de lo de arriba
     axios.put(
       globalConst().localUrl + 'usuario/' + context.emp.IDEN_USUARIO + '/',
       {
-        post: context.post
+        // --------------------
+        // LLENAR TABLA USUARIOS v
+        // IDEN_ROL: 2,              // identificador 2, correspondiente al ROL Emprendedor
+        RUT_USUARIO: nmrorut,           // context.cliente.rut (Falta función para separar el rut)
+        DV_USUARIO: dv,            // Falta funcion para separar DV del RUT
+        EMAIL_USUARIO: context.usr.EMAIL_USUARIO,
+        DESC_PASSWORD: context.emp.DESC_CLAVE_MUNICIPALIDAD
+        // FLAG_VIGENTE: Se setea automatico en true
+        // LLENAR TABLA USUARIOS ^
       }
-    ).then(response => {
-      axios.put(
-        globalConst().localUrl + 'emprendedor/' + context.emp.IDEN_EMPRENDEDOR + '/',
-        {
-          post: context.post
-        }
-      )
-    }).then(response => {
-      console.log(response.data)
-    }).catch(errors => {
-      console.log(errors)
-    })
+        ).then(response => {
+          axios.put(
+            globalConst().localUrl + 'emprendedor/' + context.emp.IDEN_EMPRENDEDOR + '/',
+            {
+            //  IDEN_USUARIO: response.data.data.IDEN_USUARIO,
+              DESC_EMPRENDEDOR: context.emp.DESC_EMPRENDEDOR,
+              DESC_CLAVE_MUNICIPALIDAD: context.emp.DESC_CLAVE_MUNICIPALIDAD,
+              DESC_NOMBRE_FANTASIA: context.emp.DESC_NOMBRE_FANTASIA,
+              DESC_NOMBRE_EMPRESA: context.emp.DESC_NOMBRE_EMPRESA
+            }
+        )
+        }).then(response => {
+          console.log(response.data)
+        }).catch(errors => {
+          console.log(errors)
+        })
   }
 }

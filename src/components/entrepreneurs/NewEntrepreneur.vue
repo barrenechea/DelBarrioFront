@@ -10,22 +10,12 @@
         </div>
       </div>
       
-      <!--Nombre-->
-      <div class="row">
-        <div class="input-field col s12">
-          <input v-validate data-vv-rules="required|alpha_spaces" data-vv-as="nombre" name="nombre" v-model="emp.nosmbres" type="text" placeholder="Juan Antonio">
-          <span v-show="errors.has('nombre')" class="help is-danger">{{ errors.first('nombre') }}</span>
-          <label for="nombre">Nombres</label>
-        </div>
-      </div>
-
-  
-      <!--Apellidos-->
+      <!--Descripciòn de Emprendedor-->
        <div class="row">
         <div class="input-field col s12">
-          <input v-validate data-vv-rules="required|alpha_spaces" data-vv-as="apellido" name="apellido" v-model="emp.apellido"  type="text" placeholder="Pérez Gonzalez">
-          <span v-show="errors.has('apellido')" class="help is-danger">{{ errors.first('apellido') }}</span>
-          <label for="apellido">Apellido</label>
+          <input v-validate data-vv-rules="required|alpha_spaces" data-vv-as="Descripción del Empredendor" name="desc_empresa" v-model="emp.desc_empresa"  type="text" placeholder="Pequeña descripción del emprendimientoz">
+          <span v-show="errors.has('desc_empresa')" class="help is-danger">{{ errors.first('desc_empresa') }}</span>
+          <label for="desc_empresa">Descripción del Emprendedor</label>
         </div>
       </div>
 

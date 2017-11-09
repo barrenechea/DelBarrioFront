@@ -18,14 +18,12 @@ export default {
     var nmrorut = slice2.replace('.', '') // elimina los puntos de slice2
     nmrorut = nmrorut.replace('.', '')    // elimina los puntos de slice2
     nmrorut = nmrorut.replace('-', '')    // elimina el guión de lo de arriba
-    alert(nmrorut)
-    alert(dv)
     axios.post(
       globalConst().localUrl + 'usuario/',
       {
         // --------------------
         // LLENAR TABLA USUARIOS v
-        IDEN_ROL: 2,              // identificador 2, correspondiente al ROL Emprendedor
+        IDEN_ROL: 1,              // identificador 2, correspondiente al ROL Emprendedor
         RUT_USUARIO: nmrorut,           // context.cliente.rut (Falta función para separar el rut)
         DV_USUARIO: dv,            // Falta funcion para separar DV del RUT
         EMAIL_USUARIO: context.client.email,

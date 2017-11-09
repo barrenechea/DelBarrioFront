@@ -17,6 +17,7 @@
             <th>Clave municipalidad</th>
             <th>Nombre de fantasía</th>
             <th>Nombre de la empresa</th>
+            <th>ID Usuario</th>
           </tr>
         </thead>
         <tbody> 
@@ -27,13 +28,13 @@
             <td>{{emp.DESC_NOMBRE_EMPRESA}}</td>
             <td>{{emp.IDEN_USUARIO}}</td>
             <td>
-              <a class="btn btn-secondary" href="#">
-                <i class="fa fa-pencil-square-o" title="Editar" v-bind:href="'/administracion/emprendedores/editar/'+emp.IDEN_EMPRENDEDOR"></i>
+              <a class="btn btn-secondary" href="#"  v-bind:href="'/administracion/emprendedores/editar/'+emp.IDEN_EMPRENDEDOR">
+                <i class="fa fa-pencil-square-o" title="Editar"></i>
               </a>
               <a class="btn btn-danger" href="#">
-                <i class="fa fa-times" title="Deshabilitar"></i>
+                <i class="fa fa-times" title="Deshabilitar"></i> <!--Pendiente a cuando llegue el objeto Usuario-->
               </a>
-              <a class="btn btn-success" href="#">
+              <a class="btn btn-success" href="#">  <!--Pendiente a cuando llegue el objeto Usuario-->
                 <i class="fa fa-check" title="Habilitar"></i>
               </a>
             </td>
