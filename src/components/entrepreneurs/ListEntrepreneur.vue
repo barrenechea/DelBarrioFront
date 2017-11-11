@@ -17,7 +17,7 @@
             <th>Clave municipalidad</th>
             <th>Nombre de fantasía</th>
             <th>Nombre de la empresa</th>
-            <th>ID Usuario</th>
+            <th>RUT Usuario</th>
           </tr>
         </thead>
         <tbody> 
@@ -26,15 +26,15 @@
             <td>{{emp.DESC_CLAVE_MUNICIPALIDAD}}</td>
             <td>{{emp.DESC_NOMBRE_FANTASIA}}</td>
             <td>{{emp.DESC_NOMBRE_EMPRESA}}</td>
-            <td>{{emp.IDEN_USUARIO}}</td>
+            <td>{{emp.usuario.RUT_USUARIO }}-{{emp.usuario.DV_USUARIO}}</td>
             <td>
-              <a class="btn btn-secondary" href="#"  v-bind:href="'/administracion/emprendedores/editar/'+emp.IDEN_EMPRENDEDOR">
+              <a class="btn btn-secondary" v-bind:href="'/administracion/emprendedores/editar/'+emp.IDEN_EMPRENDEDOR">
                 <i class="fa fa-pencil-square-o" title="Editar"></i>
               </a>
-              <a class="btn btn-danger" href="#">
-                <i class="fa fa-times" title="Deshabilitar"></i> <!--Pendiente a cuando llegue el objeto Usuario-->
+              <a class="btn btn-danger" v-on:click="setState(emp.usuario.IDEN_USUARIO, false)" v-show='emp.usuario.FLAG_VIGENTE'>
+                <i class="fa fa-times" title="Deshabilitar"></i>
               </a>
-              <a class="btn btn-success" href="#">  <!--Pendiente a cuando llegue el objeto Usuario-->
+              <a class="btn btn-success" v-on:click="setState(emp.usuario.IDEN_USUARIO, true)" v-show='!emp.usuario.FLAG_VIGENTE'>
                 <i class="fa fa-check" title="Habilitar"></i>
               </a>
             </td>
@@ -48,7 +48,9 @@
 </template>
 
 <script>
-import entrepreneurcontroller from '@/components/entrepreneurs/controller/entrepreneurcontroller.js'
+import entrepreneurscontroller from '@/components/entrepreneurs/controller/entrepreneurscontroller.js'
+import userscontroller from '@/components/users/controller/userscontroller.js'
+
 export default {
   name: 'entrepreneurs',
   data () {
@@ -57,7 +59,13 @@ export default {
     }
   },
   mounted () {
-    entrepreneurcontroller.listEntrepreneurs(this)
+    entrepreneurscontroller.listEntrepreneurs(this)
+  },
+  methods: {
+    setState: function (id, state) {
+      event.preventDefault()
+      userscontroller.setState(id, state, this)
+    }
   }
 }
 </script>

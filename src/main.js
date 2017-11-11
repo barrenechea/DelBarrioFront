@@ -7,9 +7,6 @@ import VeeValidate, { Validator } from 'vee-validate'
 import messagesEs from './components/validator/messages/es.js'
 import attributesEs from './components/validator/attributes/es.js'
 
-var vueRut = require('vue-rut')
-Vue.use(vueRut)
-
 Vue.config.productionTip = false
 Validator.localize('es', messagesEs, attributesEs)
 Vue.use(VeeValidate, {
@@ -24,8 +21,5 @@ new Vue({
   el: '#app',
   router,
   template: '<App/>',
-  components: { App },
-  data: {
-    rut: ''
-  }
+  components: { App }
 })

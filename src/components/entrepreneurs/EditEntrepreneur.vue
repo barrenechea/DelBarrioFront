@@ -18,23 +18,11 @@
         </div>
       </div>
 
-      <!--Rut-->
-      <div class="row">
-        <div class="input-field col s12">
-          <div style="visibility: hidden;">
-            {{emp.rut = usr.RUT_USUARIO + '-' + usr.DV_USUARIO}}
-          </div>
-          <input name="rut" type="text" placeholder="12345678-9" v-model="emp.rut" oninput="checkRut(this)" >
-          <span v-show="errors.has('rut')" class="help is-danger">{{ errors.first('rut') }}</span>
-          <label for="Rut">Rut</label>
-        </div>
-      </div>
-      
     <!--Email-->
      <div class="column is-12">
        
           <p :class="{ 'control': true }">
-              <input v-validate data-vv-rules="required|email" data-vv-as="email" name="email" type="text"  v-model="usr.EMAIL_USUARIO" placeholder="Email">
+              <input v-validate data-vv-rules="required|email" data-vv-as="email" name="email" type="text"  v-model="emp.usuario.EMAIL_USUARIO" placeholder="Email">
               <span v-show="errors.has('email')" class="help is-danger">{{ errors.first('email') }}</span>
           </p>
             <label class="label" for="email">Email</label>
@@ -88,8 +76,7 @@
 
 
 <script>
-import entrepreneurcontroller from '@/components/entrepreneurs/controller/entrepreneurcontroller.js'
-import usercontroller from '@/components/users/controller/usercontroller.js'
+import entrepreneurscontroller from '@/components/entrepreneurs/controller/entrepreneurscontroller.js'
 
 export default {
   name: 'EditEntrepreneur',
@@ -97,20 +84,18 @@ export default {
     return {
       emp: {},
       entrepreneurs: {},
-      usr: {},
       error: false,
       success: false
     }
   },
   mounted () {
-    entrepreneurcontroller.listEntrepreneurs(this)
-    entrepreneurcontroller.getEntrepreneur(this)
-    usercontroller.getUser(this)
+    entrepreneurscontroller.listEntrepreneurs(this)
+    entrepreneurscontroller.getEntrepreneur(this)
   },
   methods: {
     updateEntrepreneur (event) {
       event.preventDefault()
-      entrepreneurcontroller.updateEntrepreneur(this)
+      entrepreneurscontroller.updateEntrepreneur(this)
     }
   }
 }

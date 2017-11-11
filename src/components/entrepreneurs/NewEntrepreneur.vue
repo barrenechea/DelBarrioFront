@@ -69,13 +69,14 @@
 
 
       <!--Rubros-->
-      <div class="select">
-        Rubro <br>
-      <v-select  v-model="emp.rubro"  v-validate data-vv-rules="required" data-vv-as="Rubro" name="rubro" id="rubro" placeholder="(Seleccionar)" :options="['Rubro 1','Rubro 2']">
-      </v-select>
-      <span v-show="errors.has('rubro')">{{ errors.first('rubro') }}</span>
+
+      <div>
+        <label class="typo__label">Simple select / dropdown</label>
+        <multiselect v-model="emp.rubros" :options="fields" :multiple="true" :close-on-select="false" :clear-on-select="false" :hide-selected="true" :preserve-search="true" placeholder="Seleccione rubro(s)" label="NOMB_RUBRO" track-by="NOMB_RUBRO">
+          <template slot="tag" slot-scope="props"><span class="custom__tag"><span>{{ props.option.NOMB_RUBRO }}</span><span class="custom__remove" @click="props.remove(props.option)">❌</span></span></template>
+        </multiselect>
       </div>
-     <br> 
+
      <!-- Botón -->
       <div class="row">
         <button class="waves-effect waves-light btn" v-on:click="addEntrepreneur" >Ingresar</button>
@@ -84,24 +85,37 @@
     </form>
   </div>
 </template>
-<script src="./validarRUT.js"></script>
 <script>
-  import entrepreneurcontroller from '@/components/entrepreneurs/controller/entrepreneurcontroller.js'
+  import entrepreneurscontroller from '@/components/entrepreneurs/controller/entrepreneurscontroller.js'
+  import fieldscontroller from '@/components/fields/controller/fieldscontroller.js'
+
   // import validarut from '@/components/validator/validarut.js'
   // import validarRut from '@/components/entrepreneurs/validarRut.js'
+
   export default {
     name: 'NewEntrepreneur',
     data () {
       return {
         emp: {},
-        rubros: []
+        fields: [],
+        options: [
+        { name: 'Vue.js', language: 'JavaScript' },
+        { name: 'Adonis', language: 'JavaScript' },
+        { name: 'Rails', language: 'Ruby' },
+        { name: 'Sinatra', language: 'Ruby' },
+        { name: 'Laravel', language: 'PHP' },
+        { name: 'Phoenix', language: 'Elixir' }
+        ]
       }
+    },
+    mounted () {
+      fieldscontroller.listFields(this)
     },
     methods: {
       // Llamar función addPost en controller
       addEntrepreneur (event) {
         event.preventDefault()
-        entrepreneurcontroller.addEntrepreneur(this)
+        entrepreneurscontroller.addEntrepreneur(this)
       }
       /* validaRut (event) {
         validarut.Rut(this.emp.rut)
@@ -109,7 +123,6 @@
     }
   }
 </script>
-
 <style>/*
   .btn {
     background-color: #372d57;
@@ -128,5 +141,5 @@
     box-shadow: 0 1px 0 0 #888 !important;
   }
 */
-
 </style>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

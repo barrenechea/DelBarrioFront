@@ -1,15 +1,112 @@
+:root{
+--warning: #000000 !important;
+}
 .header {
     background-color: #E0DACA;
-    padding: 1px;
+    padding: 20px;
   }
 
 .img-delbarrio{
-    position:absolute;
-    bottom:-22px;
-    left:5%;
+    position: absolute;
+    bottom: -20%;
 }
 
 .img-emprende{
     position: relative;
-    top:10px;
+    left: 50%;
 }
+
+.navbar-light .navbar-brand {
+    color: #E0DACA;
+  }
+  
+  .navbar-light .navbar-brand:focus, .navbar-light .navbar-brand:hover {
+    color:  #E0DACA;
+  }
+  
+  .navbar-light .navbar-nav .nav-link {
+    color: #E0DACA;
+  }
+  
+  .navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover {
+    color: #E0DACA;
+  }
+  
+  .navbar-light .navbar-nav .nav-link.disabled {
+    color: #E0DACA;
+  }
+  
+  .navbar-light .navbar-nav .show > .nav-link,
+  .navbar-light .navbar-nav .active > .nav-link,
+  .navbar-light .navbar-nav .nav-link.show,
+  .navbar-light .navbar-nav .nav-link.active {
+    color: #E0DACA;
+  }
+  
+  .navbar-light .navbar-toggler {
+    color: #E0DACA !important;
+    border-color: #E0DACA;
+  }
+  
+  .navbar-light .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+  }
+  
+  .navbar-light .navbar-text {
+    color: #E0DACA;
+  }
+  
+  .navbar-light .navbar-text a {
+    color: #E0DACA;
+  }
+  
+  .navbar-light .navbar-text a:focus, .navbar-light .navbar-text a:hover {
+    color: #E0DACA;
+  }
+
+.bg-faded{
+    background-color: #4F4344;
+}
+
+.dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 0.25rem 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #4F4344;
+    text-align: inherit;
+    white-space: nowrap;
+    background: none;
+    border: 0;
+  }
+  
+  .dropdown-item:focus, .dropdown-item:hover {
+    color: #4F4344;
+    text-decoration: none;
+    background-color: #E0DACA;
+  }
+  
+  .dropdown-item.active, .dropdown-item:active {
+    color: #E0DACA;
+    text-decoration: none;
+    background-color: #4F4344;
+  }
+
+  .jumbotron {
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+    background-color: #E0DACA;
+    border-radius: 0;
+    margin-top: 15px;
+  }
+
+  .table{
+    background-color: #FFF;
+    color: rgb(59, 59, 59);
+  }
+
+  .h1{
+    color: #4F4344;
+  }
+    

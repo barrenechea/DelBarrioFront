@@ -82,7 +82,7 @@
 </template>
 
 <script>
-  import publicationcontroller from '@/components/publications/controller/publicationcontroller.js'
+  import publicationscontroller from '@/components/publications/controller/publicationscontroller.js'
   export default {
     name: 'addPublication',
     data () {
@@ -94,7 +94,7 @@
       // Llamar función addPost en controller
       addPost (event) {
         event.preventDefault()
-        publicationcontroller.addPublication(this)
+        publicationscontroller.addPublication(this)
       }
     }
   }

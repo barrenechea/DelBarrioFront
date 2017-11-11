@@ -1,14 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import components from '@/config/component-imports.js'
-import BootstrapVue from 'bootstrap-vue'
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
 import VeeValidate from 'vee-validate'
 
 Vue.use(VeeValidate)
-
-Vue.use(BootstrapVue)
 
 Vue.use(Router)
 
@@ -42,16 +37,38 @@ export default new Router({
           name: 'Demo-EditPost',
           component: components.EditPost
         },
+
+        // CATEGORIES
+        {
+          path: '/administracion/categorias',
+          name: 'ListCategories',
+          component: components.ListCategories
+        },
+
+        // Publicaciones
         {
           path: '/publicaciones/nueva',
           name: 'NewPublication',
           component: components.NewPublication
         },
+
+        // Clientes (Personas)
         {
           path: '/clientes/nuevo',
           name: 'NewClient',
           component: components.NewClient
         },
+        {
+          path: '/clientes/actualizar-cuenta',
+          name: 'EditClient',
+          component: components.EditClient
+        },
+        {
+          path: '/clientes/cambiar-contrasena',
+          name: 'ChangePassword',
+          component: components.ChangePassword
+        },
+        // Emprendedores
         {
           path: '/administracion/emprendedores/nuevo',
           name: 'NewEntrepreneur',
@@ -67,14 +84,32 @@ export default new Router({
           name: 'EditEntrepreneur',
           component: components.EditEntrepreneur,
           category: true
+        },
+        // FIELDS
+        {
+          path: '/administracion/rubros',
+          name: 'ListFields',
+          component: components.ListFields
+        },
+        {
+          path: '/administracion/rubros/nuevo',
+          name: 'NewField',
+          component: components.NewField
+        },
+        {
+          path: '/administracion/rubros/editar/:id',
+          name: 'EditField',
+          component: components.EditField,
+          field: true
         }
       ]
     },
     {
       // DEMO - Login
-      path: '/demo-login',
-      name: 'Demo-Login',
+      path: '/login',
+      name: 'Login',
       component: components.Login
     }
+
   ]
 })
