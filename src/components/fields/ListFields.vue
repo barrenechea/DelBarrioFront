@@ -19,7 +19,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="f in fields">
+          <tr v-for="f in fieldss">
             <td>
               <i class="fa fa-check fa-2x" title="Habilitado" v-show='f.FLAG_VIGENTE'></i>
               <i class="fa fa-times fa-2x" title="Deshabilitado" v-show='!f.FLAG_VIGENTE'></i>
@@ -50,7 +50,7 @@
     name: 'ListFields',
     data () {
       return {
-        fields: {}
+        fieldss: {}
       }
     },
     mounted () {

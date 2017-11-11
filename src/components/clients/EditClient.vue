@@ -34,7 +34,7 @@
      <div class="column is-12">
           <label class="label" for="email">Email</label>
           <p :class="{ 'control': true }">
-              <input v-model="client.usuario.EMAIL_USUARIO" v-validate data-vv-rules="required|email" data-vv-as="email" name="email" type="text" placeholder="Email">
+              <input v-model="client.EMAIL_USUARIO" v-validate data-vv-rules="required|email" data-vv-as="email" name="email" type="text" placeholder="Email">
               <span v-show="errors.has('email')" class="help is-danger">{{ errors.first('email') }}</span>
               
           </p>

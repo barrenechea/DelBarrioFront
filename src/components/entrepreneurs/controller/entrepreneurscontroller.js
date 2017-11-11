@@ -44,6 +44,7 @@ export default {
     var nmrorut = slice2.replace('.', '') // elimina los puntos de slice2
     nmrorut = nmrorut.replace('.', '')    // elimina los puntos de slice2
     nmrorut = nmrorut.replace('-', '')    // elimina el guión de lo de arriba
+    nmrorut = parseInt(nmrorut)
     axios.post(
       globalConst().localUrl + 'usuario/',
       {

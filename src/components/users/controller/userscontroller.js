@@ -15,6 +15,7 @@ export default {
     })
   },
   setState (id, state, context) {
+    console.log(id)
     axios.put(
       globalConst().localUrl + 'usuario/' + id + '/',
       {
@@ -28,25 +29,41 @@ export default {
       console.log(errors)
     })
   },
+
   DeshabilitarCuenta (id, state, context) {
     axios.put(
       globalConst().localUrl + 'usuario/' + id + '/',
       {
-        FLAG_VIGENTE: state
+        FLAG_VIGENTE: false
       }
     ).then(response => {
-    /*  axios.put(
+      console.log(response.data)
+      // actualizar datos.
+      this.listEntrepreneurs(context)
+    }).catch(errors => {
+      console.log(errors)
+    })
+  },
+ /*  DeshabilitarCuenta (id, state, context) {
+    axios.put(
+      globalConst().localUrl + 'persona/' + id + '/',
+      {
+        FLAG_VIGENTE: false
+      }
+    ).then(response => {
+     axios.put(
         globalConst().localUrl + 'deshabilitaciones_cuentas/' + id + '/',
         {
           IDEN_USUARIO: context.client.IDEN_USUARIO,
           IDEN_MOTIVO_DESHABILITACION: context.inhab.motivo,
           DESC_COMENTARIO: context.inhab.comentario
-        } */
+        }
+      console.log()
     }).catch(errors => {
       console.log(errors)
     })
   },
-
+*/
   Login (context) {
     context.usr.$session.start()
     context.usr.$session.set('id', context.usr.username)

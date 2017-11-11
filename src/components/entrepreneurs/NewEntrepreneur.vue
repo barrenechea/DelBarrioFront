@@ -72,7 +72,7 @@
 
       <div>
         <label class="typo__label">Simple select / dropdown</label>
-        <multiselect v-model="emp.rubros" :options="fields" :multiple="true" :close-on-select="false" :clear-on-select="false" :hide-selected="true" :preserve-search="true" placeholder="Seleccione rubro(s)" label="NOMB_RUBRO" track-by="NOMB_RUBRO">
+        <multiselect v-model="emp.rubros" :options="fieldss" :multiple="true" :close-on-select="false" :clear-on-select="false" :hide-selected="true" :preserve-search="true" placeholder="Seleccione rubro(s)" label="NOMB_RUBRO" track-by="NOMB_RUBRO">
           <template slot="tag" slot-scope="props"><span class="custom__tag"><span>{{ props.option.NOMB_RUBRO }}</span><span class="custom__remove" @click="props.remove(props.option)">❌</span></span></template>
         </multiselect>
       </div>
@@ -97,15 +97,8 @@
     data () {
       return {
         emp: {},
-        fields: [],
-        options: [
-        { name: 'Vue.js', language: 'JavaScript' },
-        { name: 'Adonis', language: 'JavaScript' },
-        { name: 'Rails', language: 'Ruby' },
-        { name: 'Sinatra', language: 'Ruby' },
-        { name: 'Laravel', language: 'PHP' },
-        { name: 'Phoenix', language: 'Elixir' }
-        ]
+        fieldss: [],
+        options: []
       }
     },
     mounted () {

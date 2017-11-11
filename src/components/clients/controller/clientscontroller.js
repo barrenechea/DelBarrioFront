@@ -30,24 +30,29 @@ export default {
     var nmrorut = slice2.replace('.', '') // elimina los puntos de slice2
     nmrorut = nmrorut.replace('.', '')    // elimina los puntos de slice2
     nmrorut = nmrorut.replace('-', '')    // elimina el guión de lo de arriba
+    nmrorut = parseInt(nmrorut)
     axios.post(
       globalConst().localUrl + 'usuario/',
       {
         // --------------------
         // LLENAR TABLA USUARIOS v
-        IDEN_ROL: 1,              // identificador 2, correspondiente al ROL Emprendedor
-        RUT_USUARIO: nmrorut,      // context.cliente.rut (Falta función para separar el rut)
-        DV_USUARIO: dv,            // Falta funcion para separar DV del RUT
+        IDEN_ROL: 1,              // identificador 1, correspondiente al ROL Emprendedor
+        RUT_USUARIO: nmrorut,
+        DV_USUARIO: dv,
         EMAIL_USUARIO: context.client.email,
         DESC_PASSWORD: context.client.password
         // FLAG_VIGENTE: Se setea automatico en true
         // LLENAR TABLA USUARIOS ^
       }
     ).then(response => {
+      console.log(response.data.data)
+      var idusr = response.data.data.IDEN_USUARIO
+      console.log('EL ID USER ES: ' + idusr)
+      console.log(context.client)
       axios.post(
         globalConst().localUrl + 'persona/',
         {
-          IDEN_USUARIO: response.data.data.IDEN_USUARIO,
+          IDEN_USUARIO: idusr,
           NOMBRES: context.client.nombres,
           APELLIDO_PATERNO: context.client.apellido_paterno,
           APELLIDO_MATERNO: context.client.apellido_materno,
@@ -55,8 +60,7 @@ export default {
         }
         )
     }).then(response => {
-      context.client = {} // Limpiar campos
-      console.log(response.data)
+    //  context.client = {} // Limpiar campos
     }).catch(errors => {
       console.log(errors)
     })
