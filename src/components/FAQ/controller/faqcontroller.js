@@ -94,12 +94,11 @@ export default {
       console.log(errors)
     })
   },
-  validate (f) {
-    if (f.f.NOMB_FAQ == null) {
+  validate (context) {
+    if (context.f.NOMB_FAQ == null) {
       return false
     }
-    if (f.f.DESC_FAQ == null) {
-      console.log('falta desc')
+    if (context.f.DESC_FAQ == null) {
       return false
     } else {
       return true

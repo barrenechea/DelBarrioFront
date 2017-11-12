@@ -77,15 +77,27 @@ export default new Router({
           name: 'NewTAC',
           component: components.TAC
         },
+        // DEACTIVATION REASONS
         {
-          path: '/demo-posts-new',
-          name: 'Demo-NewPost',
-          component: components.NewPost
+          path: '/administracion/razon-desactivacion',
+          name: 'ListDeactivationReasons',
+          component: components.ListDeactivationReasons
         },
         {
-          path: '/demo-posts-edit',
-          name: 'Demo-EditPost',
-          component: components.EditPost
+          path: '/administracion/razon-desactivacion/nuevo',
+          name: 'NewDeactivationReason',
+          component: components.NewDeactivationReason
+        },
+        // DENOUNCEMENT REASONS
+        {
+          path: '/administracion/razon-denuncia',
+          name: 'ListDenouncementReasons',
+          component: components.ListDenouncementReasons
+        },
+        {
+          path: '/administracion/razon-denuncia/nuevo',
+          name: 'NewDenouncementReason',
+          component: components.NewDenouncementReason
         },
         {
           // DEMO - Login

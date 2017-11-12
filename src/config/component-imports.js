@@ -1,11 +1,6 @@
 // DEMO - Main
 import Layout from '@/components/demo-main/Layout'
 
-// DEMO - Posts
-import Posts from '@/components/demo-posts/Posts'
-import NewPost from '@/components/demo-posts/NewPost'
-import EditPost from '@/components/demo-posts/EditPost'
-
 // ADMINISTRATION - CATEGORIES
 import ListCategories from '@/components/categories/listCategories'
 import NewCategory from '@/components/categories/newCategory'
@@ -23,6 +18,14 @@ import EditFaq from '@/components/FAQ/EditFaq'
 
 // ADMINISTRATION - TERMS AND CONDITIONS
 import TAC from '@/components/terms-and-conditions/terms-conditions'
+
+// ADMINISTRATION - DEACTIVATION REASONS
+import NewDeactivationReason from '@/components/deactivation-reasons/NewReason'
+import ListDeactivationReasons from '@/components/deactivation-reasons/ListReasons'
+
+// ADMINISTRATION - DENOUNCEMENT REASONS
+import NewDenouncementReason from '@/components/denouncement-reasons/NewReason'
+import ListDenouncementReasons from '@/components/denouncement-reasons/ListReasons'
 
 // Main components
 import Login from '@/components/main/Login'
@@ -45,14 +48,16 @@ export default {
 
   // ADMINISTRATION - TERMS AND CONDITIONS
   TAC,
-  // DEMO - Main
+
+  // ADMINISTRATION - DEACTIVATION REASONS
+  NewDeactivationReason,
+  ListDeactivationReasons,
+
+  // ADMINISTRATION - DEACTIVATION REASONS
+  NewDenouncementReason,
+  ListDenouncementReasons,
+
+  // DEMO - Main - TODO: MODIFICAR LAS RUTAS
   Layout,
-
-  // DEMO - Posts
-  Posts,
-  NewPost,
-  EditPost,
-
-  // Main
   Login
 }

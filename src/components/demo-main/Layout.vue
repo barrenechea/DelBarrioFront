@@ -33,6 +33,8 @@
               <a class="dropdown-item" v-bind:href="'/administracion/rubros'">Rubros</a>
               <a class="dropdown-item" v-bind:href="'/administracion/terminos-condiciones'">Términos y Condiciones</a>
               <a class="dropdown-item" v-bind:href="'/administracion/preguntas-frecuentes'">Preguntas frecuentes</a>
+              <a class="dropdown-item" v-bind:href="'/administracion/razon-desactivacion'">Motivos desactivación cuenta</a>
+              <a class="dropdown-item" v-bind:href="'/administracion/razon-denuncia'">Motivos denuncias</a>
             </div>
           </li>
         </ul>

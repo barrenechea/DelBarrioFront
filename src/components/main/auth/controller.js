@@ -9,17 +9,20 @@ export default {
     }
   },
   login (context) {
-    context.error = ''
-    axios.post( // ####### CAMBIAR POR URL DE GLOBAL CONFIG #######
+    axios.post(
       globalConst().localUrl + 'auth/',
       {
         email: context.auth.email,
         password: context.auth.password
       }
     ).then(response => {
-      console.log(response.data)
+      console.log(response.data.data)
+      context.error = true
+      context.message = 'Error inesperado'
       sessionStorage.setItem('id_token', response.data.data.token)
-      context.error = response.error
+    }).catch(response => {
+      context.error = true
+      context.message = response.data.data
     })
   }
 }

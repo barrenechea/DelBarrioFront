@@ -106,8 +106,8 @@ export default {
       console.log(errors)
     })
   },
-  validate (c) {
-    if (c.cat.NOMB_CATEGORIA == null) {
+  validate (context) {
+    if (context.cat.NOMB_CATEGORIA == null) {
       return false
     } else {
       return true

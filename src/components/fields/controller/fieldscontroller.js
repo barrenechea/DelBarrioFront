@@ -90,8 +90,8 @@ export default {
       console.log(errors)
     })
   },
-  validate (f) {
-    if (f.field.NOMB_RUBRO == null) {
+  validate (context) {
+    if (context.field.NOMB_RUBRO == null) {
       return false
     } else {
       return true
