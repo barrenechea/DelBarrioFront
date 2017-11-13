@@ -21,7 +21,7 @@ export default {
   listFields (context) {
     axios.get(globalConst().localUrl + 'rubro/')
     .then(response => {
-      context.fields = response.data.data
+      context.workfields = response.data.data
       console.log('listfields')
     }).catch(errors => {
       console.log(errors)

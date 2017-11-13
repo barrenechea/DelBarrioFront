@@ -33,7 +33,9 @@ export default {
   category: ['id'],
   data () {
     return {
-      cat: {},
+      cat: {
+        subcategorias: []
+      },
       categories: {},
       error: false
     }
