@@ -27,13 +27,13 @@
 </template>
 
 <script>
-import publicationscontroller from '@/components/publications/controller/publicationscontroller.js'
+import postscontroller from '@/components/posts/controller/postscontroller.js'
 import categoriescontroller from '@/components/categories/controller/categoriescontroller.js'
 export default {
   name: 'NewPublication',
   data () {
     return {
-      publication: {},
+      post: {},
       categories: {},
       subcategories: {},
       error: false
@@ -44,9 +44,9 @@ export default {
   },
   methods: {
     // Llamar función addCategory en controller
-    addPublication (event) {
+    addPost (event) {
       event.preventDefault()
-      publicationscontroller.addPublication(this)
+      postscontroller.addPost(this)
     }
   }
 }

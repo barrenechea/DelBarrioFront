@@ -103,7 +103,7 @@ export default new Router({
         {
           path: '/publicaciones/nueva',
           name: 'NewPublication',
-          component: components.NewPublication
+          component: components.NewPost
         },
         {
           // DEMO - Login

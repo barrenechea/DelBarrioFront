@@ -4,12 +4,12 @@ import { globalConst } from '@/config/global.js'
 export default {
   // Obtener categoria especifica según id.
   // Param.: context -> Contexto de la vista .vue, contiene los objetos instanciados en "data".
-  // Return: Obtiene objeto de la categoría específica seleccionada en la vista "ListPublications"
+  // Return: Obtiene objeto de la categoría específica seleccionada en la vista "ListPosts"
   // =======================================================================================
-  getPublication (context) {
+  getPost (context) {
     axios.get(globalConst().localUrl + 'publicacion/' + context.$route.params.id + '/')
     .then(response => {
-      context.publication = response.data.data
+      context.post = response.data.data
     }).catch(errors => {
       console.log(errors)
     })
@@ -18,10 +18,10 @@ export default {
   // Param.: context -> Contexto de la vista .vue, contiene los objetos instanciados en "data".
   // Return: lista todas las publicaciones.
   // =======================================================================================
-  listPublications (context) {
+  listPosts (context) {
     axios.get(globalConst().localUrl + 'publicacion/')
     .then(response => {
-      context.publications = response.data.data
+      context.posts = response.data.data
     }).catch(errors => {
       console.log(errors)
     })
@@ -38,7 +38,7 @@ export default {
   //                      FLAG_CONTENIDO_ADULTO: bool
   //                    }
   // =======================================================================================
-  addPublication (context) {
+  addPost (context) {
     context.error = false
     if (this.validate(context)) {
       axios.post(
@@ -74,7 +74,7 @@ export default {
   //                      id:     int (req | post-exists)
   //                    }
   // =======================================================================================
-  editPublication (context) {
+  editPost (context) {
     if (this.validate(context)) {
       axios.put(
         globalConst().localUrl + 'publicacion/' + context.publicacion.IDEN_PUBLICACION + '/',
@@ -96,7 +96,7 @@ export default {
     }
   },
   validate (context) {
-    if (context.publication.NOMB_PUBLICACION == null) {
+    if (context.post.NOMB_PUBLICACION == null) {
       return false
     } else {
       return true
