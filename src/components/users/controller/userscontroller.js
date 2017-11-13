@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { globalConst } from '@/config/global.js'
+import entrepreneurscontroller from '@/components/entrepreneurs/controller/entrepreneurscontroller.js'
 
 export default {
   // Obtener categoria especifica según id.
@@ -23,8 +24,9 @@ export default {
       }
     ).then(response => {
       console.log(response.data)
-      // actualizar datos.
-      this.listEntrepreneurs(context)
+      entrepreneurscontroller.listEntrepreneurs(context)
+      // Redireccionar a la pantalla de inicio
+      location.href = '/administracion/emprendedores#'
     }).catch(errors => {
       console.log(errors)
     })
@@ -37,6 +39,16 @@ export default {
         FLAG_VIGENTE: false
       }
     ).then(response => {
+      axios.post(
+        globalConst().localUrl + 'deshabilitacion_cuenta/', {
+          IDEN_USUARIO: id,
+          IDEN_MOTIVO_DESHABILITACION: context.inhab.reason,
+          DESC_COMENTARIO: context.inhab.comentario
+        }
+      ).then(response => {
+        alert('Se ha deshabilitado su cuenta.')
+        location.href = '/login'
+      })
       console.log(response.data)
       // actualizar datos.
       this.listEntrepreneurs(context)

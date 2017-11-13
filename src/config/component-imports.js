@@ -11,7 +11,6 @@ import NewPublication from '@/components/publications/NewPublication'
 
 // Personas
 import NewClient from '@/components/clients/NewClient'
-import ChangePassword from '@/components/clients/ChangePassword'
 import EditClient from '@/components/clients/EditClient'
 
 // Administracion - Emprendedores
@@ -50,7 +49,6 @@ export default {
   // Clientes
   NewClient,
   EditClient,
-  ChangePassword,
 
   // Administracion - Categorías
   ListCategories,

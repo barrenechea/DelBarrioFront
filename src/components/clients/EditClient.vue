@@ -4,103 +4,99 @@
     <div class="bs-component">
       <div class="jumbotron">
         <h1>Registro</h1><br>
-      <!--Nombre-->
-      <div class="row">
-        <div class="input-field col s12">
-          <input v-model="client.NOMBRES" v-validate data-vv-rules="required|alpha_spaces" data-vv-as="nombre" name="nombre" type="text" placeholder="Juan Antonio">
-          <span v-show="errors.has('nombre')" class="help is-danger">{{ errors.first('nombre') }}</span>
-          <label for="nombre">Nombre</label>
-        </div>
-      </div>
+        <form @submit.prevent="validateBeforeSubmit">
+              <div class="column is-12"> <!-- Nombres -->
+                  <label class="label">Apellido paterno</label>
+                  <p class="control has-icon has-icon-right">
+                      <input data-vv-as="Nombre" name="nombres" v-model="client.NOMBRES" v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('nombres') }" type="text" placeholder="Juan Andrés">
+                      <i v-show="errors.has('nombres')" class="fa fa-warning"></i>
+                      <span v-show="errors.has('nombres')" class="help is-danger">{{ errors.first('nombres') }}</span>
+                  </p>
+              </div>
+              <div class="column is-12"> <!-- APELLIDO PATERNO -->
+                  <label class="label">Apellido paterno</label>
+                  <p class="control has-icon has-icon-right">
+                      <input  data-vv-as="Apellido paterno" name="apellido_pat" v-model="client.APELLIDO_PATERNO" v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('apellido_pat') }" type="text" placeholder="Pérez">
+                      <i v-show="errors.has('apellido_pat')" class="fa fa-warning"></i>
+                      <span v-show="errors.has('apellido_pat')" class="help is-danger">{{ errors.first('apellido_pat') }}</span>
+                  </p>
+              </div>
+              <div class="column is-12"> <!-- APELLIDO MATERNO -->
+                  <label class="label">Apellido materno</label>
+                  <p class="control has-icon has-icon-right">
+                      <input data-vv-as="Apellido materno"  name="apellido_mat" v-model="client.APELLIDO_MATERNO" v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('apellido_mat') }" type="text" placeholder="González">
+                      <i v-show="errors.has('apellido_mat')" class="fa fa-warning"></i>
+                      <span v-show="errors.has('apellido_mat')" class="help is-danger">{{ errors.first('apellido_mat') }}</span>
+                  </p>
+              </div>
+              <div class="column is-12"> <!-- Email -->
+                  <label class="label">Correo</label>
+                  <p class="control has-icon has-icon-right">
+                      <input  data-vv-as="Email"  name="email" v-model="usuario.EMAIL_USUARIO" v-validate="'required|email'" :class="{'input': true, 'is-danger': errors.has('email') }" type="text" placeholder="correo@ejemplo.cl">
+                      <i v-show="errors.has('email')" class="fa fa-warning"></i>
+                      <span v-show="errors.has('email')" class="help is-danger">{{ errors.first('email') }}</span>
+                  </p>
+              </div>
+              <div class="column is-12"> <!-- Fecha de nacimiento -->
+                  <label class="label">Fecha de nacimiento</label>
+                  <p class="control has-icon has-icon-right">
+                      <input  data-vv-as="Fecha de nacimiento"  name="birthdate" v-model="client.FECH_FECHA_NACIMIENTO" v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('birthdate') }" type="date" >
+                      <i v-show="errors.has('birthdate')" class="fa fa-warning"></i>
+                      <span v-show="errors.has('birthdate')" class="help is-danger">{{ errors.first('birthdate') }}</span>
+                  </p>
+              </div>
 
-      <!--Apellidos-->
-       <div class="row">
-        <div class="input-field col s12">
-          <input v-model="client.APELLIDO_PATERNO" v-validate data-vv-rules="required|alpha_spaces" data-vv-as="Apellido Paterno" name="apellido_paterno" type="text" placeholder="Pérez">
-          <span v-show="errors.has('apellido_paterno')" class="help is-danger">{{ errors.first('apellido_paterno') }}</span>
-          <label for="apellido">Apellido paterno</label>
-        </div>
-      </div>
+              <div class="column is-12"> <!-- Contraseña -->
+                  <label class="label">Contraseña actual</label>
+                  <p class="control has-icon has-icon-right">
+                      <input  data-vv-as="Contraseña"  name="contrasena" v-model="client.password" v-validate="'required|min:6'" :class="{'input': true, 'is-danger': errors.has('contrasena') }" type="password" placeholder="******">
+                      <i v-show="errors.has('contrasena')" class="fa fa-warning"></i>
+                      <span v-show="errors.has('contrasena')" class="help is-danger">{{ errors.first('contrasena') }}</span>
+                  </p>
+              </div>
 
-      <div class="row">
-        <div class="input-field col s12">
-          <input v-model="client.APELLIDO_MATERNO" v-validate data-vv-rules="required|alpha_spaces" data-vv-as="apellido_materno" name="apellido_materno" type="text" placeholder="Gonzalez">
-          <span v-show="errors.has('apellido_materno')" class="help is-danger">{{ errors.first('apellido_materno') }}</span>
-          <label for="apellido_materno">Apellido materno</label>
-        </div>
-      </div>
+              <div class="column is-12"> <!-- Nueva Contraseña -->
+                  <label class="label">Contraseña</label>
+                  <p class="control has-icon has-icon-right">
+                      <input  data-vv-as="Contraseña"  name="nuevacontrasena" v-model="client.nuevapassword" v-validate="'min:6'" :class="{'input': true, 'is-danger': errors.has('nuevacontrasena') }" type="password" placeholder="******">
+                      <i v-show="errors.has('nuevacontrasena')" class="fa fa-warning"></i>
+                      <span v-show="errors.has('nuevacontrasena')" class="help is-danger">{{ errors.first('nuevacontrasena') }}</span>
+                  </p>
+              </div>
 
-    <!--Email-->
-     <div class="column is-12">
-          <label class="label" for="email">Email</label>
-          <p :class="{ 'control': true }">
-              <input v-model="client.EMAIL_USUARIO" v-validate data-vv-rules="required|email" data-vv-as="email" name="email" type="text" placeholder="Email">
-              <span v-show="errors.has('email')" class="help is-danger">{{ errors.first('email') }}</span>
-              
-          </p>
-      </div>
-
-    <!--Fecha de nacimiento-->
-     <div class="row">
-       
-        <div class="input-field col s12">
-          <label for="birthdate">Fecha de nacimiento</label><br>
-          <input v-model="client.FECH_FECHA_NACIMIENTO" data-vv-as="Fecha de nacimiento" name="birthdate"  type="date" class="form-control">
-          <span v-show="errors.has('birthdate')">{{ errors.first('birthdate') }}</span>
-        </div>
-      </div>
-
-
-    <!--Contraseña-->
-     <div class="row">
-        <div class="input-field col s12">
-        <input v-model="client.password_antigua" v-validate data-vv-rules="required|min:4" data-vv-as="Nueva contraseña" name="nueva_contraseña"  type="password" class="form-control">
-          <label for="nueva_contraseña">Contraseña</label>
-          <span v-show="errors.has('Contraseña')">{{ errors.first('Contraseña') }}</span>
-        </div>
-      </div>
-
-    <!--Nueva Contraseña-->
-     <div class="row">
-        <div class="input-field col s12">
-        <input v-model="client.password_nueva" v-validate data-vv-rules="min:4" data-vv-as="Nueva contraseña" name="nueva contraseña"  type="password" >
-          <label for="nueva contraseña">Contraseña</label>
-          <span v-show="errors.has('Nueva contraseña')">{{ errors.first('Nueva contraseña') }}</span>
-        </div>
-      </div>
-      
-    <!--Repetir contraseña-->
-      <div class="row">
-        <div class="input-field col s12">
-            <p :class="{ 'control': true }">
-            <label for="Confirmar nueva contraseña">Confirmar contraseña</label>
-            <input v-model="client.confirm_password_nueva" v-validate data-vv-rules="required|confirmed:Nueva contraseña" name="Confirmar nueva contraseña" type="password">
-            <span v-show="errors.has('Confirmar nueva contraseña')">{{ errors.first('Confirmar nueva contraseña') }}</span>
-          </p>
-        </div>
-      </div>
+              <div class="column is-12"> <!-- Repetir Contraseña -->
+                  <label class="label">Repetir contraseña</label>
+                  <p class="control has-icon has-icon-right">
+                      <input data-vv-as="Repetir contraseña"  name="repitecontrasena" v-model="client.repitepassword" v-validate="'confirmed:nuevacontrasena'" :class="{'input': true, 'is-danger': errors.has('repitecontrasena') }" type="password" placeholder="******">
+                      <i v-show="errors.has('repitecontrasena')" class="fa fa-warning"></i>
+                      <span v-show="errors.has('repitecontrasena')" class="help is-danger">{{ errors.first('repitecontrasena') }}</span>
+                  </p>
+              </div>
+              <div style="display: none">
+                 <p style="display: 'none'"> {{auth.password = client.password}} </p>
+              </div>
+                    
+              <!-- Botón -->
+              <div class="column is-12">
+                  <p class="control">
+                    <button  class="button is-primary"  type="submit" >Actualizar datos</button>
+                  </p>
+              </div>
+          </form>
       <hr>
-      <div>
-        <button class="btn btn-success" v-on:click="EditClient">Actualizar datos</button>
-      </div>
       <hr>
           <label style = "text-decoration: underline; color: blue" @click="CambiarEstado">Deshabilitar cuenta</label>
           <div v-if="mostrar"> 
             <br>
-            <input type="radio" id="one" value="One" v-model="inhab.motivo">
-              <label for="one">Motivo 1</label>
-              <br>
-              <input type="radio" id="one" value="Two" v-model="inhab.motivo">
-              <label for="two">Motivo 2</label>
-              <br>
-              <input type="radio" id="one" value="Three" v-model="inhab.motivo">
-              <label for="two">Motivo 2</label>
-              <br>
-              <input type="radio" id="one" value="Four" v-model="inhab.motivo">
-              <label for="two">Motivo 2</label>
-              <br>
-              <input type="radio" id="one" value="Otro" v-model="inhab.motivo">
-              <label for="two">Otro </label><br>
+                <div v-for="reason in reasons">
+                    <div v-show="reason.FLAG_VIGENTE">
+                        <input type="radio" v-model="inhab.reason" :value="reason.IDEN_MOTIVO_DESHABILITACION"> {{ reason.NOMB_MOTIVO_DESHABILITACION }}
+                    </div>
+                </div>
+
+
+
+            <br><br>
               <label> {{client.NOMBRES}}, comentanos porqué tomas esta decisión :( </label>
               <br><textarea rows="4" cols="75%" name = 'inhab.comentario' v-model="inhab.comentario">
               </textarea>
@@ -119,18 +115,24 @@
 <script>
   import clientscontroller from '@/components/clients/controller/clientscontroller.js'
   import userscontroller from '@/components/users/controller/userscontroller.js'
+  import reasonscontroller from '@/components/deactivation-reasons/controller/deactivationreasoncontroller.js'
 
   export default {
     name: 'EditClient',
     data () {
       return {
         client: [],
+        usuario: [],
         mostrar: false,
-        inhab: []
+        inhab: [],
+        auth: [],
+        error: [],
+        reason: {}
       }
     },
     mounted () {
       clientscontroller.getClient(this)
+      reasonscontroller.listReasons(this)
     },
     methods: {
       // Llamar función addPost en controller
@@ -144,6 +146,13 @@
       DeshabilitarCuenta: function (id, state) {
         event.preventDefault()
         userscontroller.DeshabilitarCuenta(id, state, this)
+      },
+      validateBeforeSubmit () {
+        this.$validator.validateAll().then((result) => {
+          if (result) {
+            this.EditClient(event)
+          }
+        })
       }
     }
   }
