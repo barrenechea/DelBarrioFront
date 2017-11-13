@@ -28,7 +28,7 @@ import NewDenouncementReason from '@/components/denouncement-reasons/NewReason'
 import ListDenouncementReasons from '@/components/denouncement-reasons/ListReasons'
 
 // ENTREPENEURS - PUBLICATIONS
-import NewPublication from '@/components/publications/NewPublication'
+import NewPost from '@/components/posts/NewPost'
 
 // Main components
 import Login from '@/components/main/Login'
@@ -61,7 +61,7 @@ export default {
   ListDenouncementReasons,
 
   // ENTREPENEUR - PUBLICATIONS
-  NewPublication,
+  NewPost,
 
   // DEMO - Main - TODO: MODIFICAR LAS RUTAS
   Layout,

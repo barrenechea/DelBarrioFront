@@ -102,8 +102,8 @@ export default new Router({
         // PUBLICATIONS
         {
           path: '/publicaciones/nueva',
-          name: 'NewPublication',
-          component: components.NewPublication
+          name: 'NewPost',
+          component: components.NewPost
         },
         {
           // DEMO - Login
