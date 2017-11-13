@@ -5,18 +5,39 @@
       <div class="jumbotron">
         <h1>Nueva publicación</h1>
         <div>
-          <label>Nombre</label>
-          <input v-validate data-vv-rules="required" data-vv-as="nombre" name="name" type="text" v-model="publication.NOMB_PUBLICACION"/>
+          <label>Título</label>
+          <input v-validate data-vv-rules="required" data-vv-as="titulo" name="name" type="text" v-model="post.NOMB_PUBLICACION"/>
           <span v-show="errors.has('name')">{{ errors.first('name') }}</span>
         </div>
         <div>
           <label>Categoria</label>
-          <select v-model="publication.IDEN_CATEGORIA">
+          <select v-model="post.IDEN_CATEGORIA">
+            <option value="undefined">-- Seleccionar --</option>
             <option v-bind:key="c.IDEN_CATEGORIA" v-for="c in categories" v-bind:value="c.IDEN_CATEGORIA">{{c.NOMB_CATEGORIA}}</option>
           </select>
         </div>
         <div>
-          <button class="btn btn-success" v-on:click="addPublication">Agregar</button>
+          <label>Tipo de publicación</label>
+          <select v-model="post.CODI_TIPO_PUBLICACION">
+            <option value="undefined">-- Seleccionar --</option>
+            <option value="p">Producto</option>
+            <option value="s">Servicio</option>
+          </select>
+        </div>
+        <div>
+          <label>Descripción</label>
+          <textarea v-model="post.DESC_PUBLICACION"></textarea>
+        </div>
+        <div>
+          <label>Precio</label>
+          <input type="number" v-model="post.NUMR_PRECIO"/>
+        </div>
+        <div>
+          <label for="contenido-adulto">Contenido Adulto</label>
+          <input id="contenido-adulto" type="checkbox" v-model="post.FLAG_CONTENIDO_ADULTO"/>
+        </div>
+        <div>
+          <button class="btn btn-success" v-on:click="addPost">Agregar</button>
         </div>
         <div>
           <span v-show='error'>Error</span>
@@ -30,10 +51,10 @@
 import postscontroller from '@/components/posts/controller/postscontroller.js'
 import categoriescontroller from '@/components/categories/controller/categoriescontroller.js'
 export default {
-  name: 'NewPublication',
+  name: 'NewPost',
   data () {
     return {
-      post: {},
+      post: { FLAG_CONTENIDO_ADULTO: false },
       categories: {},
       subcategories: {},
       error: false

@@ -102,7 +102,7 @@ export default new Router({
         // PUBLICATIONS
         {
           path: '/publicaciones/nueva',
-          name: 'NewPublication',
+          name: 'NewPost',
           component: components.NewPost
         },
         {

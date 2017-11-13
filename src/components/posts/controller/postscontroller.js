@@ -44,15 +44,16 @@ export default {
       axios.post(
         globalConst().localUrl + 'publicacion/',
         {
-          IDEN_TIPO_PUBLICACION: context.publicacion.IDEN_TIPO_PUBLICACION,
-          IDEN_CATEGORIA: context.publicacion.IDEN_CATEGORIA,
-          NOMB_PUBLICACION: context.publicacion.NOMB_PUBLICACION,
-          DESC_PUBLICACION: context.publicacion.DESC_PUBLICACION,
-          NUMR_PRECIO: context.publicacion.NUMR_PRECIO,
-          FLAG_CONTENIDO_ADULTO: context.publicacion.FLAG_CONTENIDO_ADULTO
+          CODI_TIPO_PUBLICACION: context.post.CODI_TIPO_PUBLICACION,
+          IDEN_CATEGORIA: context.post.IDEN_CATEGORIA,
+          NOMB_PUBLICACION: context.post.NOMB_PUBLICACION,
+          DESC_PUBLICACION: context.post.DESC_PUBLICACION,
+          NUMR_PRECIO: parseInt(context.post.NUMR_PRECIO),
+          FLAG_CONTENIDO_ADULTO: context.post.FLAG_CONTENIDO_ADULTO,
+          IDEN_EMPRENDEDOR: 1 // Temporal, hasta que se implementen usuarios
         }
       ).then(response => {
-        context.publicacion = {} // Limpiar campos
+        context.post = { FLAG_CONTENIDO_ADULTO: false } // Limpiar campos
         context.error = response.data.error
       }).catch(errors => {
         context.error = true
@@ -77,14 +78,14 @@ export default {
   editPost (context) {
     if (this.validate(context)) {
       axios.put(
-        globalConst().localUrl + 'publicacion/' + context.publicacion.IDEN_PUBLICACION + '/',
+        globalConst().localUrl + 'publicacion/' + context.post.IDEN_PUBLICACION + '/',
         {
-          IDEN_TIPO_PUBLICACION: context.publicacion.IDEN_TIPO_PUBLICACION,
-          IDEN_CATEGORIA: context.publicacion.IDEN_CATEGORIA,
-          NOMB_PUBLICACION: context.publicacion.NOMB_PUBLICACION,
-          DESC_PUBLICACION: context.publicacion.DESC_PUBLICACION,
-          NUMR_PRECIO: context.publicacion.NUMR_PRECIO,
-          FLAG_CONTENIDO_ADULTO: context.publicacion.FLAG_CONTENIDO_ADULTO
+          IDEN_TIPO_PUBLICACION: context.post.IDEN_TIPO_PUBLICACION,
+          IDEN_CATEGORIA: context.post.IDEN_CATEGORIA,
+          NOMB_PUBLICACION: context.post.NOMB_PUBLICACION,
+          DESC_PUBLICACION: context.post.DESC_PUBLICACION,
+          NUMR_PRECIO: context.post.NUMR_PRECIO,
+          FLAG_CONTENIDO_ADULTO: context.post.FLAG_CONTENIDO_ADULTO
         }
       ).then(response => {
         console.log(response.data)
@@ -96,7 +97,7 @@ export default {
     }
   },
   validate (context) {
-    if (context.post.NOMB_PUBLICACION == null) {
+    if (context.post.NOMB_PUBLICACION == null || isNaN(context.post.NUMR_PRECIO)) {
       return false
     } else {
       return true
