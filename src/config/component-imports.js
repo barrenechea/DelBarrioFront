@@ -27,6 +27,9 @@ import ListDeactivationReasons from '@/components/deactivation-reasons/ListReaso
 import NewDenouncementReason from '@/components/denouncement-reasons/NewReason'
 import ListDenouncementReasons from '@/components/denouncement-reasons/ListReasons'
 
+// ENTREPENEURS - PUBLICATIONS
+import NewPublication from '@/components/publications/NewPublication'
+
 // Main components
 import Login from '@/components/main/Login'
 
@@ -53,9 +56,12 @@ export default {
   NewDeactivationReason,
   ListDeactivationReasons,
 
-  // ADMINISTRATION - DEACTIVATION REASONS
+  // ADMINISTRATION - DENOUNCEMENT REASONS
   NewDenouncementReason,
   ListDenouncementReasons,
+
+  // ENTREPENEUR - PUBLICATIONS
+  NewPublication,
 
   // DEMO - Main - TODO: MODIFICAR LAS RUTAS
   Layout,

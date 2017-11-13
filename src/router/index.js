@@ -99,6 +99,12 @@ export default new Router({
           name: 'NewDenouncementReason',
           component: components.NewDenouncementReason
         },
+        // PUBLICATIONS
+        {
+          path: '/publicaciones/nueva',
+          name: 'NewPublication',
+          component: components.NewPublication
+        },
         {
           // DEMO - Login
           path: '/login',
