@@ -1,5 +1,5 @@
 // DEMO - Main
-import Layout from '@/components/demo-main/Layout'
+import Layout from '@/components/navbar/Layout'
 
 // ADMINISTRATION - CATEGORIES
 import ListCategories from '@/components/categories/listCategories'
@@ -15,6 +15,7 @@ import EditField from '@/components/fields/EditField'
 import ListFaq from '@/components/FAQ/ListFaq'
 import NewFaq from '@/components/FAQ/NewFaq'
 import EditFaq from '@/components/FAQ/EditFaq'
+import ViewFaq from '@/components/FAQ/ClientViewFaq'
 
 // ADMINISTRATION - TERMS AND CONDITIONS
 import TAC from '@/components/terms-and-conditions/terms-conditions'
@@ -48,6 +49,7 @@ export default {
   ListFaq,
   NewFaq,
   EditFaq,
+  ViewFaq,
 
   // ADMINISTRATION - TERMS AND CONDITIONS
   TAC,

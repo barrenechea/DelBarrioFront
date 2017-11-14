@@ -1,112 +1,388 @@
-:root{
---warning: #000000 !important;
+body{
+    font-family: 'Rubik', sans-serif;
 }
-.header {
-    background-color: #E0DACA;
-    padding: 20px;
-  }
+/* /Body */
 
-.img-delbarrio{
-    position: absolute;
-    bottom: -20%;
+
+section{
+    padding: 50px 0;
 }
 
-.img-emprende{
-    position: relative;
-    left: 50%;
+h2, h3, h4{
+    color: #4f4344;
+    font-weight: normal;
 }
 
-.navbar-light .navbar-brand {
-    color: #E0DACA;
-  }
-  
-  .navbar-light .navbar-brand:focus, .navbar-light .navbar-brand:hover {
-    color:  #E0DACA;
-  }
-  
-  .navbar-light .navbar-nav .nav-link {
-    color: #E0DACA;
-  }
-  
-  .navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover {
-    color: #E0DACA;
-  }
-  
-  .navbar-light .navbar-nav .nav-link.disabled {
-    color: #E0DACA;
-  }
-  
-  .navbar-light .navbar-nav .show > .nav-link,
-  .navbar-light .navbar-nav .active > .nav-link,
-  .navbar-light .navbar-nav .nav-link.show,
-  .navbar-light .navbar-nav .nav-link.active {
-    color: #E0DACA;
-  }
-  
-  .navbar-light .navbar-toggler {
-    color: #E0DACA !important;
-    border-color: #E0DACA;
-  }
-  
-  .navbar-light .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-  }
-  
-  .navbar-light .navbar-text {
-    color: #E0DACA;
-  }
-  
-  .navbar-light .navbar-text a {
-    color: #E0DACA;
-  }
-  
-  .navbar-light .navbar-text a:focus, .navbar-light .navbar-text a:hover {
-    color: #E0DACA;
-  }
-
-.bg-faded{
-    background-color: #4F4344;
+p{
+    line-height: 25px;
 }
 
-.dropdown-item {
-    display: block;
-    width: 100%;
-    padding: 0.25rem 1.5rem;
-    clear: both;
-    font-weight: 400;
-    color: #4F4344;
-    text-align: inherit;
-    white-space: nowrap;
-    background: none;
-    border: 0;
-  }
-  
-  .dropdown-item:focus, .dropdown-item:hover {
-    color: #4F4344;
-    text-decoration: none;
-    background-color: #E0DACA;
-  }
-  
-  .dropdown-item.active, .dropdown-item:active {
-    color: #E0DACA;
-    text-decoration: none;
-    background-color: #4F4344;
-  }
+.margin-top{
+    margin-top: 40px;
+}
 
-  .jumbotron {
-    padding: 2rem 1rem;
-    margin-bottom: 2rem;
-    background-color: #E0DACA;
+.margin-top-20{
+    margin-top: 20px;
+}
+
+.margin-img{
+    margin-bottom: 15px;
+}
+
+.no-padding{
+    padding: 0;
+}
+/* /Generales */
+
+
+header{
+    padding: 50px 0;
+    background-color: #e0daca;
+}
+/* /Header */
+
+
+.navbar-default{
+    background-color: #4f4344;
     border-radius: 0;
-    margin-top: 15px;
-  }
+    border-color: #4f4344;
+}
 
-  .table{
-    background-color: #FFF;
-    color: rgb(59, 59, 59);
-  }
+.navbar-default .navbar-nav>li>a{
+    color: #fff;
+    font-size: 120%;
+    font-weight: 300;
+}
 
-  .h1{
-    color: #4F4344;
+.navbar-default .navbar-nav>li>a:hover{
+    color: #89dbee;
+}
+
+.navbar-default .navbar-nav .open .dropdown-menu>li>a{
+    font-weight: 300;
+}
+
+.usuario::before{
+    content: '\f2bd';
+    font-family: FontAwesome;
+    margin-right: 10px;
+}
+
+#navegacion form{
+    margin: 10px 0;
+}
+
+.input-group-btn:last-child>.btn, .input-group-btn:last-child>.btn-group{
+    background-color: #e0daca;
+}
+
+.navbar-default .navbar-toggle:hover{
+    background-color: #89dbee;
+    border-color: #89dbee;
+}
+
+.navbar-default .navbar-toggle .icon-bar{
+    background-color: #fff;
+}
+
+.fa-home{
+    font-size: 150%;
+}
+/* /Navegacion */
+
+
+
+/*----Inicio PRODUCTOS----*/
+#productos .col-md-2{
+    margin-bottom: 40px;
+}
+
+#productos p{
+    color: gray;
+}
+/* /Productos */
+
+
+#emprendedores{
+    padding-top: 0;
+}
+
+#emprendedores img{
+    border-radius: 50%;
+    margin: 0 auto;
+}
+
+#emprendedores img:hover{
+    opacity: 0.7;
+}
+
+#emprendedores #slider-text .col-md-2{
+  overflow: hidden;
+}
+
+#emprendedores #itemslider h4{
+  margin-top: 15px;
+}
+/*slider*/
+@media screen and (max-width: 992px){
+#emprendedores #slider-control img {
+  padding-top: 70px;
+  margin: 0 auto;
+}
+}
+.carousel-showmanymoveone .carousel-control {
+  width: 4%;
+  background-image: none;
+}
+.carousel-showmanymoveone .carousel-control.left {
+  margin-left: 5px;
+}
+.carousel-showmanymoveone .carousel-control.right {
+  margin-right: 5px;
+}
+.carousel-showmanymoveone .cloneditem-1,
+.carousel-showmanymoveone .cloneditem-2,
+.carousel-showmanymoveone .cloneditem-3,
+.carousel-showmanymoveone .cloneditem-4,
+.carousel-showmanymoveone .cloneditem-5 {
+  display: none;
+}
+@media all and (min-width: 768px) {
+  .carousel-showmanymoveone .carousel-inner > .active.left,
+  .carousel-showmanymoveone .carousel-inner > .prev {
+    left: -50%;
   }
+  .carousel-showmanymoveone .carousel-inner > .active.right,
+  .carousel-showmanymoveone .carousel-inner > .next {
+    left: 50%;
+  }
+  .carousel-showmanymoveone .carousel-inner > .left,
+  .carousel-showmanymoveone .carousel-inner > .prev.right,
+  .carousel-showmanymoveone .carousel-inner > .active {
+    left: 0;
+  }
+  .carousel-showmanymoveone .carousel-inner .cloneditem-1 {
+    display: block;
+  }
+}
+@media all and (min-width: 768px) and (transform-3d), all and (min-width: 768px) and (-webkit-transform-3d) {
+  .carousel-showmanymoveone .carousel-inner > .item.active.right,
+  .carousel-showmanymoveone .carousel-inner > .item.next {
+    -webkit-transform: translate3d(50%, 0, 0);
+    transform: translate3d(50%, 0, 0);
+    left: 0;
+  }
+  .carousel-showmanymoveone .carousel-inner > .item.active.left,
+  .carousel-showmanymoveone .carousel-inner > .item.prev {
+    -webkit-transform: translate3d(-50%, 0, 0);
+    transform: translate3d(-50%, 0, 0);
+    left: 0;
+  }
+  .carousel-showmanymoveone .carousel-inner > .item.left,
+  .carousel-showmanymoveone .carousel-inner > .item.prev.right,
+  .carousel-showmanymoveone .carousel-inner > .item.active {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    left: 0;
+  }
+}
+@media all and (min-width: 992px) {
+  .carousel-showmanymoveone .carousel-inner > .active.left,
+  .carousel-showmanymoveone .carousel-inner > .prev {
+    left: -16.666%;
+  }
+  .carousel-showmanymoveone .carousel-inner > .active.right,
+  .carousel-showmanymoveone .carousel-inner > .next {
+    left: 16.666%;
+  }
+  .carousel-showmanymoveone .carousel-inner > .left,
+  .carousel-showmanymoveone .carousel-inner > .prev.right,
+  .carousel-showmanymoveone .carousel-inner > .active {
+    left: 0;
+  }
+  .carousel-showmanymoveone .carousel-inner .cloneditem-2,
+  .carousel-showmanymoveone .carousel-inner .cloneditem-3,
+  .carousel-showmanymoveone .carousel-inner .cloneditem-4,
+  .carousel-showmanymoveone .carousel-inner .cloneditem-5,
+  .carousel-showmanymoveone .carousel-inner .cloneditem-6  {
+    display: block;
+  }
+}
+@media all and (min-width: 992px) and (transform-3d), all and (min-width: 992px) and (-webkit-transform-3d) {
+  .carousel-showmanymoveone .carousel-inner > .item.active.right,
+  .carousel-showmanymoveone .carousel-inner > .item.next {
+    -webkit-transform: translate3d(16.666%, 0, 0);
+    transform: translate3d(16.666%, 0, 0);
+    left: 0;
+  }
+  .carousel-showmanymoveone .carousel-inner > .item.active.left,
+  .carousel-showmanymoveone .carousel-inner > .item.prev {
+    -webkit-transform: translate3d(-16.666%, 0, 0);
+    transform: translate3d(-16.666%, 0, 0);
+    left: 0;
+  }
+  .carousel-showmanymoveone .carousel-inner > .item.left,
+  .carousel-showmanymoveone .carousel-inner > .item.prev.right,
+  .carousel-showmanymoveone .carousel-inner > .item.active {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    left: 0;
+  }
+}
+/* /Emprendedores */
+
+
+footer{
+    padding: 50px 0;
+    background-color: #e0daca;
+    margin-top: 50px;
+}
+
+/* /Footer */
+
+
+
+/*----Inicio EMPRENDEDOR----*/
+#el-emprendedor h2{
+    padding-right: 50px;
+}
+
+#el-emprendedor h4, #el-producto h4{
+    margin-top: 50px;
+}
+
+#el-emprendedor a, #el-producto a{
+    display: inline-block;
+}
+
+#el-emprendedor p{
+    padding-right: 50px;
+}
+
+#el-emprendedor .fa, #el-producto .fa{
+    font-size: 120%;
+}
+
+.fa-star{
+    color: #efc71d;
+}
+
+.fa-star-o{
+    color: gray;
+}
+
+.form-control{
+    border-radius: 0 !important;
+}
+
+.btn{
+    border-radius: 0 !important;
+}
+
+#el-emprendedor .btn-default, #el-producto .btn-default{
+    background-color: #4f4344;
+    border-color: #4f4344;
+    width: 50%;
+    color: #fff;
+    letter-spacing: 0.5px;
+    display: block;
+    border-radius: 0;
+}
+
+#el-emprendedor .btn-default:hover, #el-producto .btn-default:hover{ 
+    background-color: #89dbee;
+    border-color: #89dbee;
+    border-radius: 0;
+}
+/* /El Emprendedor */
+
+
+#ubicacion h2{
+    margin-bottom: 30px;
+}
+/* /Ubicacion */
+
+
+
+/*----Inicio PRODUCTO----*/
+#el-producto .carousel {
+    margin-top: 20px;
+}
+#el-producto .item .thumb {
+	width: 25%;
+	cursor: pointer;
+	float: left;
+}
+#el-producto .item .thumb img {
+	width: 100%;
+	margin: 2px;
+    padding-right: 10px;
+}
+#el-producto .item img {
+	width: 100%;	
+}
+
+#el-producto .redes-sociales{
+    margin-top: 30px;
+    font-size: 200%;
+}
+
+#el-producto .btn-default{
+    margin-top: 50px;
+}
+
+#el-producto h3{
+    margin-top: 50px;
+}
+/* /El Producto */
+
+
+#comentarios{
+    padding-top: 0;
+}
+
+
+
+
+
+
+
+
+
+/*MEDIA QUERIES*/
+@media screen and (max-width: 767px){
+    .navbar-default .navbar-nav .open .dropdown-menu>li>a{
+        color: #fff;
+    }
     
+    .navbar-default .navbar-nav .open .dropdown-menu>li>a:hover{
+        color: #89dbee;
+    }
+}
+
+@media screen and (max-width: 414px){
+    .no-padding-responsive{
+        padding: 0;
+    }
+    #el-producto{
+        text-align: center;
+    }
+    #el-producto h2{
+        margin-top: 50px;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .margin-top-responsiv{
+        margin-top: 70px;
+    }
+    #el-emprendedor .btn-default, #el-producto .btn-default{
+        width: 100%;
+    }
+    #el-emprendedor{
+        text-align: center;
+    }
+    #el-emprendedor p, #el-emprendedor h2{
+    padding-right: 0;
+    }
+}

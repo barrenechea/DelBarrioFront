@@ -4,16 +4,19 @@
     <div class="bs-component">
       <div class="jumbotron">
         <h1>Nueva razón de deshabilitación de cuenta</h1>
+        <form @submit.prevent="validateBeforeSubmit">
+          <div>
+            <label>Nombre</label>
+            <input v-validate data-vv-rules="required|min:5|max:100" data-vv-as="nombre" name="name" type="text" v-model="reason.NOMB_MOTIVO_DESHABILITACION"/>
+            <span v-show="errors.has('name')">{{ errors.first('name') }}</span>
+          </div>
+          <div>
+            <button class="btn btn-success">Agregar</button>
+          </div>
+        </form>
         <div>
-          <label>Nombre</label>
-          <input v-validate data-vv-rules="required" data-vv-as="nombre" name="name" type="text" v-model="reason.NOMB_MOTIVO_DESHABILITACION"/>
-          <span v-show="errors.has('name')">{{ errors.first('name') }}</span>
-        </div>
-        <div>
-          <button class="btn btn-success" v-on:click="addReason">Agregar</button>
-        </div>
-        <div>
-          <span v-show='error'>Error</span>
+          <span v-show='error.length>0'>{{error}}</span>
+          <span v-show='success'>Agregado exitosamente!</span>
         </div>
       </div>
     </div>
@@ -27,7 +30,8 @@ export default {
   data () {
     return {
       reason: {},
-      error: false
+      error: '',
+      success: false
     }
   },
   mounted () {
@@ -37,6 +41,13 @@ export default {
     addReason (event) {
       event.preventDefault()
       reasonscontroller.addReason(this)
+    },
+    validateBeforeSubmit () {
+      this.$validator.validateAll().then((result) => {
+        if (result) {
+          reasonscontroller.addReason(this)
+        }
+      })
     }
   }
 }

@@ -56,9 +56,14 @@ export default new Router({
         },
         // FAQ
         {
-          path: '/administracion/preguntas-frecuentes',
+          path: '/administracion/preguntas-frecuentes/listado',
           name: 'ListFaq',
           component: components.ListFaq
+        },
+        {
+          path: '/administracion/preguntas-frecuentes',
+          name: 'ClientViewFaq',
+          component: components.ViewFaq
         },
         {
           path: '/administracion/preguntas-frecuentes/nueva',
@@ -99,7 +104,7 @@ export default new Router({
           name: 'NewDenouncementReason',
           component: components.NewDenouncementReason
         },
-        // PUBLICATIONS
+        // POSTS
         {
           path: '/publicaciones/nueva',
           name: 'NewPost',

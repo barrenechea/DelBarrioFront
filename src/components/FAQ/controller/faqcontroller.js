@@ -19,7 +19,6 @@ export default {
   // Return: lista todas las categorías.
   // =======================================================================================
   listFaqs (context) {
-    // error = "";
     axios.get(globalConst().localUrl + 'faq/')
     .then(response => {
       context.faqs = response.data.data
@@ -36,22 +35,19 @@ export default {
   //                    }
   // =======================================================================================
   addFaq (context) {
-    context.error = false
-    if (this.validate(context.f)) {
-      axios.post(
-        globalConst().localUrl + 'faq/',
-        {
-          NOMB_FAQ: context.f.NOMB_FAQ,
-          DESC_FAQ: context.f.DESC_FAQ
-        }
-      ).then(response => {
-        context.f = {}
-        context.error = response.data.error
-      }).catch(errors => {
-        console.log(errors)
-        context.error = true
-      })
-    }
+    axios.post(
+      globalConst().localUrl + 'faq/',
+      {
+        NOMB_FAQ: context.f.NOMB_FAQ,
+        DESC_FAQ: context.f.DESC_FAQ
+      }
+    ).then(response => {
+      context.f = {}
+      context.success = true
+    }).catch(errors => {
+      context.error = 'Error inesperado'
+      // context.error = 'Error inesperado'
+    })
   },
 
   // Enviar PUT request a la fuente. Se utilizó placeholder.
@@ -66,24 +62,17 @@ export default {
   //                    }
   // =======================================================================================
   editFaq (context) {
-    if (this.validate(context)) {
-      console.log('validado')
-      axios.put(
-        globalConst().localUrl + 'faq/' + context.f.IDEN_FAQ + '/',
-        {
-          NOMB_FAQ: context.f.NOMB_FAQ,
-          DESC_FAQ: context.f.DESC_FAQ
-        }
-      ).then(response => {
-        console.log(response.data)
-      }).catch(errors => {
-        context.error = true
-        console.log(errors)
-      })
-    } else {
-      context.error = true
-      return false
-    }
+    axios.put(
+      globalConst().localUrl + 'faq/' + context.f.IDEN_FAQ + '/',
+      {
+        NOMB_FAQ: context.f.NOMB_FAQ,
+        DESC_FAQ: context.f.DESC_FAQ
+      }
+    ).then(response => {
+      context.success = true
+    }).catch(errors => {
+      context.error = 'Error inesperado'
+    })
   },
   deleteFaq (id, context) {
     axios.delete(
@@ -93,15 +82,5 @@ export default {
     }).catch(errors => {
       console.log(errors)
     })
-  },
-  validate (context) {
-    if (context.f.NOMB_FAQ == null) {
-      return false
-    }
-    if (context.f.DESC_FAQ == null) {
-      return false
-    } else {
-      return true
-    }
   }
 }

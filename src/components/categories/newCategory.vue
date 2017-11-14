@@ -7,7 +7,7 @@
         <form @submit.prevent="validateBeforeSubmit">
           <div>
             <label>Nombre</label>
-            <input v-validate data-vv-rules="required" data-vv-as="nombre" name="name" type="text" v-model="cat.NOMB_CATEGORIA"/>
+            <input v-validate data-vv-rules="required|min:5|max:50|alpha_spaces" data-vv-as="nombre" name="name" type="text" v-model="cat.NOMB_CATEGORIA"/>
             <span v-show="errors.has('name')">{{ errors.first('name') }}</span>
           </div>
           <div>
@@ -22,7 +22,8 @@
         </form>
         
         <div>
-          <span v-show='error'>Error en el formulario</span>
+          <span v-show='error.length>0'>{{error}}</span>
+          <span v-show='success'>Agregado exitosamente!</span>
         </div>
       </div>
     </div>
@@ -37,7 +38,8 @@ export default {
     return {
       cat: {},
       categories: {},
-      error: false
+      error: '',
+      success: false
     }
   },
   mounted () {
