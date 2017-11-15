@@ -91,6 +91,23 @@ export default new Router({
           component: components.EditEntrepreneur,
           category: true
         },
+        // Administradores
+        {
+          path: '/administracion/administradores/nuevo',
+          name: 'NewAdmin',
+          component: components.NewAdmin
+        },
+        {
+          path: '/administracion/administradores/',
+          name: 'ListAdmin',
+          component: components.ListAdmin
+        },
+        {
+          path: '/administracion/administradores/editar/:id',
+          name: 'EditAdmin',
+          component: components.EditAdmin,
+          category: true
+        },
         // FIELDS
         {
           path: '/administracion/rubros',

@@ -6,12 +6,17 @@ import Posts from '@/components/demo-posts/Posts'
 import NewPost from '@/components/demo-posts/NewPost'
 import EditPost from '@/components/demo-posts/EditPost'
 
+// Administración - Administradores
+import NewAdmin from '@/components/administrators/NewAdmin'
+import ListAdmin from '@/components/administrators/ListAdmin'
+import EditAdmin from '@/components/administrators/EditAdmin'
+
 // Publicacion
 import NewPublication from '@/components/publications/NewPublication'
 
 // Emprendedor
-
 import EditOwnEntrepreneur from '@/components/entrepreneurs/EditOwnEntrepreneur'
+
 // Personas
 import NewClient from '@/components/clients/NewClient'
 import EditClient from '@/components/clients/EditClient'
@@ -62,6 +67,11 @@ export default {
   NewEntrepreneur,
   ListEntrepreneur,
   EditEntrepreneur,
+
+    // Administracion - Administradores
+  NewAdmin,
+  ListAdmin,
+  EditAdmin,
 
   // Emprendedores
   EditOwnEntrepreneur,

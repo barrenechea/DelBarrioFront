@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { globalConst } from '@/config/global.js'
-import entrepreneurscontroller from '@/components/entrepreneurs/controller/entrepreneurscontroller.js'
+// import entrepreneurscontroller from '@/components/entrepreneurs/controller/entrepreneurscontroller.js'
 
 export default {
   // Obtener categoria especifica según id.
@@ -24,9 +24,8 @@ export default {
       }
     ).then(response => {
       console.log(response.data)
-      entrepreneurscontroller.listEntrepreneurs(context)
       // Redireccionar a la pantalla de inicio
-      location.href = '/administracion/emprendedores#'
+      location.href = '#'
     }).catch(errors => {
       console.log(errors)
     })

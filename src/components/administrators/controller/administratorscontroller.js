@@ -6,33 +6,13 @@ export default {
   // Param.: context -> Contexto de la vista .vue, contiene los objetos instanciados en "data".
   // Return: Obtiene objeto de la categoría específica seleccionada en la vista "ListCategories"
   // =======================================================================================
-  getEntrepreneur (context) {
-    axios.get(globalConst().localUrl + 'emprendedor/' + context.$route.params.id + '/')
+  getAdmin (context) {
+    axios.get(globalConst().localUrl + 'usuario/' + context.$route.params.id + '/')
     .then(response => {
-      context.emp = response.data.data
-      context.emp.EMAIL_USUARIO = response.data.data.usuario.EMAIL_USUARIO
+      context.adm = response.data.data
+      context.adm.rut = response.data.data.RUT_USUARIO + '-' + response.data.data.DV_USUARIO
+      console.log(context.adm)
     }).catch(errors => {
-      console.log(errors)
-    })
-  },
-  getOwnEntrepreneur (context) {
-    let token = sessionStorage.getItem('id_token')
-    console.log('JWT ' + token)
-    axios.get(
-      globalConst().localUrl + 'private/usuario/',
-      {
-        headers: { Authorization: 'JWT ' + token }
-      }
-    ).then(responseid => {
-      context.emp = responseid.data.data.emprendedor
-      context.emp.EMAIL_USUARIO = responseid.data.data.EMAIL_USUARIO
-  //    context.usuario = element.usuario
-      context.auth.email = responseid.data.data.EMAIL_USUARIO
-      context.usuario.token = token
-
-      console.log('idusuario' + responseid.data)
-    })
-    .catch(errors => {
       console.log(errors)
     })
   },
@@ -41,11 +21,11 @@ export default {
   // Return: llena con los datos obtenidos de la ruta ingresada el objeto "posts" del contexto
   //         ingresado como parámetro.
   // =======================================================================================
-  listEntrepreneurs (context) {
+  listsAdmin (context) {
     // error = "";
-    axios.get(globalConst().localUrl + 'emprendedor/')
+    axios.get(globalConst().localUrl + 'usuario/')
     .then(response => {
-      context.entrepreneurs = response.data.data
+      context.administrators = response.data.data
     }).catch(errors => {
       console.log(errors)
     })
@@ -59,11 +39,11 @@ export default {
   //                      body:  string (req | len < 255) -- ignorar
   //                    }
   // =======================================================================================
-  addEntrepreneur (context) {
+  addAdmin (context) {
     context.error.exclusivo = ''
     if (this.validar(context) && !context.errors.any()) {
-      var slice2 = context.emp.RUT_USUARIO.slice(0, -1) // slice2 queda el rut sin el último caracter
-      var dv = context.emp.RUT_USUARIO.slice(-1) // dv queda con el último caracter
+      var slice2 = context.adm.RUT_USUARIO.slice(0, -1) // slice2 queda el rut sin el último caracter
+      var dv = context.adm.RUT_USUARIO.slice(-1) // dv queda con el último caracter
       dv = dv.toUpperCase() // DV a mayuscula en caso de ser letra
       var nmrorut = slice2.replace('.', '') // elimina los puntos de slice2
       nmrorut = nmrorut.replace('.', '')    // elimina los puntos de slice2
@@ -74,53 +54,26 @@ export default {
         {
           // --------------------
           // LLENAR TABLA USUARIOS v
-          IDEN_ROL: 2,              // identificador 2, correspondiente al ROL Emprendedor
+          IDEN_ROL: 3,              // identificador 2, correspondiente al ROL ADMIN
           RUT_USUARIO: nmrorut,           // context.cliente.rut (Falta función para separar el rut)
           DV_USUARIO: dv,            // Falta funcion para separar DV del RUT
-          EMAIL_USUARIO: context.emp.email,
-          DESC_PASSWORD: context.emp.clave
+          EMAIL_USUARIO: context.adm.EMAIL_USUARIO,
+          DESC_PASSWORD: context.adm.clave
           // FLAG_VIGENTE: Se setea automatico en true
           // LLENAR TABLA USUARIOS ^
         }
       ).then(response => {
-        axios.post(
-          globalConst().localUrl + 'emprendedor/',
-          {
-            IDEN_USUARIO: response.data.data.IDEN_USUARIO,
-            DESC_EMPRENDEDOR: context.emp.desc_empresa,
-            DESC_CLAVE_MUNICIPALIDAD: context.emp.clave,
-            DESC_NOMBRE_FANTASIA: context.emp.nombre_fantasia,
-            DESC_NOMBRE_EMPRESA: context.emp.nombre_empresa
-          }
-          )
-      }).then(response => {
         context.emp = {} // Limpiar campos
-        context.error.exclusivo = 'Se ha ingresado un nuevo emprendedor'
-        console.log(response.data)
+        context.error.exclusivo = 'Se ha ingresado un nuevo administrador'
+        location.href = ('/administracion/administradores')
       }).catch(errors => {
         console.log(errors)
       })
     } else {
       context.error.exclusivo = 'Formulario incompleto. Favor revisar los datos ingresados'
-      context.emp = context.emp
+      context.adm = context.adm
       context.error = context.error
-      console.log(context.error)
-    }
-  },
-  // Función de validación
-  validar (context) {
-    var cantErrores = 0
-    var validacion = ValidaRut(context.emp.RUT_USUARIO)
-    if (!validacion) {
-      cantErrores++
-      context.error.rut = 'El rut no es válido'
-    } else {
-      context.error.rut = ''
-    }
-    if (cantErrores === 0) {
-      return true
-    } else {
-      return false
+      console.log('aerr--->' + context.error.data.data.EMAIL_USUARIO)
     }
   },
     // Enviar PUT request a la fuente. Se utilizó placeholder.
@@ -134,41 +87,58 @@ export default {
     //                      id:     int (req | post-exists)
     //                    }
     // ============================s===========================================================
-  updateEntrepreneur (context) {
-    if (!context.errors.any()) {
-      context.emp.usuario.EMAIL_USUARIO = context.emp.EMAIL_USUARIO
+  updateAdmin (context) {
+    context.error.exclusivo = ''
+    if (this.validar(context) && !context.errors.any()) {
+      var slice2 = context.adm.rut.slice(0, -1) // slice2 queda el rut sin el último caracter
+      var dv = context.adm.rut.slice(-1) // dv queda con el último caracter
+      dv = dv.toUpperCase() // DV a mayuscula en caso de ser letra
+      var nmrorut = slice2.replace('.', '') // elimina los puntos de slice2
+      nmrorut = nmrorut.replace('.', '')    // elimina los puntos de slice2
+      nmrorut = nmrorut.replace('-', '')    // elimina el guión de lo de arriba
+      nmrorut = parseInt(nmrorut)
+
       axios.put(
-        globalConst().localUrl + 'usuario/' + context.emp.IDEN_USUARIO + '/',
+        globalConst().localUrl + 'usuario/' + context.adm.IDEN_USUARIO + '/',
         {
           // --------------------
           // LLENAR TABLA USUARIOS v
-          // IDEN_ROL: 2,              // identificador 2, correspondiente al ROL Emprendedor
-          EMAIL_USUARIO: context.emp.usuario.EMAIL_USUARIO,
-          DESC_PASSWORD: context.emp.DESC_CLAVE_MUNICIPALIDAD
+          // IDEN_ROL: 3,              // identificador 2, correspondiente al ROL Emprendedor
+          RUT_USUARIO: nmrorut,
+          DV_USUARIO: dv,
+          EMAIL_USUARIO: context.adm.EMAIL_USUARIO,
+          DESC_PASSWORD: context.adm.clave
           // FLAG_VIGENTE: Se setea automatico en true
           // LLENAR TABLA USUARIOS ^
         }
           ).then(response => {
-            axios.put(
-              globalConst().localUrl + 'emprendedor/' + context.emp.IDEN_EMPRENDEDOR + '/',
-              {
-              //  IDEN_USUARIO: response.data.data.IDEN_USUARIO,
-                DESC_EMPRENDEDOR: context.emp.DESC_EMPRENDEDOR,
-                DESC_CLAVE_MUNICIPALIDAD: context.emp.DESC_CLAVE_MUNICIPALIDAD,
-                DESC_NOMBRE_FANTASIA: context.emp.DESC_NOMBRE_FANTASIA,
-                DESC_NOMBRE_EMPRESA: context.emp.DESC_NOMBRE_EMPRESA
-              }
-          )
-          }).then(response => {
-            context.error.exclusivo = 'Se han actualizado los datos del emprendedor'
+            context.error.exclusivo = 'Se han actualizado los datos del administrador'
+            alert(context.error.exclusivo)
+            location.href = '/administracion/administradores'
             console.log(response.data)
           }).catch(errors => {
             console.log(errors)
           })
     } else {
       context.error.exclusivo = 'Formulario incompleto. Favor revisar los datos ingresados'
-      context.emp = context.emp
+      context.emp = context.adm
       console.log(context.error)
+    }
+  },
+    // Función de validación
+  validar (context) {
+    var cantErrores = 0
+    var validacion = ValidaRut(context.adm.rut)
+    if (!validacion) {
+      cantErrores++
+      context.error.rut = 'El rut no es válido'
+    } else {
+      context.error.rut = ''
+    }
+    if (cantErrores === 0) {
+      return true
+    } else {
+      return false
     }
   }
 }
