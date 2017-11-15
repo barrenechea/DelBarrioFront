@@ -32,7 +32,7 @@
               <div class="column is-12"> <!-- Email -->
                   <label class="label">Correo</label>
                   <p class="control has-icon has-icon-right">
-                      <input  data-vv-as="Email"  name="email" v-model="usuario.EMAIL_USUARIO" v-validate="'required|email'" :class="{'input': true, 'is-danger': errors.has('email') }" type="text" placeholder="correo@ejemplo.cl">
+                      <input  data-vv-as="Email"  name="email" v-model="client.EMAIL_USUARIO" v-validate="'required|email'" :class="{'input': true, 'is-danger': errors.has('email') }" type="text" placeholder="correo@ejemplo.cl">
                       <i v-show="errors.has('email')" class="fa fa-warning"></i>
                       <span v-show="errors.has('email')" class="help is-danger">{{ errors.first('email') }}</span>
                   </p>

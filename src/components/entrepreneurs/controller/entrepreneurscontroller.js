@@ -10,7 +10,30 @@ export default {
     axios.get(globalConst().localUrl + 'emprendedor/' + context.$route.params.id + '/')
     .then(response => {
       context.emp = response.data.data
+      context.emp.EMAIL_USUARIO = response.data.data.usuario.EMAIL_USUARIO
     }).catch(errors => {
+      console.log(errors)
+    })
+  },
+  getOwnEntrepreneur (context) {
+    let token = sessionStorage.getItem('id_token')
+    console.log('JWT ' + token)
+    axios.get(
+      globalConst().localUrl + 'private/usuario/',
+      {
+        headers: { Authorization: 'JWT ' + token }
+      }
+    ).then(responseid => {
+      console.log('ALOOOOOOO' + responseid.data)
+      context.emp = responseid.data.data.emprendedor
+      context.emp.EMAIL_USUARIO = responseid.data.data.EMAIL_USUARIO
+  //    context.usuario = element.usuario
+      context.auth.email = responseid.data.data.EMAIL_USUARIO
+      context.usuario.token = token
+
+      console.log('idusuario' + responseid.data)
+    })
+    .catch(errors => {
       console.log(errors)
     })
   },
@@ -114,6 +137,7 @@ export default {
     // ============================s===========================================================
   updateEntrepreneur (context) {
     if (!context.errors.any()) {
+      context.emp.usuario.EMAIL_USUARIO = context.emp.EMAIL_USUARIO
       axios.put(
         globalConst().localUrl + 'usuario/' + context.emp.IDEN_USUARIO + '/',
         {

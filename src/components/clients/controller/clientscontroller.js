@@ -11,21 +11,15 @@ export default {
         headers: { Authorization: 'JWT ' + token }
       }
     ).then(responseid => {
-      axios.get(globalConst().localUrl + 'persona/') // ' + context.$session.params.id + '
-    .then(response => {
-      response.data.data.forEach(function (element) { // Recorre la lista de personas
-        console.log(element)
-        if (element.IDEN_USUARIO === responseid.data.data.IDEN_USUARIO) { // Busca la persona según ID USUARIO
-          context.client = element
-          context.client.FECH_FECHA_NACIMIENTO = context.client.FECH_FECHA_NACIMIENTO.slice(0, -14)
-          context.usuario = element.usuario
-          context.auth.email = element.usuario.EMAIL_USUARIO
-          context.usuario.token = token
-        }
-      }, this)
-      console.log(context.client)
+      context.client = responseid.data.data.persona
+      context.client.EMAIL_USUARIO = responseid.data.data.EMAIL_USUARIO
+      context.client.FECH_FECHA_NACIMIENTO = context.client.FECH_FECHA_NACIMIENTO.slice(0, -14)
+  //    context.usuario = element.usuario
+      context.auth.email = responseid.data.data.EMAIL_USUARIO
+      context.usuario.token = token
+  //    console.log('idusuario' + responseid.data)
     })
-    }).catch(errors => {
+    .catch(errors => {
       console.log(errors)
     })
   },
@@ -123,10 +117,11 @@ export default {
         password: context.auth.password
       }
     ).then(response => {
-      console.log(response.data)
+      console.log('AA XD ' + response.data)
       sessionStorage.setItem('id_token', response.data.data.token)
     }).then(response => {
       let token = sessionStorage.getItem('id_token')
+      console.log('nueo token' + token)
       if (String(token).length > 10) {
         context.error.passwd = ''
         if (context.client.repitepassword === context.client.nuevapassword && String(context.client.nuevapassword).length > 5) {
@@ -146,6 +141,7 @@ export default {
             // LLENAR TABLA USUARIOS ^
           }
             ).then(response => {
+              console.log('Si sale esto se cambio el usuario')
               context.client.birthdate = new Date(context.client.FECH_FECHA_NACIMIENTO).toJSON()
               axios.put(
                 globalConst().localUrl + 'persona/' + context.client.IDEN_PERSONA + '/',

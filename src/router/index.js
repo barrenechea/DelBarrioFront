@@ -37,6 +37,12 @@ export default new Router({
           name: 'Demo-EditPost',
           component: components.EditPost
         },
+        // EMPRENDEDORES
+        {
+          path: '/emprendedor/actualizar-datos',
+          name: 'EditOwnEntrepreneur',
+          component: components.EditOwnEntrepreneur
+        },
 
         // CATEGORIES
         {

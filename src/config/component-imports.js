@@ -9,6 +9,9 @@ import EditPost from '@/components/demo-posts/EditPost'
 // Publicacion
 import NewPublication from '@/components/publications/NewPublication'
 
+// Emprendedor
+
+import EditOwnEntrepreneur from '@/components/entrepreneurs/EditOwnEntrepreneur'
 // Personas
 import NewClient from '@/components/clients/NewClient'
 import EditClient from '@/components/clients/EditClient'
@@ -59,6 +62,9 @@ export default {
   NewEntrepreneur,
   ListEntrepreneur,
   EditEntrepreneur,
+
+  // Emprendedores
+  EditOwnEntrepreneur,
 
   // ADMINSITRATION - FIELDS
   ListFields,

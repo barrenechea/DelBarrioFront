@@ -79,8 +79,7 @@ export default {
     }
   },
   mounted () {
-    entrepreneurscontroller.listEntrepreneurs(this)
-    entrepreneurscontroller.getEntrepreneur(this)
+    entrepreneurscontroller.getOwnEntrepreneur(this)
   },
   methods: {
     updateEntrepreneur (event) {
