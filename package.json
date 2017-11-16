@@ -15,11 +15,12 @@
   "dependencies": {
     "axios": "^0.16.2",
     "jquery": "^3.2.1",
+    "moment": "^2.19.2",
     "vee-validate": "^2.0.0-beta.17",
     "vue": "^2.5.3",
     "vue-fineuploader": "^2.0.0-rc.6",
     "vue-router": "^2.8.1",
-    "vue-select": "^2.3.0"
+    "vuejs-datepicker": "^0.9.20"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.6",

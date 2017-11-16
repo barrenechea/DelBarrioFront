@@ -29,7 +29,7 @@ import NewDenouncementReason from '@/components/denouncement-reasons/NewReason'
 import ListDenouncementReasons from '@/components/denouncement-reasons/ListReasons'
 
 // ENTREPENEURS - PUBLICATIONS
-import NewPost from '@/components/posts/NewPost'
+import NewPost from '@/components/posts-prueba/NewPost'
 
 // Main components
 import Login from '@/components/main/Login'
