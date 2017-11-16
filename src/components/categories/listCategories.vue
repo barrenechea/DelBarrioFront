@@ -40,21 +40,6 @@
         </tbody>
       </table>
       <a class="btn btn-success" v-bind:href="'/administracion/categorias/nueva'">Agregar</a>
-      <social-sharing url="http://delbarrio.barrenechea.cl/"
-                      title="Del Barrio - Emprende Providencia"
-                      description="Portal de emprendimientos en Providencia."
-                      quote="Portal de emprendimientos de la comuna de providencia."
-                      hashtags="delbarrio,providencia,emprendimiento"
-                      inline-template>
-  <div>
-      <network network="facebook">
-        <i class="fa fa-facebook"></i> Facebook
-      </network>
-      <network network="twitter">
-        <i class="fa fa-twitter"></i> Twitter
-      </network>
-  </div>
-</social-sharing>
     </div>
   </div>
 </div>
@@ -62,9 +47,6 @@
 
 <script>
 import categoriescontroller from '@/components/categories/controller/categoriescontroller.js'
-import Vue from 'vue'
-var SocialSharing = require('vue-social-sharing')
-Vue.use(SocialSharing)
 
 export default {
   name: 'categories',
@@ -75,9 +57,6 @@ export default {
   },
   mounted () {
     categoriescontroller.listCategories(this)
-  },
-  components: {
-    SocialSharing
   },
   methods: {
     setState: function (id, state) {

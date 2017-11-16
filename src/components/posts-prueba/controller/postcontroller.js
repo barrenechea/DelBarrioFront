@@ -2,6 +2,7 @@ import axios from 'axios'
 import { globalConst } from '@/config/global.js'
 import {Validator} from 'vee-validate'
 import moment from 'moment'
+import imagecontroller from '@/components/images/controller/imagecontroller'
 Validator.installDateTimeValidators(moment)
 
 export default {
@@ -41,7 +42,7 @@ export default {
   //                      FLAG_CONTENIDO_ADULTO: bool
   //                    }
   // =======================================================================================
-  addPost (context) {
+  addPost (context, blob = undefined) {
     axios.post(
       globalConst().localUrl + 'publicacion/',
       {
@@ -53,6 +54,9 @@ export default {
         FLAG_CONTENIDO_ADULTO: context.post.FLAG_CONTENIDO_ADULTO,
         IDEN_EMPRENDEDOR: 1
       }).then(response => {
+        if (blob !== undefined) {
+          imagecontroller.addPostImage(context, response.data.data.IDEN_PUBLICACION, blob)
+        }
         if (context.selected) {
           console.log(new Date(context.sale.FECH_INICIO))
           this.addSale(context, response.data.data.IDEN_PUBLICACION)

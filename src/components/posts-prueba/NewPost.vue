@@ -39,6 +39,15 @@
           <input id="contenido-adulto" type="checkbox" v-model="post.FLAG_CONTENIDO_ADULTO"/>
         </div>
         <div>
+          <croppa v-model="images"
+                  :width="200"
+                  :height="200"
+                  placeholder="Subir Imagen"
+                  :placeholder-font-size="18"
+                  :prevent-white-space="true"
+                  ></croppa>
+        </div>
+        <div>
           <label for="oferta">Oferta</label>
           <input id="oferta" type="checkbox" v-model="selected"/>
         </div>
@@ -90,6 +99,10 @@ import postscontroller from '@/components/posts-prueba/controller/postcontroller
 import categoriescontroller from '@/components/categories/controller/categoriescontroller.js'
 import VeeValidate from 'vee-validate'
 import Datepicker from 'vuejs-datepicker'
+import Croppa from 'vue-croppa'
+import Vue from 'vue'
+
+Vue.use(Croppa)
 export default {
   name: 'NewPost',
   data () {
@@ -100,7 +113,8 @@ export default {
       categories: {},
       subcategories: {},
       error: '',
-      selected: false
+      selected: false,
+      images: {}
     }
   },
   mounted () {
@@ -111,18 +125,37 @@ export default {
     Datepicker
   },
   methods: {
-    addPost (event) {
+    addPost () {
       event.preventDefault()
-      postscontroller.addPost(this)
+      if (this.images !== {}) {
+        this.images.generateBlob((blob) => {
+          postscontroller.addPost(this, blob)
+        })
+      } else {
+        postscontroller.addPost(this)
+      }
     },
     validateBeforeSubmit () {
       this.$validator.validateAll().then((result) => {
         alert('Result ' + result)
         if (result) {
-          postscontroller.addPost(this)
+          if (this.images !== {}) {
+            this.images.generateBlob((blob) => {
+              postscontroller.addPost(this, blob)
+            })
+          } else {
+            postscontroller.addPost(this)
+          }
         }
       })
     }
   }
 }
 </script>
+
+<style>
+.croppa-container canvas {
+  cursor: pointer !important;
+  border-style: dashed;
+}
+</style>

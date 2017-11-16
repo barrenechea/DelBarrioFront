@@ -9,7 +9,7 @@
         </div>
         <div class="row">
           <div class="col-md-2 col-sm-3 col-xs-6" v-bind:key="p.IDEN_POST" v-for="p in posts">
-            <a v-bind:href="'publicaciones/'+p.IDEN_PUBLICACION ">
+            <a v-bind:href="'/publicaciones/'+p.IDEN_PUBLICACION ">
               <img v-if="!p.imagen" v-bind:src="'/static/img/no-image.jpg'" class="img-responsive" alt="">
               <img v-if="p.imagen" v-bind:src="p.imagen.URL_IMAGEN" class="img-responsive" alt="">
             </a>

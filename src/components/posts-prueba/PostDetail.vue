@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row margin-top-sec">
         <div class="col-sm-6">
-          <div id="carousel" class="carousel slide">
+          <div id="carousel" class="carousel slide" v-if="post.imagenes.length > 0">
             <div class="carousel-inner">
               <div class="item active">
                 <img v-bind:src="'http://delbarrio.barrenechea.cl/api/' + post.imagenes[0].URL_IMAGEN" class="img-responsive" alt="">
@@ -40,11 +40,18 @@
           <h4>Descripción</h4>                    
           <p class="info-prod">{{post.DESC_PUBLICACION}}</p>
           <button type="button" class="btn btn-default margin-top-20">Contactar Vendedor</button>
-          <a href="#" class="margin-top">Denunciar publicación</a>          
-          <div class="redes-sociales">
-            <a href="#"><i class="fa fa-facebook-square" aria-hidden="true"></i></a>
-            <a href="#"><i class="fa fa-twitter-square" aria-hidden="true"></i></a>
-          </div>
+          <a href="#" class="margin-top">Denunciar publicación</a>   
+          <social-sharing
+                      v-bind:title="post.NOMB_PUBLICACION + ' | Del Barrio - Providencia'"
+                      description="Portal de emprendimientos en Providencia."
+                      v-bind:quote="post.NOMB_PUBLICACION + ' - Portal de emprendimientos en Providencia.'"
+                      hashtags="delbarrio,providencia"
+                      inline-template>
+            <div class="redes-sociales">
+            <network network="facebook"><a style="cursor:pointer;"><i class="fa fa-facebook-square" aria-hidden="true"></i></a></network>
+            <network network="twitter"><a style="cursor:pointer;"><i class="fa fa-twitter-square" aria-hidden="true"></i></a></network>
+            </div>
+          </social-sharing>
         </div>
       </div>
     </div><!-- /container -->
@@ -53,6 +60,9 @@
 
 <script>
 import postcontroller from '@/components/posts-prueba/controller/postcontroller.js'
+import Vue from 'vue'
+var SocialSharing = require('vue-social-sharing')
+Vue.use(SocialSharing)
 
 export default {
   name: 'PostDetail',
@@ -61,6 +71,9 @@ export default {
     return {
       post: { imagenes: {}, comentarios: {} }
     }
+  },
+  components: {
+    SocialSharing
   },
   mounted () {
     postcontroller.getPost(this)
