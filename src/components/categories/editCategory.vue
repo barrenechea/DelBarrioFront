@@ -4,22 +4,25 @@
     <div class="bs-component">
       <div class="jumbotron">
         <h1>Editar categoría</h1>
+        <form @submit.prevent="validateBeforeSubmit">
+          <div>
+            <label>Nombre</label>
+            <input v-validate data-vv-rules="required|min:5|max:50|alpha_spaces" data-vv-as="nombre" name="name" type="text" v-model="cat.NOMB_CATEGORIA"/>
+            <span v-show="errors.has('name')">{{ errors.first('name') }}</span>
+          </div>
+          <div v-if="cat.subcategorias.length> 0">
+            <label>Categoria Padre</label>
+            <select v-model="cat.IDEN_CATEGORIA_PADRE">
+              <option v-bind:key="c.IDEN_CATEGORIA" v-for="c in categories" v-bind:value="c.IDEN_CATEGORIA">{{c.NOMB_CATEGORIA}}</option>
+            </select>
+          </div>
+          <div>
+            <button class="btn btn-success">Actualizar</button>
+          </div>
+        </form>
         <div>
-          <label>Nombre</label>
-          <input v-validate data-vv-rules="required" data-vv-as="nombre" name="name" type="text" v-model="cat.NOMB_CATEGORIA"/>
-          <span v-show="errors.has('name')">{{ errors.first('name') }}</span>
-        </div>
-        <div v-if="cat.subcategorias.length> 0">
-          <label>Categoria Padre</label>
-          <select v-model="cat.IDEN_CATEGORIA_PADRE">
-            <option v-bind:key="c.IDEN_CATEGORIA" v-for="c in categories" v-bind:value="c.IDEN_CATEGORIA">{{c.NOMB_CATEGORIA}}</option>
-          </select>
-        </div>
-        <div>
-          <button class="btn btn-success" v-on:click="editCategory">Actualizar</button>
-        </div>
-        <div>
-          <span v-show='error'>Error</span>
+          <span v-show='error.length>0'>{{error}}</span>
+          <span v-show='success'>Editado exitosamente!</span>
         </div>
       </div>
     </div>
@@ -33,9 +36,12 @@ export default {
   category: ['id'],
   data () {
     return {
-      cat: {},
+      cat: {
+        subcategorias: []
+      },
       categories: {},
-      error: false
+      error: '',
+      success: false
     }
   },
   mounted () {
@@ -46,6 +52,13 @@ export default {
     editCategory (event) {
       event.preventDefault()
       categoriescontroller.editCategory(this)
+    },
+    validateBeforeSubmit () {
+      this.$validator.validateAll().then((result) => {
+        if (result) {
+          categoriescontroller.editCategory(this)
+        }
+      })
     }
   }
 }

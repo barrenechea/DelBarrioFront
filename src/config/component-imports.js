@@ -1,5 +1,5 @@
 // DEMO - Main
-import Layout from '@/components/demo-main/Layout'
+import Layout from '@/components/navbar/Layout'
 
 // ADMINISTRATION - CATEGORIES
 import ListCategories from '@/components/categories/listCategories'
@@ -15,6 +15,7 @@ import EditField from '@/components/fields/EditField'
 import ListFaq from '@/components/FAQ/ListFaq'
 import NewFaq from '@/components/FAQ/NewFaq'
 import EditFaq from '@/components/FAQ/EditFaq'
+import ViewFaq from '@/components/FAQ/ClientViewFaq'
 
 // ADMINISTRATION - TERMS AND CONDITIONS
 import TAC from '@/components/terms-and-conditions/terms-conditions'
@@ -28,7 +29,9 @@ import NewDenouncementReason from '@/components/denouncement-reasons/NewReason'
 import ListDenouncementReasons from '@/components/denouncement-reasons/ListReasons'
 
 // ENTREPENEURS - PUBLICATIONS
-import NewPost from '@/components/posts/NewPost'
+import NewPost from '@/components/posts-prueba/NewPost'
+import ClientViewPost from '@/components/posts-prueba/ClientViewPost'
+import PostDetail from '@/components/posts-prueba/PostDetail'
 
 // Main components
 import Login from '@/components/main/Login'
@@ -48,6 +51,7 @@ export default {
   ListFaq,
   NewFaq,
   EditFaq,
+  ViewFaq,
 
   // ADMINISTRATION - TERMS AND CONDITIONS
   TAC,
@@ -62,6 +66,8 @@ export default {
 
   // ENTREPENEUR - PUBLICATIONS
   NewPost,
+  ClientViewPost,
+  PostDetail,
 
   // DEMO - Main - TODO: MODIFICAR LAS RUTAS
   Layout,

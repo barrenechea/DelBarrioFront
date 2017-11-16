@@ -23,23 +23,17 @@ export default {
   //                    }
   // =======================================================================================
   addReason (context) {
-    context.error = false
-    if (this.validate(context)) {
-      axios.post(
-        globalConst().localUrl + 'motivo_deshabilitacion/',
-        {
-          NOMB_MOTIVO_DESHABILITACION: context.reason.NOMB_MOTIVO_DESHABILITACION
-        }
-      ).then(response => {
-        context.reason = {}
-        context.error = response.data.error
-      }).catch(errors => {
-        context.error = true
-      })
-    } else {
-      context.error = true
-      return false
-    }
+    axios.post(
+      globalConst().localUrl + 'motivo_deshabilitacion/',
+      {
+        NOMB_MOTIVO_DESHABILITACION: context.reason.NOMB_MOTIVO_DESHABILITACION
+      }
+    ).then(response => {
+      context.reason = {}
+      context.success = true
+    }).catch(errors => {
+      context.error = 'Error inesperado'
+    })
   },
   // comentarios
   setState (id, state, context) {

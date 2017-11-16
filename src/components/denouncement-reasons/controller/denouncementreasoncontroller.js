@@ -23,23 +23,17 @@ export default {
   //                    }
   // =======================================================================================
   addReason (context) {
-    context.error = false
-    if (this.validate(context)) {
-      axios.post(
-        globalConst().localUrl + 'motivo_denuncia/',
-        {
-          NOMB_MOTIVO_DENUNCIA: context.reason.NOMB_MOTIVO_DENUNCIA
-        }
-      ).then(response => {
-        context.reason = {}
-        context.error = response.data.error
-      }).catch(errors => {
-        context.error = true
-      })
-    } else {
-      context.error = true
-      return false
-    }
+    axios.post(
+      globalConst().localUrl + 'motivo_denuncia/',
+      {
+        NOMB_MOTIVO_DENUNCIA: context.reason.NOMB_MOTIVO_DENUNCIA
+      }
+    ).then(response => {
+      context.reason = {}
+      context.success = true
+    }).catch(errors => {
+      context.error = errors
+    })
   },
   // comentarios
   setState (id, state, context) {

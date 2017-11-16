@@ -11,7 +11,7 @@ export default {
     .then(response => {
       context.field = response.data.data
     }).catch(errors => {
-      console.log(errors)
+      context.error = errors.data.data
     })
   },
   // Obtener listado de rubros.
@@ -21,10 +21,9 @@ export default {
   listFields (context) {
     axios.get(globalConst().localUrl + 'rubro/')
     .then(response => {
-      context.fields = response.data.data
-      console.log('listfields')
+      context.workfields = response.data.data
     }).catch(errors => {
-      console.log(errors)
+      context.error = errors.data.data
     })
   },
   // Enviar POST request a la fuente.
@@ -33,24 +32,17 @@ export default {
   // Constraints:  post { NOMB_RUBRO: string (required) }
   // =======================================================================================
   addField (context) {
-    if (this.validate(context)) {
-      console.log('validado')
-      axios.post(
-        globalConst().localUrl + 'rubro/',
-        {
-          NOMB_RUBRO: context.field.NOMB_RUBRO
-        }
-      ).then(response => {
-        context.field = {}
-        context.error = response.data.error
-      }).catch(errors => {
-        console.log(errors)
-        context.error = true
-      })
-    } else {
-      console.log('no validado')
-      return false
-    }
+    axios.post(
+      globalConst().localUrl + 'rubro/',
+      {
+        NOMB_RUBRO: context.field.NOMB_RUBRO
+      }
+    ).then(response => {
+      context.field = {}
+      context.success = true
+    }).catch(errors => {
+      context.error = errors.data.data
+    })
   },
 
   // Enviar PUT request a la fuente
@@ -59,42 +51,28 @@ export default {
   // Constraints:  post { NOMB_CATEGORIA: string (required) }
   // =======================================================================================
   editField (context) {
-    if (this.validate(context)) {
-      axios.put(
-        globalConst().localUrl + 'rubro/' + context.field.IDEN_RUBRO + '/',
-        {
-          NOMB_RUBRO: context.field.NOMB_RUBRO
-        }
-      ).then(response => {
-        context.success = true
-      }).catch(errors => {
-        console.log(errors)
-      })
-    } else {
-      return false
-    }
+    axios.put(
+      globalConst().localUrl + 'rubro/' + context.field.IDEN_RUBRO + '/',
+      {
+        NOMB_RUBRO: context.field.NOMB_RUBRO
+      }
+    ).then(response => {
+      context.success = true
+    }).catch(errors => {
+      context.error = errors.data.data
+    })
   },
   // comentarios
   setState (id, state, context) {
-    console.log(state)
     axios.put(
       globalConst().localUrl + 'rubro/' + id + '/',
       {
         FLAG_VIGENTE: state
       }
     ).then(response => {
-      console.log(response.data)
-      // actualizar datos.
       this.listFields(context)
     }).catch(errors => {
-      console.log(errors)
+      context.error = errors.data.data
     })
-  },
-  validate (context) {
-    if (context.field.NOMB_RUBRO == null) {
-      return false
-    } else {
-      return true
-    }
   }
 }

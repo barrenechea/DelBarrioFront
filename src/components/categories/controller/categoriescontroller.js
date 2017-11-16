@@ -35,24 +35,18 @@ export default {
   //                    }
   // =======================================================================================
   addCategory (context) {
-    context.error = false
-    if (this.validate(context)) {
-      axios.post(
-        globalConst().localUrl + 'categoria/',
-        {
-          IDEN_CATEGORIA_PADRE: context.cat.IDEN_CATEGORIA_PADRE,
-          NOMB_CATEGORIA: context.cat.NOMB_CATEGORIA
-        }
-      ).then(response => {
-        context.cat = {} // Limpiar campos
-        context.error = response.data.error
-      }).catch(errors => {
-        context.error = true
-      })
-    } else {
-      context.error = true
-      return false
-    }
+    axios.post(
+      globalConst().localUrl + 'categoria/',
+      {
+        IDEN_CATEGORIA_PADRE: context.cat.IDEN_CATEGORIA_PADRE,
+        NOMB_CATEGORIA: context.cat.NOMB_CATEGORIA
+      }
+    ).then(response => {
+      context.cat = {}
+      context.success = true
+    }).catch(errors => {
+      context.error = 'Error inesperado'
+    })
   },
   // Enviar POST request a la fuente.
   // Param.:       context -> Contiene los objetos instanciados en "data".
@@ -74,22 +68,17 @@ export default {
   //                    }
   // =======================================================================================
   editCategory (context) {
-    if (this.validate(context)) {
-      console.log(context.cat)
-      axios.put(
-        globalConst().localUrl + 'categoria/' + context.cat.IDEN_CATEGORIA + '/',
-        {
-          NOMB_CATEGORIA: context.cat.NOMB_CATEGORIA,
-          IDEN_CATEGORIA_PADRE: context.IDEN_CATEGORIA_PADRE
-        }
-      ).then(response => {
-        console.log(response.data)
-      }).catch(errors => {
-        console.log(errors)
-      })
-    } else {
-      return false
-    }
+    axios.put(
+      globalConst().localUrl + 'categoria/' + context.cat.IDEN_CATEGORIA + '/',
+      {
+        NOMB_CATEGORIA: context.cat.NOMB_CATEGORIA,
+        IDEN_CATEGORIA_PADRE: context.IDEN_CATEGORIA_PADRE
+      }
+    ).then(response => {
+      context.success = true
+    }).catch(errors => {
+      console.log(errors)
+    })
   },
   // comentarios
   setState (id, state, context) {
@@ -105,12 +94,12 @@ export default {
     }).catch(errors => {
       console.log(errors)
     })
-  },
+  }/* ,
   validate (context) {
     if (context.cat.NOMB_CATEGORIA == null) {
       return false
     } else {
       return true
     }
-  }
+  } */
 }

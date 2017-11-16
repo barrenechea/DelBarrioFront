@@ -16,13 +16,10 @@ export default {
         password: context.auth.password
       }
     ).then(response => {
-      console.log(response.data.data)
-      context.error = true
-      context.message = 'Error inesperado'
-      sessionStorage.setItem('id_token', response.data.data.token)
+      console.log(response)
+      // sessionStorage.setItem('id_token', response.data.data.token)
     }).catch(response => {
-      context.error = true
-      context.message = response.data.data
+      console.log(response)
     })
   }
 }

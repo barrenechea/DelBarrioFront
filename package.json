@@ -15,12 +15,18 @@
   "dependencies": {
     "axios": "^0.16.2",
     "jquery": "^3.2.1",
+    "moment": "^2.19.2",
     "vee-validate": "^2.0.0-beta.17",
     "vue": "^2.5.3",
     "vue-croppa": "^1.1.2",
     "vue-router": "^2.8.1",
+<<<<<<< HEAD
     "vue-select": "^2.3.0",
     "vue-social-sharing": "^2.2.10"
+=======
+    "vue-truncate-collapsed": "^1.1.2",
+    "vuejs-datepicker": "^0.9.20"
+>>>>>>> a7af4db5bc33b1ca2091838823bc010e377a9598
   },
   "devDependencies": {
     "autoprefixer": "^7.1.6",
