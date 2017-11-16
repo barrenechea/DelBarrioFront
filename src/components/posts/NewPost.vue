@@ -37,6 +37,7 @@
           <input id="contenido-adulto" type="checkbox" v-model="post.FLAG_CONTENIDO_ADULTO"/>
         </div>
         <div>
+          <croppa v-model="images"></croppa>
           <button class="btn btn-success" v-on:click="addPost">Agregar</button>
         </div>
         <div>
@@ -50,6 +51,11 @@
 <script>
 import postscontroller from '@/components/posts/controller/postscontroller.js'
 import categoriescontroller from '@/components/categories/controller/categoriescontroller.js'
+import Croppa from 'vue-croppa'
+import Vue from 'vue'
+
+Vue.use(Croppa)
+
 export default {
   name: 'NewPost',
   data () {
@@ -57,7 +63,8 @@ export default {
       post: { FLAG_CONTENIDO_ADULTO: false },
       categories: {},
       subcategories: {},
-      error: false
+      error: false,
+      images: {}
     }
   },
   mounted () {
@@ -67,7 +74,9 @@ export default {
     // Llamar función addCategory en controller
     addPost (event) {
       event.preventDefault()
-      postscontroller.addPost(this)
+      this.images.generateBlob((blob) => {
+        postscontroller.addPost(this, blob)
+      })
     }
   }
 }

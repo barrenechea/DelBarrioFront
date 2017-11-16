@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { globalConst } from '@/config/global.js'
+import imagecontroller from '@/components/images/controller/imagecontroller'
 
 export default {
   // Obtener categoria especifica según id.
@@ -38,7 +39,7 @@ export default {
   //                      FLAG_CONTENIDO_ADULTO: bool
   //                    }
   // =======================================================================================
-  addPost (context) {
+  addPost (context, blob) {
     context.error = false
     if (this.validate(context)) {
       axios.post(
@@ -55,6 +56,8 @@ export default {
       ).then(response => {
         context.post = { FLAG_CONTENIDO_ADULTO: false } // Limpiar campos
         context.error = response.data.error
+        imagecontroller.addPostImage(context, response.data.data.IDEN_PUBLICACION, blob)
+        console.log(response.data.data.IDEN_PUBLICACION)
       }).catch(errors => {
         context.error = true
       })
