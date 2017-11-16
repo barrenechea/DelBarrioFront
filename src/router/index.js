@@ -111,6 +111,17 @@ export default new Router({
           component: components.NewPost
         },
         {
+          path: '/publicaciones/',
+          name: 'ClientViewPost',
+          component: components.ClientViewPost
+        },
+        {
+          path: '/publicaciones/:id',
+          name: 'PostDetail',
+          component: components.PostDetail,
+          post: true
+        },
+        {
           // DEMO - Login
           path: '/login',
           name: 'Login',

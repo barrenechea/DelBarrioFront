@@ -30,6 +30,8 @@ import ListDenouncementReasons from '@/components/denouncement-reasons/ListReaso
 
 // ENTREPENEURS - PUBLICATIONS
 import NewPost from '@/components/posts-prueba/NewPost'
+import ClientViewPost from '@/components/posts-prueba/ClientViewPost'
+import PostDetail from '@/components/posts-prueba/PostDetail'
 
 // Main components
 import Login from '@/components/main/Login'
@@ -64,6 +66,8 @@ export default {
 
   // ENTREPENEUR - PUBLICATIONS
   NewPost,
+  ClientViewPost,
+  PostDetail,
 
   // DEMO - Main - TODO: MODIFICAR LAS RUTAS
   Layout,

@@ -117,6 +117,7 @@ export default {
     },
     validateBeforeSubmit () {
       this.$validator.validateAll().then((result) => {
+        alert('Result ' + result)
         if (result) {
           postscontroller.addPost(this)
         }
