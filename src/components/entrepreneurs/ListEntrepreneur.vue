@@ -21,7 +21,7 @@
           </tr>
         </thead>
         <tbody> 
-          <tr v-for="emp in entrepreneurs">
+          <tr v-for="emp in entrepreneurs" v-if="emp.usuario != undefined">
             <td>{{emp.DESC_EMPRENDEDOR}}</td> 
             <td>{{emp.DESC_CLAVE_MUNICIPALIDAD}}</td>
             <td>{{emp.DESC_NOMBRE_FANTASIA}}</td>
@@ -50,6 +50,7 @@
 <script>
 import entrepreneurscontroller from '@/components/entrepreneurs/controller/entrepreneurscontroller.js'
 import userscontroller from '@/components/users/controller/userscontroller.js'
+import VeeValidate from 'vee-validate'
 
 export default {
   name: 'entrepreneurs',
@@ -58,9 +59,13 @@ export default {
       entrepreneurs: {}
     }
   },
+  components: {
+    VeeValidate
+  },
   mounted () {
     entrepreneurscontroller.listEntrepreneurs(this)
   },
+
   methods: {
     setState: function (id, state) {
       event.preventDefault()

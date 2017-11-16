@@ -8,7 +8,7 @@
               <div class="column is-12"> <!-- Nombres -->
                   <label class="label">Apellido paterno</label>
                   <p class="control has-icon has-icon-right">
-                      <input data-vv-as="Nombre" name="nombres" v-model="client.NOMBRES" v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('nombres') }" type="text" placeholder="Juan Andrés">
+                      <input data-vv-as="Nombre" name="nombres" v-model="client.NOMBRES" v-validate="'required|alpha_spaces|max:255'" :class="{'input': true, 'is-danger': errors.has('nombres') }" type="text" placeholder="Juan Andrés">
                       <i v-show="errors.has('nombres')" class="fa fa-warning"></i>
                       <span v-show="errors.has('nombres')" class="help is-danger">{{ errors.first('nombres') }}</span>
                   </p>
@@ -16,7 +16,7 @@
               <div class="column is-12"> <!-- APELLIDO PATERNO -->
                   <label class="label">Apellido paterno</label>
                   <p class="control has-icon has-icon-right">
-                      <input  data-vv-as="Apellido paterno" name="apellido_pat" v-model="client.APELLIDO_PATERNO" v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('apellido_pat') }" type="text" placeholder="Pérez">
+                      <input  data-vv-as="Apellido paterno" name="apellido_pat" v-model="client.APELLIDO_PATERNO" v-validate="'required|alpha_spaces|max:255q'" :class="{'input': true, 'is-danger': errors.has('apellido_pat') }" type="text" placeholder="Pérez">
                       <i v-show="errors.has('apellido_pat')" class="fa fa-warning"></i>
                       <span v-show="errors.has('apellido_pat')" class="help is-danger">{{ errors.first('apellido_pat') }}</span>
                   </p>
@@ -24,7 +24,7 @@
               <div class="column is-12"> <!-- APELLIDO MATERNO -->
                   <label class="label">Apellido materno</label>
                   <p class="control has-icon has-icon-right">
-                      <input data-vv-as="Apellido materno"  name="apellido_mat" v-model="client.APELLIDO_MATERNO" v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('apellido_mat') }" type="text" placeholder="González">
+                      <input data-vv-as="Apellido materno"  name="apellido_mat" v-model="client.APELLIDO_MATERNO" v-validate="'required|alpha_spaces|max:255'" :class="{'input': true, 'is-danger': errors.has('apellido_mat') }" type="text" placeholder="González">
                       <i v-show="errors.has('apellido_mat')" class="fa fa-warning"></i>
                       <span v-show="errors.has('apellido_mat')" class="help is-danger">{{ errors.first('apellido_mat') }}</span>
                   </p>
@@ -38,12 +38,19 @@
                   </p>
               </div>
               <div class="column is-12"> <!-- Fecha de nacimiento -->
-                  <label class="label">Fecha de nacimiento</label>
-                  <p class="control has-icon has-icon-right">
-                      <input  data-vv-as="Fecha de nacimiento"  name="birthdate" v-model="client.FECH_FECHA_NACIMIENTO" v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('birthdate') }" type="date" >
-                      <i v-show="errors.has('birthdate')" class="fa fa-warning"></i>
-                      <span v-show="errors.has('birthdate')" class="help is-danger">{{ errors.first('birthdate') }}</span>
-                  </p>
+                <label>Fecha de nacimiento</label>
+                <p class="control has-icon has-icon-right">
+                    <datepicker 
+                    language="es"
+                    :format='format'
+                    v-model="client.FECH_FECHA_NACIMIENTO"
+                    v-validate data-vv-rules="required" :class="{'datepicker': true, 'is-danger': errors.has('birthdate') }" data-vv-as="Fecha de nacimiento"
+                    data-vv-value-path="innerValue"
+                    name= "birthdate"
+                    ></datepicker>
+                    <i v-show="errors.has('birthdate')" class="fa fa-warning"></i>
+                    <span v-show="errors.has('birthdate')" class="help is-danger">{{ errors.first('birthdate') }}</span>
+                </p>
               </div>
 
               <div class="column is-12"> <!-- Contraseña -->
@@ -116,6 +123,8 @@
   import clientscontroller from '@/components/clients/controller/clientscontroller.js'
   import userscontroller from '@/components/users/controller/userscontroller.js'
   import reasonscontroller from '@/components/deactivation-reasons/controller/deactivationreasoncontroller.js'
+  import VeeValidate from 'vee-validate'
+  import Datepicker from 'vuejs-datepicker'
 
   export default {
     name: 'EditClient',
@@ -127,12 +136,18 @@
         inhab: [],
         auth: [],
         error: [],
-        reason: {}
+        reason: {},
+        format: 'dd MMM, yyyy' // ATENTO AQUI !!! //
+
       }
     },
     mounted () {
       clientscontroller.getClient(this)
       reasonscontroller.listReasons(this)
+    },
+    components: {
+      VeeValidate,
+      Datepicker
     },
     methods: {
       // Llamar función addPost en controller

@@ -67,6 +67,8 @@
 
 <script>
 import entrepreneurscontroller from '@/components/entrepreneurs/controller/entrepreneurscontroller.js'
+import VeeValidate from 'vee-validate'
+import Multiselect from 'vue-multiselect'
 
 export default {
   name: 'EditEntrepreneur',
@@ -77,6 +79,10 @@ export default {
       error: [],
       success: []
     }
+  },
+  components: {
+    VeeValidate,
+    Multiselect
   },
   mounted () {
     entrepreneurscontroller.getOwnEntrepreneur(this)

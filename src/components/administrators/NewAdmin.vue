@@ -58,6 +58,7 @@
   </div>
 </template>
 <script>
+  import VeeValidate from 'vee-validate'
   import administratorscontroller from '@/components/administrators/controller/administratorscontroller.js'
   // import validarut from '@/components/validator/validarut.js'
   // import validarRut from '@/components/entrepreneurs/validarRut.js'
@@ -69,6 +70,9 @@
         adm: {},
         error: []
       }
+    },
+    components: {
+      VeeValidate
     },
     methods: {
       // Llamar función addPost en controller

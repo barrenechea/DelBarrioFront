@@ -24,7 +24,7 @@ export default {
         headers: { Authorization: 'JWT ' + token }
       }
     ).then(responseid => {
-      context.emp = responseid.data.data.emprendedor
+      context.emp = responseid.data.data.IDEN_EMPRENDEDOR
       context.emp.EMAIL_USUARIO = responseid.data.data.EMAIL_USUARIO
   //    context.usuario = element.usuario
       context.auth.email = responseid.data.data.EMAIL_USUARIO
@@ -46,6 +46,7 @@ export default {
     axios.get(globalConst().localUrl + 'emprendedor/')
     .then(response => {
       context.entrepreneurs = response.data.data
+      console.log('emprendedores --> ' + context.entrepreneurs.IDEN_EMPRENDEDOR)
     }).catch(errors => {
       console.log(errors)
     })

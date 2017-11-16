@@ -23,7 +23,7 @@
     <!-- Clave Emprendedor-->
       <div>
           <label for="Clave_secreta">Clave emprendedor</label><br>
-          <input placeholder="Clave secreta" name="Clave_secreta" v-validate data-vv-rules="required|min:4" data-vv-as="Clave emprendedor" type="text" v-model="emp.DESC_CLAVE_MUNICIPALIDAD" id="Clave_secreta" />
+          <input placeholder="Clave secreta" name="Clave_secreta" v-validate data-vv-rules="required|min:6" data-vv-as="Clave emprendedor" type="text" v-model="emp.DESC_CLAVE_MUNICIPALIDAD" id="Clave_secreta" />
            <span v-show="errors.has('Clave_secreta')">{{ errors.first('Clave_secreta') }}</span>
       </div>
     <br>
@@ -44,17 +44,17 @@
       </div>
     <br>
 
-      <!--Rubros-->
+      <!--Rubros
       <div class="select">
         Rubro <br>
-      <v-select  v-model="emp.rubro"  v-validate data-vv-rules="required" data-vv-as="Rubro" name="rubro" id="rubro" placeholder="(Seleccionar)" :options="['Rubro 1','Rubro 2']">
-      </v-select>
+      <multi-select  v-model="emp.rubro"  v-validate data-vv-rules="required" data-vv-as="Rubro" name="rubro" id="rubro" placeholder="(Seleccionar)" :options="['Rubro 1','Rubro 2']">
+      </multi-select>
       <span v-show="errors.has('rubro')">{{ errors.first('rubro') }}</span>
       </div>
-     <br> 
+     <br> -->
      <!-- Botón -->
       <div class="row">
-        <button class="waves-effect waves-light btn" v-on:click="updateEntrepreneur" >Ingresar</button>
+        <button class="waves-effect waves-light btn" v-on:click="updateEntrepreneur" >Actualizar</button>
       </div>
       <!-- Aviso validación --> 
       <div>
@@ -64,9 +64,10 @@
   </div>
 </template>
 
-
 <script>
 import entrepreneurscontroller from '@/components/entrepreneurs/controller/entrepreneurscontroller.js'
+import VeeValidate from 'vee-validate'
+import Multiselect from 'vue-multiselect'
 
 export default {
   name: 'EditEntrepreneur',
@@ -77,6 +78,10 @@ export default {
       error: [],
       success: []
     }
+  },
+  components: {
+    VeeValidate,
+    Multiselect
   },
   mounted () {
     entrepreneurscontroller.listEntrepreneurs(this)

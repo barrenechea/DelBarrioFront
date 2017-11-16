@@ -60,6 +60,7 @@
 
 <script>
 import administratorscontroller from '@/components/administrators/controller/administratorscontroller.js'
+import VeeValidate from 'vee-validate'
 
 export default {
   name: 'EditAdmin',
@@ -73,11 +74,15 @@ export default {
   mounted () {
     administratorscontroller.getAdmin(this)
   },
+  components: {
+    VeeValidate
+  },
   methods: {
     updateAdmin (event) {
       event.preventDefault()
       administratorscontroller.updateAdmin(this)
     },
+
     validarCampo (event) {
       event.preventDefault()
       administratorscontroller.validar(this)
