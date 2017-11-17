@@ -1,6 +1,9 @@
 import axios from 'axios'
 import { globalConst } from '@/config/global.js'
+import {Validator} from 'vee-validate'
+import moment from 'moment'
 import imagecontroller from '@/components/images/controller/imagecontroller'
+Validator.installDateTimeValidators(moment)
 
 export default {
   // Obtener categoria especifica según id.
@@ -39,32 +42,45 @@ export default {
   //                      FLAG_CONTENIDO_ADULTO: bool
   //                    }
   // =======================================================================================
-  addPost (context, blob) {
-    context.error = false
-    if (this.validate(context)) {
-      axios.post(
-        globalConst().localUrl + 'publicacion/',
-        {
-          CODI_TIPO_PUBLICACION: context.post.CODI_TIPO_PUBLICACION,
-          IDEN_CATEGORIA: context.post.IDEN_CATEGORIA,
-          NOMB_PUBLICACION: context.post.NOMB_PUBLICACION,
-          DESC_PUBLICACION: context.post.DESC_PUBLICACION,
-          NUMR_PRECIO: parseInt(context.post.NUMR_PRECIO),
-          FLAG_CONTENIDO_ADULTO: context.post.FLAG_CONTENIDO_ADULTO,
-          IDEN_EMPRENDEDOR: 1 // Temporal, hasta que se implementen usuarios
+  addPost (context, blobs = undefined) {
+    axios.post(
+      globalConst().localUrl + 'publicacion/',
+      {
+        CODI_TIPO_PUBLICACION: context.post.CODI_TIPO_PUBLICACION,
+        IDEN_CATEGORIA: context.post.IDEN_CATEGORIA,
+        NOMB_PUBLICACION: context.post.NOMB_PUBLICACION,
+        DESC_PUBLICACION: context.post.DESC_PUBLICACION,
+        NUMR_PRECIO: parseInt(context.post.NUMR_PRECIO),
+        FLAG_CONTENIDO_ADULTO: context.post.FLAG_CONTENIDO_ADULTO,
+        IDEN_EMPRENDEDOR: 1
+      }).then(response => {
+        if (blobs !== undefined) {
+          imagecontroller.addPostImages(context, response.data.data.IDEN_PUBLICACION, blobs)
         }
-      ).then(response => {
-        context.post = { FLAG_CONTENIDO_ADULTO: false } // Limpiar campos
-        context.error = response.data.error
-        imagecontroller.addPostImage(context, response.data.data.IDEN_PUBLICACION, blob)
-        console.log(response.data.data.IDEN_PUBLICACION)
+        if (context.selected) {
+          console.log(new Date(context.sale.FECH_INICIO))
+          this.addSale(context, response.data.data.IDEN_PUBLICACION)
+          .then(response => {
+            context.post = { FLAG_CONTENIDO_ADULTO: false }
+          }).catch(errors => {
+            context.error = 'Error inesperado al ingresar oferta'
+          })
+        }
+        context.post = { FLAG_CONTENIDO_ADULTO: false }
       }).catch(errors => {
-        context.error = true
+        console.log(errors + 'catch')
+        context.error = 'Error inesperado al ingresar Publicación'
       })
-    } else {
-      context.error = true
-      return false
-    }
+  },
+  addSale (context, id) {
+    return axios.post(
+      globalConst().localUrl + 'oferta/',
+      {
+        IDEN_PUBLICACION: parseInt(id),
+        FECH_INICIO: moment(new Date(context.sale.FECH_INICIO)).toJSON(),
+        FECH_TERMINO: new Date(context.sale.FECH_TERMINO).toJSON(),
+        NUMR_PRECIO: parseInt(context.sale.NUMR_PRECIO)
+      })
   },
   // =======================================================================================
   // Enviar PUT request a la fuente. Se utilizó placeholder.
@@ -97,13 +113,6 @@ export default {
       })
     } else {
       return false
-    }
-  },
-  validate (context) {
-    if (context.post.NOMB_PUBLICACION == null || isNaN(context.post.NUMR_PRECIO)) {
-      return false
-    } else {
-      return true
     }
   }
 }
