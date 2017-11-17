@@ -10,8 +10,8 @@
         <div class="row">
           <div class="col-md-2 col-sm-3 col-xs-6" v-bind:key="p.IDEN_POST" v-for="p in posts">
             <a v-bind:href="'/publicaciones/'+p.IDEN_PUBLICACION ">
-              <img v-if="!p.imagen" v-bind:src="'/static/img/no-image.jpg'" class="img-responsive" alt="">
-              <img v-if="p.imagen" v-bind:src="p.imagen.URL_IMAGEN" class="img-responsive" alt="">
+              <img v-if="p.imagenes.length == 0" v-bind:src="'/static/img/no-image.jpg'" class="img-responsive" alt="">
+              <img v-else v-bind:src="'http://delbarrio.barrenechea.cl/api/'+p.imagenes[0].URL_IMAGEN" class="img-responsive" alt="">
             </a>
             <h4 class="text-center">{{p.NOMB_PUBLICACION}}</h4> 
             <p class="text-center"><truncate clamp="más" :length="40" less="menos" :text="p.DESC_PUBLICACION"></truncate></p>

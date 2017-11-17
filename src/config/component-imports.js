@@ -32,6 +32,7 @@ import ListDenouncementReasons from '@/components/denouncement-reasons/ListReaso
 import NewPost from '@/components/posts-prueba/NewPost'
 import ClientViewPost from '@/components/posts-prueba/ClientViewPost'
 import PostDetail from '@/components/posts-prueba/PostDetail'
+import EditPost from '@/components/posts-prueba/EditPost'
 
 // Main components
 import Login from '@/components/main/Login'
@@ -68,6 +69,7 @@ export default {
   NewPost,
   ClientViewPost,
   PostDetail,
+  EditPost,
 
   // DEMO - Main - TODO: MODIFICAR LAS RUTAS
   Layout,

@@ -3,6 +3,7 @@ import { globalConst } from '@/config/global.js'
 import {Validator} from 'vee-validate'
 import moment from 'moment'
 import imagecontroller from '@/components/images/controller/imagecontroller'
+import swal from 'sweetalert2'
 Validator.installDateTimeValidators(moment)
 
 export default {
@@ -94,25 +95,61 @@ export default {
   //                      id:     int (req | post-exists)
   //                    }
   // =======================================================================================
-  editPost (context) {
-    if (this.validate(context)) {
-      axios.put(
-        globalConst().localUrl + 'publicacion/' + context.post.IDEN_PUBLICACION + '/',
-        {
-          IDEN_TIPO_PUBLICACION: context.post.IDEN_TIPO_PUBLICACION,
-          IDEN_CATEGORIA: context.post.IDEN_CATEGORIA,
-          NOMB_PUBLICACION: context.post.NOMB_PUBLICACION,
-          DESC_PUBLICACION: context.post.DESC_PUBLICACION,
-          NUMR_PRECIO: context.post.NUMR_PRECIO,
-          FLAG_CONTENIDO_ADULTO: context.post.FLAG_CONTENIDO_ADULTO
+  editPost (context, blob = undefined) {
+    console.log(context)
+    axios.put(
+      globalConst().localUrl + 'publicacion/' + context.post.IDEN_PUBLICACION + '/',
+      {
+        CODI_TIPO_PUBLICACION: context.post.CODI_TIPO_PUBLICACION,
+        IDEN_CATEGORIA: context.post.IDEN_CATEGORIA,
+        NOMB_PUBLICACION: context.post.NOMB_PUBLICACION,
+        DESC_PUBLICACION: context.post.DESC_PUBLICACION,
+        NUMR_PRECIO: parseInt(context.post.NUMR_PRECIO),
+        FLAG_CONTENIDO_ADULTO: context.post.FLAG_CONTENIDO_ADULTO,
+        IDEN_EMPRENDEDOR: 1
+      }).then(response => {
+        if (blob !== undefined) {
+          imagecontroller.addPostImage(context, response.data.data.IDEN_PUBLICACION, blob)
         }
-      ).then(response => {
-        console.log(response.data)
+        context.post = { FLAG_CONTENIDO_ADULTO: false }
       }).catch(errors => {
-        console.log(errors)
+        context.error = 'Error inesperado al ingresar Publicación'
       })
-    } else {
-      return false
-    }
+  },
+  deleteImage (id, context) {
+    swal({
+      title: '¿Estás seguro?',
+      text: 'Si eliminas esta foto no podrás recuperarla luego.',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'No, cancelar',
+      customClass: "'font-family: 'Rubik'"
+    }).then(function (result) {
+      if (result.dismiss === 'cancel') {
+        swal(
+          'Cancelado',
+          'No se ha eliminado tu imagen',
+          'error'
+        )
+      } else {
+        axios.delete(
+          globalConst().localUrl + 'imagen/' + id + '/'
+        ).then(response => {
+          swal(
+            'Exito',
+            'Tu imagen ha sido eliminada.',
+            'success'
+          )
+          this.listPosts(context)
+        }).catch(errors => {
+          swal(
+            'Mal',
+            'Algo malo pasó.',
+            'error'
+          )
+        })
+      }
+    })
   }
 }

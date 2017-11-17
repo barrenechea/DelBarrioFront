@@ -122,6 +122,12 @@ export default new Router({
           post: true
         },
         {
+          path: '/publicaciones/editar/:id',
+          name: 'EditPost',
+          component: components.EditPost,
+          p: true
+        },
+        {
           // DEMO - Login
           path: '/login',
           name: 'Login',
