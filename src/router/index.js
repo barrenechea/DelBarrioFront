@@ -111,6 +111,11 @@ export default new Router({
           component: components.NewPost
         },
         {
+          path: '/publicaciones/nueva-test/',
+          name: 'NewPostDev',
+          component: components.NewPostDev // PRUEBA MULTIPLES IMAGENES
+        },
+        {
           path: '/publicaciones/',
           name: 'ClientViewPost',
           component: components.ClientViewPost

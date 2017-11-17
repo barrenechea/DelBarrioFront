@@ -30,6 +30,7 @@ import ListDenouncementReasons from '@/components/denouncement-reasons/ListReaso
 
 // ENTREPENEURS - PUBLICATIONS
 import NewPost from '@/components/posts-prueba/NewPost'
+import NewPostDev from '@/components/posts/NewPost' // PRUEBAS ARRAY DE IMAGENES
 import ClientViewPost from '@/components/posts-prueba/ClientViewPost'
 import PostDetail from '@/components/posts-prueba/PostDetail'
 import EditPost from '@/components/posts-prueba/EditPost'
@@ -70,6 +71,7 @@ export default {
   ClientViewPost,
   PostDetail,
   EditPost,
+  NewPostDev,
 
   // DEMO - Main - TODO: MODIFICAR LAS RUTAS
   Layout,
