@@ -7,7 +7,7 @@
 
           <form @submit.prevent="validateBeforeSubmit">
               <div class="column is-12"> <!-- Nombres -->
-                  <label class="label">Nombres</label>
+                  <label>Nombres</label>
                   <p class="control has-icon has-icon-right">
                       <input data-vv-as="Nombre" @change="validarCampo" name="nombres" v-model="client.nombres" v-validate="'required|alpha_spaces|max:255'" :class="{'input': true, 'is-danger': errors.has('nombres') }" type="text" placeholder="Juan Andrés">
                       <br><i v-show="errors.has('nombres')" class="fa fa-warning"></i>
@@ -15,7 +15,7 @@
                   </p>
               </div>
               <div class="column is-12"> <!-- APELLIDO PATERNO -->
-                  <label class="label">Apellido paterno</label>
+                  <label>Apellido paterno</label>
                   <p class="control has-icon has-icon-right">
                       <input  data-vv-as="Apellido paterno" @change="validarCampo" name="apellido_pat" v-model="client.apellido_pat" v-validate="'required|alpha_spaces|max:255'" :class="{'input': true, 'is-danger': errors.has('apellido_pat') }" type="text" placeholder="Pérez">
                      <br> <i v-show="errors.has('apellido_pat')" class="fa fa-warning"></i>
@@ -23,7 +23,7 @@
                   </p>
               </div>
               <div class="column is-12"> <!-- APELLIDO MATERNO -->
-                  <label class="label">Apellido materno</label>
+                  <label>Apellido materno</label>
                   <p class="control has-icon has-icon-right">
                       <input data-vv-as="Apellido materno"  @change="validarCampo" name="apellido_mat" v-model="client.apellido_mat" v-validate="'required|alpha_spaces|max:255'" :class="{'input': true, 'is-danger': errors.has('apellido_mat') }" type="text" placeholder="González">
                       <br><i v-show="errors.has('apellido_mat')" class="fa fa-warning"></i>
@@ -31,7 +31,7 @@
                   </p>
               </div>
               <div class="column is-12"> <!-- RUT -->
-                  <label class="label">RUT</label>
+                  <label>RUT</label>
                   <p class="control has-icon has-icon-right">
                       <input  data-vv-as="RUT" @change="validarCampo" name="rut" v-model="client.RUT_USUARIO" v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('rut') }" type="text" placeholder="12345678-2">
                       <br><i v-show="errors.has('rut')" class="fa fa-warning"></i>
@@ -41,7 +41,7 @@
                   </p>
               </div>
               <div class="column is-12"> <!-- Email -->
-                  <label class="label">Correo</label>
+                  <label>Correo</label>
                   <p class="control has-icon has-icon-right">
                       <input  data-vv-as="Email"  @select="validarCampo" name="email" v-model="client.email" v-validate="'required|email'" :class="{'input': true, 'is-danger': errors.has('email') }" type="text" placeholder="correo@ejemplo.cl">
                       <br><i v-show="errors.has('email')" class="fa fa-warning"></i>
@@ -68,7 +68,7 @@
 
 
               <div class="column is-12"> <!-- Contraseña -->
-                  <label class="label">Contraseña</label>
+                  <label>Contraseña</label>
                   <p class="control has-icon has-icon-right">
                       <input  data-vv-as="Contraseña"  @select="validarCampo" name="contrasena" v-model="client.password" v-validate="'required|min:6'" :class="{'input': true, 'is-danger': errors.has('contrasena') }" type="password" placeholder="******">
                       <br><i v-show="errors.has('contrasena')" class="fa fa-warning"></i>
@@ -77,7 +77,7 @@
               </div>
 
               <div class="column is-12"> <!-- Repetir Contraseña -->
-                  <label class="label">Repetir contraseña</label>
+                  <label>Repetir contraseña</label>
                   <p class="control has-icon has-icon-right">
                       <input data-vv-as="Repetir contraseña"  @select="validarCampo" name="repitecontrasena" v-model="client.repitepassword" v-validate="'required|confirmed:contrasena'" :class="{'input': true, 'is-danger': errors.has('repitecontrasena') }" type="password" placeholder="******">
                       <br><i v-show="errors.has('repitecontrasena')" class="fa fa-warning"></i>

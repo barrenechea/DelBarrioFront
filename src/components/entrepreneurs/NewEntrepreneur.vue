@@ -4,7 +4,7 @@
     <h3><br>Nuevo Emprendedor</h3>
           <form @submit.prevent="validateBeforeSubmit">
               <div class="column is-12"> <!-- Descripción de la empresa -->
-                  <label class="label">Descripción de la empresa</label>
+                  <label>Descripción de la empresa</label>
                   <p class="control has-icon has-icon-right">
                       <input data-vv-as="Descripción de la empresa" name="desc_empresa" v-model="emp.desc_empresa" v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('desc_empresa') }" type="text" placeholder=" Dedicado a la comercialización de mermeladas desde 1970...">
                       <i v-show="errors.has('desc_empresa')" class="fa fa-warning"></i>
@@ -12,7 +12,7 @@
                   </p>
               </div>
               <div class="column is-12"> <!-- RUT -->
-                  <label class="label">RUT</label>
+                  <label>RUT</label>
                   <p class="control has-icon has-icon-right">
                       <input  data-vv-as="RUT" @change="validarCampo" name="rut" v-model="emp.RUT_USUARIO" v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('rut') }" type="text" placeholder="12345678-2">
                       <i v-show="errors.has('rut')" class="fa fa-warning"></i>
@@ -21,7 +21,7 @@
                   </p>
               </div>
               <div class="column is-12"> <!-- Email -->
-                  <label class="label">Correo</label>
+                  <label>Correo</label>
                   <p class="control has-icon has-icon-right">
                       <input  data-vv-as="Email"  @select="validarCampo" name="email" v-model="emp.email" v-validate="'required|email'" :class="{'input': true, 'is-danger': errors.has('email') }" type="text" placeholder="correo@ejemplo.cl">
                       <i v-show="errors.has('email')" class="fa fa-warning"></i>
@@ -29,7 +29,7 @@
                   </p>
               </div>
               <div class="column is-12"> <!-- CLAVE Emprendedor -->
-                  <label class="label">Clave</label>
+                  <label>Clave</label>
                   <p class="control has-icon has-icon-right">
                       <input  data-vv-as="Clave secreta"  @select="validarCampo" name="clave_secreta" v-model="emp.clave" v-validate="'required|min:6'" :class="{'input': true, 'is-danger': errors.has('clave_secreta') }" type="text" placeholder="1p9W7yt5RE#">
                       <i v-show="errors.has('clave_secreta')" class="fa fa-warning"></i>
@@ -37,7 +37,7 @@
                   </p>
               </div>
               <div class="column is-12"> <!-- Nombre de fantasía -->
-                  <label class="label">Nombre de Fantasía</label>
+                  <label>Nombre de Fantasía</label>
                   <p class="control has-icon has-icon-right">
                       <input data-vv-as="Nombre de la empresa" name="nombre_fantasia" v-model="emp.nombre_fantasia" v-validate="''" :class="{'input': true, 'is-danger': errors.has('') }" type="text" placeholder="Opcional">
                       <i v-show="errors.has('')" class="fa fa-warning"></i>
@@ -45,7 +45,7 @@
                   </p>
               </div>
               <div class="column is-12"> <!-- Nombre de la empresa -->
-                  <label class="label">Nombre de la empresa</label>
+                  <label>Nombre de la empresa</label>
                   <p class="control has-icon has-icon-right">
                       <input data-vv-as="Nombre de la empresa" name="nombre_empresa" v-model="emp.nombre_empresa" v-validate="''" :class="{'input': true, 'is-danger': errors.has('') }" type="text" placeholder="Opcional">
                       <i v-show="errors.has('')" class="fa fa-warning"></i>

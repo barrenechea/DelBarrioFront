@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1><br>Nuevo Emprendedor</h1>
+    <h1><br>Editar Emprendedor</h1>
     <form class="form-group" name="form1" id="form1" >
       <!--Descripciòn de Emprendedor-->
        <div>

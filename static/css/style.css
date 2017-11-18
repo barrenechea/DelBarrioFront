@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-:root{
---warning: #000000 !important;
-}
-.header {
-    background-color: #E0DACA;
-    padding: 20px;
-=======
 body{
     font-family: 'Rubik', sans-serif;
 }
@@ -185,7 +177,6 @@ header{
     -webkit-transform: translate3d(-50%, 0, 0);
     transform: translate3d(-50%, 0, 0);
     left: 0;
->>>>>>> origin/mimi
   }
   .carousel-showmanymoveone .carousel-inner > .item.left,
   .carousel-showmanymoveone .carousel-inner > .item.prev.right,
