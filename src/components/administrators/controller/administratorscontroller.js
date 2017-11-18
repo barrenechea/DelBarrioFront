@@ -41,9 +41,11 @@ export default {
   // =======================================================================================
   addAdmin (context) {
     context.error.exclusivo = ''
+    context.existeerror = false
+    context.rutError = true
     if (this.validar(context) && !context.errors.any()) {
-      var slice2 = context.adm.RUT_USUARIO.slice(0, -1) // slice2 queda el rut sin el último caracter
-      var dv = context.adm.RUT_USUARIO.slice(-1) // dv queda con el último caracter
+      var slice2 = context.adm.rut.slice(0, -1) // slice2 queda el rut sin el último caracter
+      var dv = context.adm.rut.slice(-1) // dv queda con el último caracter
       dv = dv.toUpperCase() // DV a mayuscula en caso de ser letra
       var nmrorut = slice2.replace('.', '') // elimina los puntos de slice2
       nmrorut = nmrorut.replace('.', '')    // elimina los puntos de slice2
@@ -54,8 +56,8 @@ export default {
         {
           // --------------------
           // LLENAR TABLA USUARIOS v
-          IDEN_ROL: 3,              // identificador 2, correspondiente al ROL ADMIN
-          RUT_USUARIO: nmrorut,           // context.cliente.rut (Falta función para separar el rut)
+          IDEN_ROL: 3,               // identificador 2, correspondiente al ROL ADMIN
+          RUT_USUARIO: nmrorut,      // context.cliente.rut (Falta función para separar el rut)
           DV_USUARIO: dv,            // Falta funcion para separar DV del RUT
           EMAIL_USUARIO: context.adm.EMAIL_USUARIO,
           DESC_PASSWORD: context.adm.clave
@@ -64,16 +66,19 @@ export default {
         }
       ).then(response => {
         context.emp = {} // Limpiar campos
+        context.rutError = false
         context.error.exclusivo = 'Se ha ingresado un nuevo administrador'
+        context.success = true
         location.href = ('/administracion/administradores')
       }).catch(errors => {
-        console.log(errors)
+        context.adm = context.adm
+        console.log('errores -- > ' + errors.response.data.data.EMAIL_USUARIO)
+        context.erroremail = errors.response.data.data.EMAIL_USUARIO
       })
     } else {
       context.error.exclusivo = 'Formulario incompleto. Favor revisar los datos ingresados'
       context.adm = context.adm
       context.error = context.error
-      console.log('aerr--->' + context.error.data.data.EMAIL_USUARIO)
     }
   },
     // Enviar PUT request a la fuente. Se utilizó placeholder.
@@ -89,35 +94,35 @@ export default {
     // ============================s===========================================================
   updateAdmin (context) {
     context.error.exclusivo = ''
-    if (this.validar(context) && !context.errors.any()) {
-      var slice2 = context.adm.rut.slice(0, -1) // slice2 queda el rut sin el último caracter
-      var dv = context.adm.rut.slice(-1) // dv queda con el último caracter
-      dv = dv.toUpperCase() // DV a mayuscula en caso de ser letra
-      var nmrorut = slice2.replace('.', '') // elimina los puntos de slice2
-      nmrorut = nmrorut.replace('.', '')    // elimina los puntos de slice2
-      nmrorut = nmrorut.replace('-', '')    // elimina el guión de lo de arriba
-      nmrorut = parseInt(nmrorut)
-
+    if (!context.errors.any()) {
       axios.put(
         globalConst().localUrl + 'usuario/' + context.adm.IDEN_USUARIO + '/',
         {
           // --------------------
           // LLENAR TABLA USUARIOS v
-          // IDEN_ROL: 3,              // identificador 2, correspondiente al ROL Emprendedor
-          RUT_USUARIO: nmrorut,
-          DV_USUARIO: dv,
-          EMAIL_USUARIO: context.adm.EMAIL_USUARIO,
-          DESC_PASSWORD: context.adm.clave
+          EMAIL_USUARIO: context.adm.EMAIL_USUARIO
           // FLAG_VIGENTE: Se setea automatico en true
           // LLENAR TABLA USUARIOS ^
         }
           ).then(response => {
-            context.error.exclusivo = 'Se han actualizado los datos del administrador'
-            alert(context.error.exclusivo)
-            location.href = '/administracion/administradores'
+            if (String(context.adm.clave).length >= 6) {
+              axios.put(
+                globalConst().localUrl + 'usuario/' + context.adm.IDEN_USUARIO + '/',
+                {
+                  // --------------------
+                  // LLENAR TABLA USUARIOS v
+                  DESC_PASSWORD: context.adm.clave
+                  // FLAG_VIGENTE: Se setea automatico en true
+                  // LLENAR TABLA USUARIOS ^
+                })
+            } else {
+            }
+            context.success = true
+            context.existeerror = false
             console.log(response.data)
           }).catch(errors => {
-            console.log(errors)
+            context.erroremail = errors.response.data.data.EMAIL_USUARIO
+            context.existeerror = true
           })
     } else {
       context.error.exclusivo = 'Formulario incompleto. Favor revisar los datos ingresados'

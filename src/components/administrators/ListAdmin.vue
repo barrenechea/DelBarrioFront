@@ -18,8 +18,7 @@
           </tr>
         </thead>
         <tbody> 
-          <tr v-for="adm in administrators">
-            <div v-show="adm.IDEN_ROL == 3">
+          <tr v-for="adm in administrators" v-show="adm.IDEN_ROL == 3">
               <td>{{adm.EMAIL_USUARIO}}</td> 
               <td>{{adm.RUT_USUARIO }}-{{adm.DV_USUARIO}}</td>
               <td>
@@ -33,7 +32,6 @@
                   <i class="fa fa-check" title="Habilitar"></i>
                 </a>
               </td>
-              </div>
             </tr>
         </tbody>
       </table>

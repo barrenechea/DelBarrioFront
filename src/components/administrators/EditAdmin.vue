@@ -2,27 +2,22 @@
   <div class="container">
     <h3>Editar Administrador</h3>
           <form @submit.prevent="validateBeforeSubmit">
-              <div class="column is-12"> <!-- RUT -->
-                  <label>RUT</label>
-                  <p class="control has-icon has-icon-right">
-                      <input  data-vv-as="RUT" @change="validarCampo" name="rut" v-model="adm.rut" v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('rut') }" type="text" placeholder="12345678-2">
-                      <i v-show="errors.has('rut')" class="fa fa-warning"></i>
-                      <span v-show="errors.has('rut')" class="help is-danger">{{ errors.first('rut') }}</span>
-                      <span> {{error.rut}}</span>
-                  </p>
-              </div>
               <div class="column is-12"> <!-- Email -->
                   <label>Correo</label>
                   <p class="control has-icon has-icon-right">
                       <input  data-vv-as="Email"  @select="validarCampo" name="email" v-model="adm.EMAIL_USUARIO" v-validate="'required|email'" :class="{'input': true, 'is-danger': errors.has('email') }" type="text" placeholder="correo@ejemplo.cl">
                       <i v-show="errors.has('email')" class="fa fa-warning"></i>
                       <span v-show="errors.has('email')" class="help is-danger">{{ errors.first('email') }}</span>
+                       <div>
+                          <span v-show='existeerror'>El correo se encuentra registrado</span>
+                      </div>
                   </p>
               </div>
               <div class="column is-12"> <!-- CLAVE Emprendedor -->
-                  <label>Contraseña</label>
+                  
+                  <label>Nueva contraseña (opcional)</label>
                   <p class="control has-icon has-icon-right">
-                      <input  data-vv-as="Clave secreta"  @select="validarCampo" name="clave_secreta" v-model="adm.clave" v-validate="'required|min:6'" :class="{'input': true, 'is-danger': errors.has('clave_secreta') }" type="text" placeholder="">
+                      <input  data-vv-as="Clave secreta"  @select="validarCampo" name="clave_secreta" v-model="adm.clave" v-validate="'min:6'" :class="{'input': true, 'is-danger': errors.has('clave_secreta') }" type="text" placeholder="">
                       <i v-show="errors.has('clave_secreta')" class="fa fa-warning"></i>
                       <span v-show="errors.has('clave_secreta')" class="help is-danger">{{ errors.first('clave_secreta') }}</span>
                   </p>
@@ -30,7 +25,7 @@
               <div class="column is-12"> <!-- CLAVE Emprendedor -->
                   <label>Repetir contraseña</label>
                   <p class="control has-icon has-icon-right">
-                      <input  data-vv-as="Repite clave"  @select="validarCampo" name="repite_clave" v-model="adm.repite_clave" v-validate="'required|confirmed:clave_secreta'" :class="{'input': true, 'is-danger': errors.has('repite_clave') }" type="text" placeholder="">
+                      <input  data-vv-as="Repite clave"  @select="validarCampo" name="repite_clave" v-model="adm.repite_clave" v-validate="'confirmed:clave_secreta'" :class="{'input': true, 'is-danger': errors.has('repite_clave') }" type="text" placeholder="">
                       <i v-show="errors.has('repite_clave')" class="fa fa-warning"></i>
                       <span v-show="errors.has('repite_clave')" class="help is-danger">{{ errors.first('repite_clave') }}</span>
                   </p>
@@ -61,7 +56,6 @@
 
 <script>
 import administratorscontroller from '@/components/administrators/controller/administratorscontroller.js'
-import VeeValidate from 'vee-validate'
 
 export default {
   name: 'EditAdmin',
@@ -69,14 +63,13 @@ export default {
     return {
       adm: {},
       error: [],
-      success: false
+      success: false,
+      existeerror: false,
+      errormail: ''
     }
   },
   mounted () {
     administratorscontroller.getAdmin(this)
-  },
-  components: {
-    VeeValidate
   },
   methods: {
     updateAdmin (event) {
