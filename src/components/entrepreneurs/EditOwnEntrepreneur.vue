@@ -16,6 +16,8 @@
           <label class="label" for="email">Email</label><br>
               <input v-validate data-vv-rules="required|email" data-vv-as="email" name="email" type="text"  v-model="emp.EMAIL_USUARIO" placeholder="Email">
               <span v-show="errors.has('email')" class="help is-danger">{{ errors.first('email') }}</span>
+              <span v-show='erroremail'><br>Correo electronico ya registrado !!</span>
+
       </div>
     <br>
 
@@ -77,7 +79,8 @@ export default {
       emp: {},
       entrepreneurs: {},
       error: [],
-      success: false
+      success: false,
+      erroremail: false
     }
   },
   components: {

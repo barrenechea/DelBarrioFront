@@ -42,7 +42,6 @@ export default {
   addAdmin (context) {
     context.error.exclusivo = ''
     context.existeerror = false
-    context.rutError = true
     if (this.validar(context) && !context.errors.any()) {
       var slice2 = context.adm.rut.slice(0, -1) // slice2 queda el rut sin el último caracter
       var dv = context.adm.rut.slice(-1) // dv queda con el último caracter

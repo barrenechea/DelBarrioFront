@@ -88,6 +88,8 @@ export default {
           globalConst().localUrl + 'emprendedor/',
           {
             IDEN_USUARIO: response.data.data.IDEN_USUARIO,
+            RUT_EMPRENDEDOR: nmrorut,
+            DV_EMPRENDEDOR: dv,
             DESC_EMPRENDEDOR: context.emp.desc_empresa,
             DESC_CLAVE_MUNICIPALIDAD: context.emp.clave,
             DESC_NOMBRE_FANTASIA: context.emp.nombre_fantasia,
@@ -97,10 +99,12 @@ export default {
       }).then(response => {
         context.emp = {} // Limpiar campos
         context.success = true
-        context.error.exclusivo = 'Se ha ingresado un nuevo emprendedor'
+        context.erroremail = false
+        context.errorrut = false
         console.log(response.data)
       }).catch(errors => {
-        console.log(errors)
+        context.success = false
+        context.erroremail = true
       })
     } else {
       context.error.exclusivo = 'Formulario incompleto. Favor revisar los datos ingresados'
@@ -164,8 +168,11 @@ export default {
           }).then(response => {
             context.mensaje.exito = 'Se han actualizado los datos del emprendedor'
             context.success = true
+            context.erroremail = false
             console.log(context.mensaje.exito)
           }).catch(errors => {
+            context.success = false
+            context.erroremail = true
             console.log(errors)
           })
     } else {
