@@ -120,7 +120,7 @@ export default {
             context.existeerror = false
             console.log(response.data)
           }).catch(errors => {
-            context.erroremail = errors.response.data.data.EMAIL_USUARIO
+            context.erroremail = true
             context.existeerror = true
           })
     } else {

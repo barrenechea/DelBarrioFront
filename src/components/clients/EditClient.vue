@@ -35,6 +35,7 @@
                       <input  data-vv-as="Email"  name="email" v-model="client.EMAIL_USUARIO" v-validate="'required|email'" :class="{'input': true, 'is-danger': errors.has('email') }" type="text" placeholder="correo@ejemplo.cl">
                       <i v-show="errors.has('email')" class="fa fa-warning"></i>
                       <span v-show="errors.has('email')" class="help is-danger">{{ errors.first('email') }}</span>
+                      <span v-show='erroremail'><br>Correo electronico ya registrado !!</span>
                   </p>
               </div>
               <div class="column is-12"> <!-- Fecha de nacimiento -->
@@ -137,8 +138,8 @@
         auth: [],
         error: [],
         reason: {},
-        format: 'dd MMM, yyyy' // ATENTO AQUI !!! //
-
+        format: 'dd MMM, yyyy', // ATENTO AQUI !!! //
+        erroremail: false
       }
     },
     mounted () {

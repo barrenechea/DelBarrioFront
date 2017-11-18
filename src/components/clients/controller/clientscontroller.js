@@ -79,6 +79,7 @@ export default {
         alert('Usuario registrado con éxito')
       }).catch(errors => {
         console.log(' xD ' + errors)
+        context.erroremail = true
         context.error.exclusivo = 'Formulario incompleto.'
       })
     } else {
@@ -155,9 +156,12 @@ export default {
             )
             }).then(response => {
               console.log(response.data)
+              context.success = true
+              context.erroremail = false
               alert('Actualizado de forma éxitosa')
             }).catch(errors => {
               console.log(errors)
+              context.erroremail = true
             })
       } else {
         alert('Oops! Algo salió mal')

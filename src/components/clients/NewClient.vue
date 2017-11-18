@@ -36,7 +36,7 @@
                       <input  data-vv-as="RUT" @change="validarCampo" name="rut" v-model="client.RUT_USUARIO" v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('rut') }" type="text" placeholder="12345678-2">
                       <br><i v-show="errors.has('rut')" class="fa fa-warning"></i>
                       <span v-show="errors.has('rut')" class="help is-danger">{{ errors.first('rut') }}</span>
-                      <span> {{error.rut}}</span>
+                      <span v-show='errorrut'><br>Error en el RUT</span>
 
                   </p>
               </div>
@@ -46,6 +46,8 @@
                       <input  data-vv-as="Email"  @select="validarCampo" name="email" v-model="client.email" v-validate="'required|email'" :class="{'input': true, 'is-danger': errors.has('email') }" type="text" placeholder="correo@ejemplo.cl">
                       <br><i v-show="errors.has('email')" class="fa fa-warning"></i>
                       <span v-show="errors.has('email')" class="help is-danger">{{ errors.first('email') }}</span>
+                      <span v-show='erroremail'><br>Correo electronico ya registrado !!</span>
+
                   </p>
               </div>
 
@@ -107,7 +109,9 @@
       return {
         client: [],
         error: [],
-        format: 'dd/MM/yyyy'
+        format: 'dd/MM/yyyy',
+        errorrut: false,
+        erroremail: false
       }
     },
     components: {
@@ -122,7 +126,11 @@
       },
       validarCampo (event) {
         event.preventDefault()
-        clientscontroller.validar(this)
+        if (!clientscontroller.validar(this)) {
+          this.errorrut = true
+        } else {
+          this.errorrut = false
+        }
       },
       validateBeforeSubmit () {
         this.$validator.validateAll().then((result) => {
