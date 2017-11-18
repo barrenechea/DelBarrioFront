@@ -96,6 +96,7 @@ export default {
           )
       }).then(response => {
         context.emp = {} // Limpiar campos
+        context.success = true
         context.error.exclusivo = 'Se ha ingresado un nuevo emprendedor'
         console.log(response.data)
       }).catch(errors => {
@@ -161,8 +162,9 @@ export default {
               }
           )
           }).then(response => {
-            context.error.exclusivo = 'Se han actualizado los datos del emprendedor'
-            console.log(response.data)
+            context.mensaje.exito = 'Se han actualizado los datos del emprendedor'
+            context.success = true
+            console.log(context.mensaje.exito)
           }).catch(errors => {
             console.log(errors)
           })

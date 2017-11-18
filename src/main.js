@@ -3,19 +3,11 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import VeeValidate, { Validator } from 'vee-validate'
+/*
 import messagesEs from './components/validator/messages/es.js'
 import attributesEs from './components/validator/attributes/es.js'
-
+*/
 Vue.config.productionTip = false
-Validator.localize('es', messagesEs, attributesEs)
-Vue.use(VeeValidate, {
-  locale: 'es',
-  dictionary: {
-    es: { messages: messagesEs, attributes: attributesEs }
-  }
-})
-
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

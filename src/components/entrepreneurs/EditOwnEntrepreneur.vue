@@ -58,7 +58,7 @@
       </div>
       <!-- Aviso validación --> 
       <div>
-          <span> {{error.exclusivo}} </span>
+        <span v-show='success'><br>Datos actualizados exitosamente!</span>
       </div>
     </form>
   </div>
@@ -77,7 +77,7 @@ export default {
       emp: {},
       entrepreneurs: {},
       error: [],
-      success: []
+      success: false
     }
   },
   components: {

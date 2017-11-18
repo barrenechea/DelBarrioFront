@@ -48,8 +48,9 @@
 
 
       <!-- Aviso validación --> 
+            <!-- Aviso de éxito --> 
       <div>
-          <span> {{error.exclusivo}} </span>
+          <span v-show='success'><br>Editado exitosamente!</span>
       </div>
 
 
@@ -68,7 +69,7 @@ export default {
     return {
       adm: {},
       error: [],
-      success: []
+      success: false
     }
   },
   mounted () {

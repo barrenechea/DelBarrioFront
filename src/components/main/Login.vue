@@ -1,23 +1,34 @@
 <template>
-<div id="login-container">
-  <div id="login-form">
-    <h3>Inicia Sesión. Sorry por el diseño :(</h3>
-    <form class="form" autocomplete="off" v-on:submit="authenticate">
-      <input type="email" placeholder="email" v-model="auth.email" />
-      <input type="password" placeholder="password" v-model="auth.password" />
-      <button type="submit">LOGIN</button>
-    </form>
-  </div>
+<div class="container">
+  <h3>Iniciar Sesión</h3>
+  <!--<form @submit.prevent="validateBeforeSubmit">-->
+    <div>
+      <label>Correo electrónico</label>
+        <input v-validate data-vv-rules="required|email" data-vv-as="correo electrónico" name="email" type="text" v-model="auth.email"/>
+        <span v-show="errors.has('email')">{{ errors.first('email') }}</span>
+    </div>
+    <div>
+      <label>Contraseña</label>
+      <input type="password" v-model="auth.password" v-validate data-vv-rules="required" data-vv-as="contraseña" name="pass" />
+      <span v-show="errors.has('pass')">{{ errors.first('pass') }}</span>
+    </div>
+    <div>
+      <span v-if="error">{{message}}</span>
+    </div>
+    <button type="submit" v-on:click="authenticate">LOGIN</button>
+  <!--</form>-->
 </div>
 </template>
 
 <script>
-import controller from './auth/controller.js'
+import controller from '@/components/main/auth/controller.js'
 export default {
   name: 'login',
   data () {
     return {
-      auth: {}
+      auth: {},
+      error: false,
+      message: ''
     }
   },
   methods: {
@@ -25,23 +36,16 @@ export default {
       event.preventDefault()
       controller.login(this)
     }
+    /* validateBeforeSubmit () {
+      this.$validator.validateAll().then((result) => {
+        if (result) {
+          controller.authenticate(this)
+        }
+      })
+     } */
   },
   mounted () {
     controller.authCheck()
   }
 }
 </script>
-
-<style scoped>
-input[type="email"], input[type="password"] {
-  display: block;
-  margin: 0;
-  font-family: sans-serif;
-  font-size: 18px;
-  box-shadow: none;
-  border-radius: none;
-}
-input[type="email"]:focus, input[type="password"]:focus {
-  outline: none;
-}
-</style>

@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import components from '@/config/component-imports.js'
 import VeeValidate from 'vee-validate'
-
 Vue.use(VeeValidate)
 
 Vue.use(Router)
@@ -21,34 +20,101 @@ export default new Router({
         }
       }, */
       children: [
-        // DEMO - POSTS
+        // CATEGORIES
         {
-          path: '',
-          name: 'Demo-Posts',
-          component: components.Posts
+          path: '/administracion/categorias',
+          name: 'ListCategories',
+          component: components.ListCategories
         },
         {
-          path: '/demo-posts-new',
-          name: 'Demo-NewPost',
-          component: components.NewPost
+          path: '/administracion/categorias/nueva',
+          name: 'NewCategory',
+          component: components.NewCategory
         },
         {
-          path: '/demo-posts-edit',
-          name: 'Demo-EditPost',
-          component: components.EditPost
+          path: '/administracion/categorias/editar/:id',
+          name: 'EditCategory',
+          component: components.EditCategory,
+          category: true
+        },
+        // FAQ
+        {
+          path: '/administracion/preguntas-frecuentes/listado',
+          name: 'ListFaq',
+          component: components.ListFaq
+        },
+        {
+          path: '/administracion/preguntas-frecuentes',
+          name: 'ClientViewFaq',
+          component: components.ViewFaq
+        },
+        {
+          path: '/administracion/preguntas-frecuentes/nueva',
+          name: 'NewFaq',
+          component: components.NewFaq
+        },
+        {
+          path: '/administracion/preguntas-frecuentes/editar/:id',
+          name: 'EditFaq',
+          component: components.EditFaq,
+          faq: true
+        },
+        // TERMS AND CONDITIONS
+        {
+          path: '/administracion/terminos-condiciones',
+          name: 'NewTAC',
+          component: components.TAC
+        },
+        // DEACTIVATION REASONS
+        {
+          path: '/administracion/razon-desactivacion',
+          name: 'ListDeactivationReasons',
+          component: components.ListDeactivationReasons
+        },
+        {
+          path: '/administracion/razon-desactivacion/nuevo',
+          name: 'NewDeactivationReason',
+          component: components.NewDeactivationReason
+        },
+        // DENOUNCEMENT REASONS
+        {
+          path: '/administracion/razon-denuncia',
+          name: 'ListDenouncementReasons',
+          component: components.ListDenouncementReasons
+        },
+        {
+          path: '/administracion/razon-denuncia/nuevo',
+          name: 'NewDenouncementReason',
+          component: components.NewDenouncementReason
+        },
+        // PUBLICACIONES
+        {
+          path: '/publicaciones/nueva-test/',
+          name: 'NewPostDev',
+          component: components.NewPostDev // PRUEBA MULTIPLES IMAGENES
+        },
+        {
+          path: '/publicaciones/',
+          name: 'ClientViewPost',
+          component: components.ClientViewPost
+        },
+        {
+          path: '/publicaciones/:id',
+          name: 'PostDetail',
+          component: components.PostDetail,
+          post: true
+        },
+        {
+          path: '/publicaciones/editar/:id',
+          name: 'EditPost',
+          component: components.EditPost,
+          p: true
         },
         // EMPRENDEDORES
         {
           path: '/emprendedor/actualizar-datos',
           name: 'EditOwnEntrepreneur',
           component: components.EditOwnEntrepreneur
-        },
-
-        // CATEGORIES
-        {
-          path: '/administracion/categorias',
-          name: 'ListCategories',
-          component: components.ListCategories
         },
 
         // Publicaciones

@@ -67,15 +67,10 @@
                   </p>
               </div>
           </form>
-
-
-
-      <!-- Aviso validación --> 
+      <!-- Aviso de éxito --> 
       <div>
-          <span> {{error.exclusivo}} </span>
+          <span v-show='success'><br>Agregado exitosamente!</span>
       </div>
-
-
 
     </form>
   </div>
@@ -95,7 +90,8 @@
         emp: {},
         fieldss: [],
         options: [],
-        error: []
+        error: [],
+        success: false
       }
     },
     mounted () {

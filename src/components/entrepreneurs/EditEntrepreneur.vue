@@ -13,7 +13,7 @@
 
     <!--Email-->
      <div>
-          <label class="label" for="email">Email</label><br>
+          <label for="email">Correo</label><br>
               <input v-validate data-vv-rules="required|email" data-vv-as="email" name="email" type="text"  v-model="emp.EMAIL_USUARIO" placeholder="Email">
               <span v-show="errors.has('email')" class="help is-danger">{{ errors.first('email') }}</span>
       </div>
@@ -57,9 +57,7 @@
         <button class="waves-effect waves-light btn" v-on:click="updateEntrepreneur" >Actualizar</button>
       </div>
       <!-- Aviso validación --> 
-      <div>
-          <span> {{error.exclusivo}} </span>
-      </div>
+        <span v-show='success'><br>Editado exitosamente!</span>
     </form>
   </div>
 </template>
@@ -75,8 +73,8 @@ export default {
     return {
       emp: {},
       entrepreneurs: {},
-      error: [],
-      success: []
+      mensaje: {},
+      success: false
     }
   },
   components: {

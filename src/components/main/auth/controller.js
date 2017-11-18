@@ -9,7 +9,7 @@ export default {
     }
   },
   login (context) {
-    axios.post( // ####### CAMBIAR POR URL DE GLOBAL CONFIG #######
+    axios.post(
       globalConst().localUrl + 'auth/',
       {
         email: context.auth.email,

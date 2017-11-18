@@ -45,14 +45,10 @@
               </div>
           </form>
 
-
-
-      <!-- Aviso validación --> 
+      <!-- Aviso de éxito --> 
       <div>
-          <span> {{error.exclusivo}} </span>
+          <span v-show='success'><br>Administrador exitosamente!</span>
       </div>
-
-
 
     </form>
   </div>
@@ -68,7 +64,8 @@
     data () {
       return {
         adm: {},
-        error: []
+        error: [],
+        success: false
       }
     },
     components: {

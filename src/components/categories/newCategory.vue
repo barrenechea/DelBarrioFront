@@ -4,20 +4,26 @@
     <div class="bs-component">
       <div class="jumbotron">
         <h1>Nueva categoría</h1>
+        <form @submit.prevent="validateBeforeSubmit">
+          <div>
+            <label>Nombre</label>
+            <input v-validate data-vv-rules="required|min:5|max:50|alpha_spaces" data-vv-as="nombre" name="name" type="text" v-model="cat.NOMB_CATEGORIA"/>
+            <span v-show="errors.has('name')">{{ errors.first('name') }}</span>
+          </div>
+          <div>
+            <label>Categoria Padre</label>
+            <select v-model="cat.IDEN_CATEGORIA_PADRE">
+              <option v-bind:key="c.IDEN_CATEGORIA" v-for="c in categories" v-bind:value="c.IDEN_CATEGORIA">{{c.NOMB_CATEGORIA}}</option>
+            </select>
+          </div>
+          <div>
+            <button class="btn btn-success" type="submit">Agregar</button>
+          </div>
+        </form>
+        
         <div>
-          <label>Nombre</label>
-          <input v-validate data-vv-rules="required" data-vv-as="nombre" name="name" type="text" v-model="cat.NOMB_CATEGORIA"/>
-          <span v-show="errors.has('name')">{{ errors.first('name') }}</span>
-        </div>
-        <div>
-          <label>Categoria Padre</label>
-          <v-select label="NOMB_CATEGORIA" :value="cat.IDEN_CATEGORIA" :options="categories"></v-select>
-        </div>
-        <div>
-          <button class="btn btn-success" v-on:click="addCategory">Agregar</button>
-        </div>
-        <div>
-          <span v-show='error'>Error</span>
+          <span v-show='error.length>0'>{{error}}</span>
+          <span v-show='success'>Agregado exitosamente!</span>
         </div>
       </div>
     </div>
@@ -32,17 +38,24 @@ export default {
     return {
       cat: {},
       categories: {},
-      error: false
+      error: '',
+      success: false
     }
   },
   mounted () {
     categoriescontroller.listCategories(this)
   },
   methods: {
-    // Llamar función addCategory en controller
     addCategory (event) {
       event.preventDefault()
       categoriescontroller.addCategory(this)
+    },
+    validateBeforeSubmit () {
+      this.$validator.validateAll().then((result) => {
+        if (result) {
+          categoriescontroller.addCategory(this)
+        }
+      })
     }
   }
 }
