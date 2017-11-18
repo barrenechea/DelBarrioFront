@@ -18,8 +18,8 @@ function login (context) {
   ).then(response => {
     console.log(response)
     // sessionStorage.setItem('id_token', response.data.data.token)
-  }).catch(response => {
-    console.log(response)
+  }).catch(errors => {
+    context.message = errors.response.data.data.message ? errors.response.data.data.message : 'Error inesperado'
   })
 }
 

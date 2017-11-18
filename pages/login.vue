@@ -4,16 +4,14 @@
     <!--<form @submit.prevent="validateBeforeSubmit">-->
       <div>
         <label>Correo electrónico</label>
-          <input v-validate data-vv-rules="required|email" data-vv-as="correo electrónico" name="email" type="text" v-model="auth.email"/>
-          <span v-if="errors && errors.has('email')">{{ errors.first('email') }}</span>
+          <input type="text" v-model="auth.email"/>
       </div>
       <div>
         <label>Contraseña</label>
-        <input type="password" v-model="auth.password" v-validate data-vv-rules="required" data-vv-as="contraseña" name="pass" />
-        <span v-if="errors && errors.has('pass')">{{ errors.first('pass') }}</span>
+        <input type="password" v-model="auth.password"/>
       </div>
       <div>
-        <span v-if="error">{{message}}</span>
+        <span>{{message}}</span>
       </div>
       <button type="submit" v-on:click="authenticate">LOGIN</button>
     <!--</form>-->
