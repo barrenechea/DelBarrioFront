@@ -49,10 +49,9 @@ function POST (context) {
     }
   ).then(response => {
     context.f = {}
-    context.success = true
+    context.message = 'Agregado exitosamente!'
   }).catch(errors => {
-    context.error = 'Error inesperado'
-    console.log(errors)
+    context.message = errors.response.data.data.message ? errors.response.data.data.message : 'Error inesperado'
   })
 }
 
@@ -75,12 +74,9 @@ function PUT (context) {
       DESC_FAQ: context.f.DESC_FAQ
     }
   ).then(response => {
-    context.success = true
-    context.error = ''
+    context.message = 'Editado exitosamente!'
   }).catch(errors => {
-    context.success = false
-    context.error = 'Error inesperado'
-    console.log(errors)
+    context.message = errors.response.data.data.message ? errors.response.data.data.message : 'Error inesperado'
   })
 }
 

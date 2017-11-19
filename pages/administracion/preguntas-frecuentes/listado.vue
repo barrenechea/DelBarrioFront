@@ -22,9 +22,9 @@
               <td>{{f.NOMB_FAQ}}</td>
               <td>{{f.DESC_FAQ}}</td>
               <td>
-                <a class="btn btn-secondary" v-bind:href="'/administracion/preguntas-frecuentes/editar/'+f.IDEN_FAQ">
+                <nuxt-link :to="{ path: '/administracion/preguntas-frecuentes/editar/'+f.IDEN_FAQ }" class="btn btn-secondary">
                   <i class="fa fa-pencil-square-o" title="Editar"></i>
-                </a>
+                </nuxt-link>
                 <a class="btn btn-danger" v-on:click="deleteFaq(f)">
                   <i class="fa fa-times" title="Deshabilitar"></i>
                 </a>
@@ -32,7 +32,7 @@
             </tr>
           </tbody>
         </table>
-        <a class="btn btn-success" v-bind:href="'/administracion/preguntas-frecuentes/nueva'">Agregar</a>
+        <nuxt-link :to="{ path: '/administracion/preguntas-frecuentes/nueva' }" class="btn btn-success" >Agregar</nuxt-link>
       </div>
     </div>
   </div>

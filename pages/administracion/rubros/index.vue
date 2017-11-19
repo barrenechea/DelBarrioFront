@@ -26,20 +26,17 @@
               </td>
               <td>{{workfield.NOMB_RUBRO}}</td>
               <td>
-                <a class="btn btn-secondary" v-bind:href="'/administracion/rubros/editar/'+workfield.IDEN_RUBRO">
+                <nuxt-link :to="{ path: '/administracion/rubros/editar/'+ workfield.IDEN_RUBRO }" class="btn btn-secondary">
                   <i class="fa fa-pencil-square-o" title="Editar"></i>
-                </a>
-                <a class="btn btn-danger" v-on:click="setState(workfield)" v-show='workfield.FLAG_VIGENTE'>
-                  <i class="fa fa-times" title="Deshabilitar"></i>
-                </a>
-                <a class="btn btn-success" v-on:click="setState(workfield)" v-show='!workfield.FLAG_VIGENTE'>
-                  <i class="fa fa-check" title="Habilitar"></i>
+                </nuxt-link>
+                <a class="btn" v-bind:class="workfield.FLAG_VIGENTE ? 'btn-danger' : 'btn-success'" v-on:click="setState(workfield)" v-bind:title="workfield.FLAG_VIGENTE ? 'Deshabilitar' : 'Habilitar'">
+                  <i class="fa" v-bind:class="workfield.FLAG_VIGENTE ? 'fa-times' : 'fa-check'"></i>
                 </a>
               </td>
             </tr>
           </tbody>
         </table>
-        <a class="btn btn-success" v-bind:href="'/administracion/rubros/nuevo'">Agregar</a>
+        <nuxt-link :to="{ path: '/administracion/rubros/nuevo/' }" class="btn btn-success">Agregar</nuxt-link>
       </div>
     </div>
   </div>

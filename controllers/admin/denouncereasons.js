@@ -33,10 +33,9 @@ function POST (context) {
     }
   ).then(response => {
     context.denouncereason = {}
-    context.success = true
+    context.message = 'Agregado exitosamente!'
   }).catch(errors => {
-    context.error = 'Error inesperado'
-    console.log(errors)
+    context.message = errors.response.data.data.message ? errors.response.data.data.message : 'Error inesperado'
   })
 }
 

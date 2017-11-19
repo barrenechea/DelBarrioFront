@@ -20,9 +20,8 @@
             <button class="btn btn-success">Actualizar</button>
           </div>
         </form>
-        <div>
-          <span v-show='error.length>0'>{{error}}</span>
-          <span v-show='success'>Editado exitosamente!</span>
+        <div v-if='message'>
+          <span>{{message}}</span>
         </div>
       </div>
     </div>
@@ -35,8 +34,7 @@ import controller from '~/controllers/admin/categories'
 export default {
   data () {
     return {
-      error: '',
-      success: false
+      message: false
     }
   },
   asyncData ({ params }) {

@@ -9,10 +9,10 @@
         </div>
         <div class="row">
           <div class="col-md-2 col-sm-3 col-xs-6" v-bind:key="p.IDEN_POST" v-for="p in posts">
-            <a v-bind:href="'/publicaciones/'+p.IDEN_PUBLICACION ">
+            <nuxt-link :to="{ path: '/publicaciones/'+p.IDEN_PUBLICACION }" class="btn btn-secondary">
               <img v-if="p.imagenes.length == 0" v-bind:src="'/img/no-image.jpg'" class="img-responsive" alt="">
               <img v-else v-bind:src="'http://delbarrio.barrenechea.cl/api/'+p.imagenes[0].URL_IMAGEN" class="img-responsive" alt="">
-            </a>
+            </nuxt-link>
             <h4 class="text-center">{{p.NOMB_PUBLICACION}}</h4> 
             <!-- <p class="text-center"><truncate clamp="más" :length="40" less="menos" :text="p.DESC_PUBLICACION"></truncate></p> -->
             <h5 class="text-center">{{p.NUMR_PRECIO}} <small>C/U</small></h5>
@@ -35,15 +35,17 @@
               <div class="carousel-inner">
                 <div class="item active">
                   <div class="col-md-2 col-sm-6">
-                    <a href="emprendedor.html"><img v-bind:src="'/img/no-image.jpg'" class="img-responsive" alt=""></a>
+                    <nuxt-link :to="{ path: '/emprendedor' }">
+                      <img v-bind:src="'/img/no-image.jpg'" class="img-responsive" alt="">
+                    </nuxt-link>
                     <h4 class="text-center">Listado de emprendedores</h4>
                   </div>
                 </div>
                 <div class="item">
                   <div class="col-md-2 col-sm-6">
-                    <a href="emprendedor.html">
+                    <nuxt-link :to="{ path: '/emprendedor' }">
                       <img v-bind:src="'/img/no-image.jpg'" class="img-responsive" alt="">
-                    </a>
+                    </nuxt-link>
                     <h4 class="text-center">Emprendedor 2</h4>
                   </div>
                 </div>

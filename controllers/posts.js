@@ -50,7 +50,7 @@ function POST (context, blobs = undefined) {
     CFG.apiUrl + 'publicacion',
     {
       CODI_TIPO_PUBLICACION: context.post.CODI_TIPO_PUBLICACION,
-      IDEN_CATEGORIA: context.post.IDEN_CATEGORIA,
+      IDEN_CATEGORIA: context.post.IDEN_SUBCATEGORIA == null ? context.post.IDEN_CATEGORIA : context.post.IDEN_SUBCATEGORIA,
       NOMB_PUBLICACION: context.post.NOMB_PUBLICACION,
       DESC_PUBLICACION: context.post.DESC_PUBLICACION,
       NUMR_PRECIO: parseInt(context.post.NUMR_PRECIO),

@@ -60,8 +60,8 @@
         <div>
           <button class="btn btn-success" v-on:click="validateBeforeSubmit()">Agregar</button>
         </div>
-        <div>
-          <span v-show='error'>{{error}}</span>
+        <div v-if='message'>
+          <span>{{message}}</span>
         </div>
       </div>
     </div>
@@ -82,7 +82,7 @@ export default {
     return {
       categories: {},
       subcategories: {},
-      error: '',
+      message: false,
       images: {}
     }
   },

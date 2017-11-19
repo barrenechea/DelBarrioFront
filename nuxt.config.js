@@ -29,9 +29,12 @@ module.exports = {
   loading: { color: '#3B8070' },
   /*
   ** Plugins initialization
+  * src: route
+  * ssr: Server-side rendering
   */
   plugins: [
-    '~/plugins/vee-validate'
+    { src: '~/plugins/vee-validate', ssr: false },
+    { src: '~/plugins/croppa', ssr: false }
   ],
   /*
   ** Build configuration
@@ -42,7 +45,8 @@ module.exports = {
     */
     vendor: [
       'axios',
-      'vee-validate'
+      'vee-validate',
+      'vue-croppa'
     ],
     /*
     ** Run ESLint on save

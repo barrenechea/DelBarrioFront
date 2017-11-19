@@ -11,12 +11,11 @@
             <span v-show="errors.has('name')">{{ errors.first('name') }}</span>
           </div>
           <div>
-            <button class="btn btn-success" v-on:click="editField">Actualizar</button>
+            <button class="btn btn-success" v-on:click="PUT()">Actualizar</button>
           </div>
         </form>
-        <div>
-          <span v-show='error.length>0'>{{error}}</span>
-          <span v-show='success'>Editado exitosamente!</span>
+        <div v-if='message'>
+          <span>{{message}}</span>
         </div>
       </div>
     </div>
@@ -29,8 +28,7 @@ import controller from '~/controllers/admin/workfields'
 export default {
   data () {
     return {
-      error: '',
-      success: false
+      message: false
     }
   },
   asyncData ({ params }) {

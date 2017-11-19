@@ -10,9 +10,9 @@
         <label>Contraseña</label>
         <input type="password" v-model="auth.password"/>
       </div>
-      <div>
-        <span>{{message}}</span>
-      </div>
+      <div v-if='message'>
+          <span>{{message}}</span>
+        </div>
       <button type="submit" v-on:click="authenticate">LOGIN</button>
     <!--</form>-->
   </div>
