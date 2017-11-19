@@ -4,6 +4,12 @@
   "description": "Nuxt.js project",
   "author": "Sebastián Barrenechea <sebastian@barrenechea.cl>",
   "private": true,
+  "config": {
+    "nuxt": {
+      "host": "0.0.0.0",
+      "port": "8080"
+    }
+   },
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",

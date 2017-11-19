@@ -5,7 +5,7 @@
         <div class="row">
           <div class="col-md-6 col-md-offset-3 fondo-beige">
             <h2 class="text-center">Nueva Publicación</h2>            
-            <form class="margin-top">
+            <form class="margin-top" @submit.prevent="validateBeforeSubmit">
               <div class="upload" upload-image="">
                 <input type="file" id="files" name="files" class="input-file ng-pristine ng-valid ng-touched" files-model="" ng-model="project.fileList">
                 <label for="files">
@@ -145,7 +145,7 @@
               <div v-if='message'>
                 <span>{{message}}</span>
               </div>
-              <button type="submit" class="btn btn-default"  @click="validateBeforeSubmit()">Publicar</button>
+              <button type="submit" class="btn btn-default">Publicar</button>
             </form>
           </div>
         </div>
