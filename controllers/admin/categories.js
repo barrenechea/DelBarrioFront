@@ -91,16 +91,6 @@ function setState (category) {
   })
 }
 
-/**
- * validate (context) {
- *   if (context.cat.NOMB_CATEGORIA == null) {
- *     return false
- *   } else {
- *     return true
- *   }
- * }
- */
-
 export default {
   GET,
   GETAll,

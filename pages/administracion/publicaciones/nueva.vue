@@ -187,12 +187,12 @@ export default {
   },
   methods: {
     addPost () {
+      event.preventDefault()
       controller.POST(this)
     },
     validateBeforeSubmit () {
       this.$validator.validateAll().then(async (result) => {
-        controller.post(this)
-        /* if (result) {
+        if (result) {
           let blobs = []
           for (var key in this.images) {
             if (this.images[key].imageSet) {
@@ -205,7 +205,7 @@ export default {
           } else {
             controller.POST(this)
           }
-        } */
+        }
       })
     },
     selected (i) {

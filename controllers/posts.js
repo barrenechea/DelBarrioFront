@@ -120,11 +120,27 @@ function addSale (context, id) {
       NUMR_PRECIO: parseInt(context.sale.NUMR_PRECIO)
     })
 }
+// comentarios
+function setState (post) {
+  if (!post.FLAG_BAN) {
+    axios.put(
+      CFG.apiUrl + 'publicacion/' + post.IDEN_PUBLICACION,
+      {
+        FLAG_VIGENTE: !post.FLAG_VIGENTE
+      }
+    ).then(response => {
+      post.FLAG_VIGENTE = !post.FLAG_VIGENTE
+    }).catch(errors => {
+      console.log(errors)
+    })
+  }
+}
 
 export default {
   GET,
   GETAll,
   POST,
   PUT,
-  addSale
+  addSale,
+  setState
 }
