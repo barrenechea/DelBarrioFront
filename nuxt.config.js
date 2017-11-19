@@ -24,16 +24,23 @@ module.exports = {
     ]
   },
   /*
-  ** Customize the progress bar color
+  ** Customize the progress bar
   */
-  loading: { color: '#3B8070' },
+  // loading: { color: '#3B8070' },
+  loading: '~/components/loading.vue',
+  /*
+  ** Customize the transition between pages
+  */
+  css: [
+    '~/assets/main.css'
+  ],
   /*
   ** Plugins initialization
   * src: route
   * ssr: Server-side rendering
   */
   plugins: [
-    { src: '~/plugins/vee-validate', ssr: false },
+    { src: '~/plugins/vee-validate', ssr: true },
     { src: '~/plugins/croppa', ssr: false }
   ],
   /*

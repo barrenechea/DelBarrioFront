@@ -69,8 +69,8 @@
                   <input type="checkbox" v-model="isSale"> Oferta
                 </label>
               </div>
-              <div class="row">
-                <div class="col-sm-3">
+              <div class="row"> <!-- Corregir estilos -->
+                <div class="col-sm-6">
                   <croppa v-model="images.image1"
                           :width="200"
                           :height="200"
@@ -79,7 +79,7 @@
                           :prevent-white-space="true"
                           ></croppa>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-6">
                   <croppa v-model="images.image2"
                           :width="200"
                           :height="200"
@@ -88,7 +88,7 @@
                           :prevent-white-space="true"
                           ></croppa>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-6">
                   <croppa v-model="images.image3"
                           :width="200"
                           :height="200"
@@ -97,7 +97,7 @@
                           :prevent-white-space="true"
                           ></croppa>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-6">
                   <croppa v-model="images.image4"
                           :width="200"
                           :height="200"
@@ -159,7 +159,6 @@
 <script>
 import controller from '~/controllers/posts'
 import categoriescontroller from '~/controllers/admin/categories'
-import VeeValidate from 'vee-validate'
 import Datepicker from 'vuejs-datepicker'
 
 export default {
@@ -184,7 +183,6 @@ export default {
     return categoriescontroller.GETAll()
   },
   components: {
-    VeeValidate,
     Datepicker
   },
   methods: {
