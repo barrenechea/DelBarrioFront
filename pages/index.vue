@@ -5,7 +5,7 @@
         Este es el index
       </h1>
       <h2>
-        Generar mas adelante esta cosita
+        <nuxt-link :to="{ path: '/publicaciones'}"> Listado de Publicaciones </nuxt-link>
       </h2>
     </div>
   </section>
