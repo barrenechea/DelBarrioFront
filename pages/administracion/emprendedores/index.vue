@@ -28,8 +28,8 @@
                 <nuxt-link :to="{ path: '/administracion/emprendedores/editar/'+entrepreneur.IDEN_EMPRENDEDOR }" class="btn btn-secondary">
                   <i class="fa fa-pencil-square-o" title="Editar"></i>
                 </nuxt-link>
-                <a class="btn" v-bind:class="entrepreneur.FLAG_VIGENTE ? 'btn-danger' : 'btn-success'" v-on:click="setState(entrepreneur)" v-bind:title="entrepreneur.FLAG_VIGENTE ? 'Deshabilitar' : 'Habilitar'">
-                  <i class="fa" v-bind:class="entrepreneur.FLAG_VIGENTE ? 'fa-times' : 'fa-check'"></i>
+                <a class="btn" v-bind:class="entrepreneur.usuario.FLAG_VIGENTE ? 'btn-danger' : 'btn-success'" v-on:click="setState(entrepreneur)" v-bind:title="entrepreneur.usuario.FLAG_VIGENTE ? 'Deshabilitar' : 'Habilitar'">
+                  <i class="fa" v-bind:class="entrepreneur.usuario.FLAG_VIGENTE ? 'fa-times' : 'fa-check'"></i>
                 </a>
               </td>
             </tr>
