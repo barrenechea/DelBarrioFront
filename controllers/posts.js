@@ -60,7 +60,7 @@ function POST (context, blobs = undefined) {
     if (blobs !== undefined) {
       imagecontroller.POST(context, response.data.data.IDEN_PUBLICACION, blobs)
     }
-    if (context.selected) {
+    if (context.isSale) {
       console.log(new Date(context.sale.FECH_INICIO))
       this.addSale(context, response.data.data.IDEN_PUBLICACION)
         .then(response => {
@@ -70,6 +70,12 @@ function POST (context, blobs = undefined) {
         })
     }
     context.post = { FLAG_CONTENIDO_ADULTO: false }
+    context.images = {
+      image1: {},
+      image2: {},
+      image3: {},
+      image4: {}
+    }
   }).catch(errors => {
     console.log(errors + 'catch')
     context.error = 'Error inesperado al ingresar Publicación'

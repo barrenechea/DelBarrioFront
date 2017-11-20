@@ -107,8 +107,8 @@
                           ></croppa>
                 </div>
               </div>          
-              <hr>
               <div v-if="isSale">
+                <hr>
                 <h3>Datos de la Oferta</h3>
                 <div class="form-group">
                   <label for="precio-oferta">Precio Oferta</label>
