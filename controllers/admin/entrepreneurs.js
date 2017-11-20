@@ -103,15 +103,16 @@ function PUT (context) {
   })
 }
 
-// comentarios
-function setState (category) {
+// estado emprendedor
+function setState (entrepreneur) {
   axios.put(
-    CFG.apiUrl + 'categoria/' + category.IDEN_CATEGORIA,
+    CFG.apiUrl + 'usuario/' + entrepreneur.IDEN_USUARIO,
     {
-      FLAG_VIGENTE: !category.FLAG_VIGENTE
+      FLAG_VIGENTE: !entrepreneur.usuario.FLAG_VIGENTE
     }
   ).then(response => {
-    category.FLAG_VIGENTE = !category.FLAG_VIGENTE
+    console.log('funciona :)')
+    entrepreneur.usuario.FLAG_VIGENTE = !entrepreneur.usuario.FLAG_VIGENTE
   }).catch(errors => {
     console.log(errors)
   })
