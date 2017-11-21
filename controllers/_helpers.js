@@ -1,5 +1,5 @@
 const CFG = {
-  apiUrl: 'http://delbarrio.barrenechea.cl/api/',
+  apiUrl: 'https://delbarrio.barrenechea.cl/api/',
   localUrl: 'http://localhost:3000/'
 }
 

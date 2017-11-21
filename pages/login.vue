@@ -19,8 +19,9 @@
 </template>
 
 <script>
-import controller from '~/controllers/main/auth'
+import controller from '~/controllers/auth'
 export default {
+  middleware: 'anonymous',
   data () {
     return {
       auth: {},
@@ -32,6 +33,11 @@ export default {
     authenticate (event) {
       event.preventDefault()
       controller.login(this)
+        .then(() => {
+          if (!this.error) {
+            this.$router.push({ path: '/' })
+          }
+        })
     }
     /* validateBeforeSubmit () {
       this.$validator.validateAll().then((result) => {
@@ -40,9 +46,6 @@ export default {
         }
       })
      } */
-  },
-  mounted () {
-    controller.authCheck()
   }
 }
 </script>
