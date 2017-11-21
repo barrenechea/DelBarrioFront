@@ -45,10 +45,9 @@ function POST (context) {
     }
   ).then(response => {
     context.category = {}
-    context.success = true
+    context.message = 'Agregado exitosamente!'
   }).catch(errors => {
-    context.error = 'Error inesperado'
-    console.log(errors)
+    context.message = errors.response.data.data.message ? errors.response.data.data.message : 'Error inesperado'
   })
 }
 
@@ -71,12 +70,9 @@ function PUT (context) {
       IDEN_CATEGORIA_PADRE: context.category.IDEN_CATEGORIA_PADRE
     }
   ).then(response => {
-    context.success = true
-    context.error = ''
+    context.message = 'Editado exitosamente!'
   }).catch(errors => {
-    context.success = false
-    context.error = 'Error inesperado'
-    console.log(errors)
+    context.message = errors.response.data.data.message ? errors.response.data.data.message : 'Error inesperado'
   })
 }
 
@@ -94,16 +90,6 @@ function setState (category) {
     console.log(errors)
   })
 }
-
-/**
- * validate (context) {
- *   if (context.cat.NOMB_CATEGORIA == null) {
- *     return false
- *   } else {
- *     return true
- *   }
- * }
- */
 
 export default {
   GET,

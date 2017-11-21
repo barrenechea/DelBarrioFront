@@ -3,6 +3,20 @@ body{
 }
 /* /Body */
 
+.vdp-datepicker__calendar header {
+    display: block;
+    line-height: 40px;
+    padding: 0 !important;
+}
+
+.vdp-datepicker .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background-color: #fff !important;
+    opacity: 1 !important;
+}
+
+.vdp-datepicker .input-group {
+    display: flex !important;
+}
 
 section{
     padding: 50px 0;
@@ -29,14 +43,36 @@ p{
     margin-bottom: 15px;
 }
 
+.margin-bottom{
+    margin-bottom: 50px;
+}
+
 .no-padding{
     padding: 0;
+}
+
+.btn-default{
+    border-radius: 0;
+}
+
+.no-margin-top{
+    margin-top: 0;
+}
+
+.bold{
+    font-weight: bold;
+}
+
+.p-mini{
+    font-size: 90%;
+    line-height: 20px;
+    padding-right: 20px;
 }
 /* /Generales */
 
 
 header{
-    padding: 50px 0;
+    padding: 5px 0;
     background-color: #e0daca;
 }
 /* /Header */
@@ -89,7 +125,6 @@ header{
     font-size: 150%;
 }
 /* /Navegacion */
-
 
 
 /*----Inicio PRODUCTOS----*/
@@ -230,15 +265,16 @@ header{
   }
 }
 /* /Emprendedores */
+/*----Fin PRODUCTOS----*/
 
 
+/*----Inicio FOOTER----*/
 footer{
     padding: 50px 0;
     background-color: #e0daca;
     margin-top: 50px;
 }
-
-/* /Footer */
+/*----fin FOOTER----*/
 
 
 
@@ -271,28 +307,19 @@ footer{
     color: gray;
 }
 
-.form-control{
-    border-radius: 0 !important;
-}
 
-.btn{
-    border-radius: 0 !important;
-}
-
-#el-emprendedor .btn-default, #el-producto .btn-default{
+#el-emprendedor .btn-default, #el-producto .btn-default, #publicacion .btn-default, #registro-empresa .btn-default, #configuracion .btn-default, #busqueda .btn-default{
     background-color: #4f4344;
     border-color: #4f4344;
     width: 50%;
     color: #fff;
     letter-spacing: 0.5px;
     display: block;
-    border-radius: 0;
 }
 
-#el-emprendedor .btn-default:hover, #el-producto .btn-default:hover{ 
+#el-emprendedor .btn-default:hover, #el-producto .btn-default:hover, #publicacion .btn-default:hover, #registro-empresa .btn-default:hover, #configuracion .btn-default:hover, #busqueda .btn-default:hover{ 
     background-color: #89dbee;
     border-color: #89dbee;
-    border-radius: 0;
 }
 /* /El Emprendedor */
 
@@ -301,6 +328,20 @@ footer{
     margin-bottom: 30px;
 }
 /* /Ubicacion */
+
+#fila-productos{
+    padding-top: 0;
+}
+
+#fila-productos .btn-default{
+    margin-top: 50px;
+}
+
+#fila-productos .btn-default a:hover{
+    text-decoration: none;
+}
+/* /Fila de Productos */
+/*----fin EMPRENDEDOR----*/
 
 
 
@@ -336,14 +377,92 @@ footer{
 }
 /* /El Producto */
 
-
 #comentarios{
     padding-top: 0;
 }
+/*----fin PRODUCTO----*/
 
 
 
+/*---- Inicio NUEVA PUBLICACION ----*/
+#publicacion .fondo-beige, #registro-empresa .fondo-beige, #configuracion .fondo-beige, #faq .fondo-beige, #busqueda .fondo-beige{
+    background-color: rgba(237, 230, 217, 0.7);
+    padding: 25px 25px 60px 25px;
+}
 
+#publicacion hr, #registro-empresa hr, #configuracion hr, #busqueda hr{
+    border-color: gray;
+    margin: 25px 0;
+}
+
+#publicacion .btn-default, #registro-empresa .btn-default, #configuracion .btn-default, #busqueda .btn-default{
+    margin: 0 auto;
+    margin-top: 30px;
+}
+/*---- fin NUEVA PUBLICACION ----*/
+
+
+
+/*---- Inicio REGISTRO EMPRESA ----*/
+
+/*CSS Agregar Foto*/
+#registro-empresa .fa-camera, #publicacion .fa-camera{
+    font-size: 500%;
+    color: #4f4344;
+}
+
+#registro-empresa .upload, #publicacion .upload{
+    position: relative;
+    display: inline-block;
+    -ms-display: flex; 
+    display: flex;  
+    align-items: center;  
+    justify-content: center;
+}
+
+#registro-empresa .upload label, #publicacion .upload label{
+    color: #5F626A;
+    cursor: pointer;
+    width: 400px;
+    height: 200px;
+    position: relative;
+    display: block;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: background ease .5s;
+    pointer-events: none; /*This for FF*/
+    -ms-display: flex; 
+    display: flex;  
+    align-items: center;  
+    justify-content: center;
+}
+
+#registro-empresa .input-file, #publicacion .input-file{
+  opacity: 0; /*This*/
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+#registro-empresa .add-image, #publicacion .add-image{
+  display: block;
+  width: 100%;
+  margin: 30px auto;
+  text-align: center;
+  font-size: 11px;
+  font-family: sans-serif;
+}
+/*---- FIN REGISTRO EMPRESA ----*/
+
+
+
+/*---- Inicio CONFIGURACION ----*/
+#configuracion hr{
+    margin-top: 50px;
+}
+/*---- fin CONFIGURACION ----*/
 
 
 
@@ -354,7 +473,6 @@ footer{
     .navbar-default .navbar-nav .open .dropdown-menu>li>a{
         color: #fff;
     }
-    
     .navbar-default .navbar-nav .open .dropdown-menu>li>a:hover{
         color: #89dbee;
     }
@@ -370,12 +488,19 @@ footer{
     #el-producto h2{
         margin-top: 50px;
     }
+    #fila-productos h2{
+        text-align: center;
+    }
+    .margin-top-responsiv-20{
+        margin-top: 20px;
+    }
 }
 
 @media screen and (max-width: 768px){
     .margin-top-responsiv{
         margin-top: 70px;
     }
+
     #el-emprendedor .btn-default, #el-producto .btn-default{
         width: 100%;
     }

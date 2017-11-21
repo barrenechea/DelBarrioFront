@@ -26,17 +26,14 @@
             </td>
             <td>{{deactivationreason.NOMB_MOTIVO_DESHABILITACION}}</td>
             <td>
-              <a class="btn btn-danger" v-on:click="setState(deactivationreason)" v-show='deactivationreason.FLAG_VIGENTE'>
-                <i class="fa fa-times" title="Deshabilitar"></i>
-              </a>
-              <a class="btn btn-success" v-on:click="setState(deactivationreason)" v-show='!deactivationreason.FLAG_VIGENTE'>
-                <i class="fa fa-check" title="Habilitar"></i>
+              <a class="btn" v-bind:class="deactivationreason.FLAG_VIGENTE ? 'btn-danger' : 'btn-success'" v-on:click="setState(deactivationreason)" v-bind:title="deactivationreason.FLAG_VIGENTE ? 'Deshabilitar' : 'Habilitar'">
+                <i class="fa" v-bind:class="deactivationreason.FLAG_VIGENTE ? 'fa-times' : 'fa-check'"></i>
               </a>
             </td>
           </tr>
         </tbody>
       </table>
-      <a class="btn btn-success" v-bind:href="'/administracion/razon-desactivacion/nuevo'">Agregar</a>
+      <nuxt-link :to="{ path: '/administracion/razon-desactivacion/nuevo' }" class="btn btn-success">Agregar</nuxt-link>
     </div>
   </div>
 </div>

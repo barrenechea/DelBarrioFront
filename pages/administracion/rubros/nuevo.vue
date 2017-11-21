@@ -13,9 +13,8 @@
             <button class="btn btn-success">Agregar</button>
           </div>
         </form>
-        <div>
-          <span v-show='error.length>0'>{{error}}</span>
-          <span v-show='success'>Agregado exitosamente!</span>
+        <div v-if='message'>
+          <span>{{message}}</span>
         </div>
       </div>
     </div>
@@ -29,8 +28,7 @@ export default {
   data () {
     return {
       workfield: {},
-      error: '',
-      success: false
+      message: false
     }
   },
   asyncData () {

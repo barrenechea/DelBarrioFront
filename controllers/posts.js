@@ -50,7 +50,7 @@ function POST (context, blobs = undefined) {
     CFG.apiUrl + 'publicacion',
     {
       CODI_TIPO_PUBLICACION: context.post.CODI_TIPO_PUBLICACION,
-      IDEN_CATEGORIA: context.post.IDEN_CATEGORIA,
+      IDEN_CATEGORIA: context.post.IDEN_SUBCATEGORIA == null ? context.post.IDEN_CATEGORIA : context.post.IDEN_SUBCATEGORIA,
       NOMB_PUBLICACION: context.post.NOMB_PUBLICACION,
       DESC_PUBLICACION: context.post.DESC_PUBLICACION,
       NUMR_PRECIO: parseInt(context.post.NUMR_PRECIO),
@@ -60,7 +60,7 @@ function POST (context, blobs = undefined) {
     if (blobs !== undefined) {
       imagecontroller.POST(context, response.data.data.IDEN_PUBLICACION, blobs)
     }
-    if (context.selected) {
+    if (context.isSale) {
       console.log(new Date(context.sale.FECH_INICIO))
       this.addSale(context, response.data.data.IDEN_PUBLICACION)
         .then(response => {
@@ -70,6 +70,12 @@ function POST (context, blobs = undefined) {
         })
     }
     context.post = { FLAG_CONTENIDO_ADULTO: false }
+    context.images = {
+      image1: {},
+      image2: {},
+      image3: {},
+      image4: {}
+    }
   }).catch(errors => {
     console.log(errors + 'catch')
     context.error = 'Error inesperado al ingresar Publicación'
@@ -120,11 +126,27 @@ function addSale (context, id) {
       NUMR_PRECIO: parseInt(context.sale.NUMR_PRECIO)
     })
 }
+// comentarios
+function setState (post) {
+  if (!post.FLAG_BAN) {
+    axios.put(
+      CFG.apiUrl + 'publicacion/' + post.IDEN_PUBLICACION,
+      {
+        FLAG_VIGENTE: !post.FLAG_VIGENTE
+      }
+    ).then(response => {
+      post.FLAG_VIGENTE = !post.FLAG_VIGENTE
+    }).catch(errors => {
+      console.log(errors)
+    })
+  }
+}
 
 export default {
   GET,
   GETAll,
   POST,
   PUT,
-  addSale
+  addSale,
+  setState
 }

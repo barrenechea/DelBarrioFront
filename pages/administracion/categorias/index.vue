@@ -25,9 +25,9 @@
               </td>
               <td>{{category.NOMB_CATEGORIA}}</td>
               <td>
-                <a class="btn btn-secondary" v-bind:href="'/administracion/categorias/editar/'+category.IDEN_CATEGORIA">
+                <nuxt-link :to="{ path: '/administracion/categorias/editar/'+category.IDEN_CATEGORIA }" class="btn btn-secondary">
                   <i class="fa fa-pencil-square-o" title="Editar"></i>
-                </a>
+                </nuxt-link>
                 <a class="btn" v-bind:class="category.FLAG_VIGENTE ? 'btn-danger' : 'btn-success'" v-on:click="setState(category)" v-bind:title="category.FLAG_VIGENTE ? 'Deshabilitar' : 'Habilitar'">
                   <i class="fa" v-bind:class="category.FLAG_VIGENTE ? 'fa-times' : 'fa-check'"></i>
                 </a>
@@ -35,7 +35,7 @@
             </tr>
           </tbody>
         </table>
-        <a class="btn btn-success" v-bind:href="'/administracion/categorias/nueva'">Agregar</a>
+        <nuxt-link :to="{ path: '/administracion/categorias/nueva' }" class="btn btn-success">Agregar</nuxt-link>
       </div>
     </div>
   </div>

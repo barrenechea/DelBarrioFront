@@ -35,10 +35,10 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle usuario" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Nombre Usuario <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#"><i class="fa fa-wrench" aria-hidden="true"></i> Configuración</a></li>
+                            <li><nuxt-link to="/"><i class="fa fa-wrench" aria-hidden="true"></i> Configuración</nuxt-link></li>
                             <li><a v-on:click="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar Sesión</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a v-bind:href="'/administracion/preguntas-frecuentes'"><i class="fa fa-question-circle" aria-hidden="true"></i> Preguntas Frecuentes</a></li>
+                            <li><nuxt-link to="/administracion/preguntas-frecuentes"><i class="fa fa-question-circle" aria-hidden="true"></i> Preguntas Frecuentes</nuxt-link></li>
                         </ul>
                     </li>
                 </ul>
@@ -60,7 +60,7 @@
 </template>
 
 <script>
-  import controller from '@/layouts/controller/layoutcontroller.js'
+  import controller from '~/layouts/controller/layoutcontroller.js'
   export default {
     name: 'login',
     methods: {
