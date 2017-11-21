@@ -1,5 +1,5 @@
 <template>
-<section id="publicacion" class="container-fluid">
+  <section id="publicacion" class="container-fluid">
     <div class="container">
       <div class="row">
         <div class="col-md-6 col-md-offset-3 fondo-beige">

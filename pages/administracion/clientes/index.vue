@@ -1,16 +1,13 @@
 <template>
-  <section class="container-fluid" id="admin-faq">
+  <section id="admin-faq" class="container-fluid">
     <div class="container fondo-beige">
       <div class="row">
         <div class="col-xs-12">
-          <h2 class="text-center">Categorías</h2>
+          <h2 class="text-center">Clientes</h2>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-4 col-sm-6 margin-top">
-          <nuxt-link :to="{ path: '/administracion/categorias/nueva' }" class="btn btn-tabla"><i class="fa fa-plus"></i> Agregar</nuxt-link>
-        </div>
-        <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 margin-top">
+        <div class="col-md-4 col-md-offset-8 col-sm-6 col-sm-offset-3 margin-top">
           <form class="input-group text-truncate">
             <input class="form-control" name="search" placeholder="Buscar" autocomplete="off" autofocus="autofocus" type="text">
             <div class="input-group-btn">
@@ -24,28 +21,28 @@
           <table class="table table-hover table-condensed">
             <thead>
               <tr>
-                <th>Estado</th>
+                <th>Estado</th>  
+                <th>E-mail</th>
                 <th>Nombre</th>
+                <th>Fecha de nacimiento</th>
                 <th>Acción</th>
               </tr>
             </thead>
             <tbody>
-              <tr :key="category.IDEN_CATEGORIA" v-for="category in categories">
+              <tr :key="client.IDEN_PERSONA" v-for="client in clients">
+                <td><i class="fa fa-2x" v-bind:class="client.usuario.FLAG_BAN ? 'fa-times' : 'fa-check'" v-bind:title="client.usuario.FLAG_BAN ? 'Deshabilitado' : 'Habilitado'"></i></td>
+                <td>{{client.usuario.EMAIL_USUARIO}}</td>
+                <td>{{client.NOMBRES + ' ' + client.APELLIDO_PATERNO+ ' ' +client.APELLIDO_MATERNO}}</td>
+                <td>{{client.FECH_FECHA_NACIMIENTO | dateFormat }}</td>
                 <td>
-                  <i class="fa fa-2x" v-bind:class="category.FLAG_VIGENTE ? 'fa-check' : 'fa-times'" v-bind:title="category.FLAG_VIGENTE ? 'Habilitado' : 'Deshabilitado'"></i>
-                </td>
-                <td>{{category.NOMB_CATEGORIA}}</td>
-                <td>
-                  <nuxt-link :to="{ path: '/administracion/categorias/editar/'+category.IDEN_CATEGORIA }" class="btn btn-secondary">
-                    <i class="fa fa-pencil-square-o" title="Editar"></i>
-                  </nuxt-link>
-                  <a class="btn" v-bind:class="category.FLAG_VIGENTE ? 'btn-danger' : 'btn-success'" v-on:click="setState(category)" v-bind:title="category.FLAG_VIGENTE ? 'Deshabilitar' : 'Habilitar'">
-                    <i class="fa" v-bind:class="category.FLAG_VIGENTE ? 'fa-times' : 'fa-check'"></i>
+                  <a class="btn" v-bind:class="client.usuario.FLAG_BAN ? 'btn-success' : 'btn-danger'" v-on:click="setState(client)" v-bind:title="client.usuario.FLAG_BAN ? 'Habilitar' : 'Deshabilitar'">
+                    <i class="fa" v-bind:class="client.usuario.FLAG_BAN ? 'fa-check' : 'fa-times'"></i>
                   </a>
                 </td>
               </tr>
             </tbody>
-          </table>
+          </table><!-- /tabla -->
+                      
           <nav aria-label="Page navigation">
             <ul class="pagination">
               <li>
@@ -63,22 +60,29 @@
               </li>
             </ul>
           </nav>
+        <!-- /paginacion -->              
         </div>
       </div>
-    </div>
-  </section>
+    </div><!-- /container -->
+  </section><!-- /Tabla Publicaciones -->
 </template>
 
 <script>
-import controller from '~/controllers/admin/categories'
+import controller from '~/controllers/admin/clients'
+import moment from 'moment'
 
 export default {
   asyncData () {
     return controller.GETAll()
   },
   methods: {
-    setState: category => {
-      controller.setState(category)
+    setState: client => {
+      controller.setState(client)
+    }
+  },
+  filters: {
+    dateFormat: function (date) {
+      return moment(String(date)).format('DD/MM/YYYY')
     }
   }
 }

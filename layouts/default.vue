@@ -92,6 +92,9 @@
                       <ul class="dropdown-menu">
                         <li><nuxt-link to="/administracion/categorias">Categorías</nuxt-link></li>
                         <li><nuxt-link to="/administracion/rubros">Rubros</nuxt-link></li>
+                        <li><nuxt-link to="/administracion/razon-desactivacion">Razones de desactivación</nuxt-link></li>
+                        <li><nuxt-link to="/administracion/razon-denuncia">Razones de denuncia</nuxt-link></li>
+
                         <li><nuxt-link to="/administracion/terminos-condiciones">Términos y condiciones</nuxt-link></li>
                         <li><nuxt-link to="/administracion/preguntas-frecuentes">Preguntas Frecuentes</nuxt-link></li>
                       </ul>

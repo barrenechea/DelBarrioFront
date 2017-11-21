@@ -1,25 +1,24 @@
 <template>
-  <div class="container">
-    <div col-md-12><br/></div> <!--Esto está ordinario. Cambiar-->
-    <div class="bs-component">
-      <div class="jumbotron">
-        <h1>Nueva razón de deshabilitación de cuenta</h1>
-        <form @submit.prevent="validateBeforeSubmit">
-          <div>
-            <label>Nombre</label>
-            <input v-validate data-vv-rules="required|min:5|max:100" data-vv-as="nombre" name="name" type="text" v-model="deactivationreason.NOMB_MOTIVO_DESHABILITACION"/>
-            <span v-show="errors.has('name')">{{ errors.first('name') }}</span>
-          </div>
-          <div>
-            <button class="btn btn-success">Agregar</button>
-          </div>
-        </form>
-        <div v-if='message'>
-          <span>{{message}}</span>
+  <section id="publicacion" class="container-fluid">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3 fondo-beige">
+          <h2 class="text-center">Nueva razón de desactivación</h2>
+          <form @submit.prevent="validateBeforeSubmit">
+            <div class="form-group margin-top">
+              <label for="name">Nombre</label>
+              <input v-validate data-vv-rules="required|min:5|max:100" data-vv-as="nombre" name="name" type="text" v-model="deactivationreason.NOMB_MOTIVO_DESHABILITACION" class="form-control"/>
+              <small class="text-danger" v-show="errors.has('name')">{{ errors.first('name') }}</small>
+            </div>
+            <div v-if='message'>
+              <span>{{message}}</span>
+            </div>
+            <button type="submit" class="btn btn-default">Guardar</button>
+          </form>
         </div>
       </div>
-    </div>
-  </div>
+    </div><!-- /container -->
+  </section><!-- /Tabla Publicaciones -->
 </template>
 
 <script>

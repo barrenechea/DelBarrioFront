@@ -225,8 +225,11 @@ export default {
 </script>
 
 <style>
-.croppa-container canvas {
-  cursor: pointer !important;
-  border-style: dashed;
-}
+  .croppa-container canvas {
+    cursor: pointer !important;
+    border-style: groove;
+    background-color: #fff !important;
+    border-width: 1px;
+    border-color: #fcfcfc !important;
+  }
 </style>
