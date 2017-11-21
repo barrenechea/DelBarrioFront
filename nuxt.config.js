@@ -48,6 +48,18 @@ module.exports = {
     { src: '~/plugins/croppa', ssr: false }
   ],
   /*
+  ** Modules initialization
+  */
+  modules: [
+    '@nuxtjs/axios'
+  ],
+  /*
+  ** Axios configuration
+  */
+  axios: {
+    baseURL: 'https://delbarrio.barrenechea.cl/api'
+  },
+  /*
   ** Build configuration
   */
   build: {

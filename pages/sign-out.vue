@@ -7,7 +7,7 @@ import controller from '~/controllers/auth'
 export default {
   middleware: 'authenticated',
   mounted () {
-    controller.unsetToken()
+    controller.unsetToken(this)
     this.$router.push({ path: '/' })
   }
 }
