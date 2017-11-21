@@ -1,31 +1,30 @@
 <template>
-  <div class="container">
-    <div col-md-12><br/></div> <!--Esto está ordinario. Cambiar-->
-    <div class="bs-component">
-      <div class="jumbotron">
-        <h1>Nueva categoría</h1>
-        <form @submit.prevent="validateBeforeSubmit">
-          <div>
-            <label>Nombre</label>
-            <input v-validate data-vv-rules="required|min:5|max:50|alpha_spaces" data-vv-as="nombre" name="name" type="text" v-model="category.NOMB_CATEGORIA"/>
-            <span v-show="errors.has('name')">{{ errors.first('name') }}</span>
-          </div>
-          <div>
-            <label>Categoria Padre</label>
-            <select v-model="category.IDEN_CATEGORIA_PADRE">
-              <option v-bind:key="c.IDEN_CATEGORIA" v-for="c in categories" v-bind:value="c.IDEN_CATEGORIA">{{c.NOMB_CATEGORIA}}</option>
-            </select>
-          </div>
-          <div>
-            <button class="btn btn-success" type="submit">Agregar</button>
-          </div>
-        </form>
-        <div v-if='message'>
-          <span>{{message}}</span>
+<section id="publicacion" class="container-fluid">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3 fondo-beige">
+          <h2 class="text-center">Nueva Categoría</h2>
+          <form @submit.prevent="validateBeforeSubmit">
+            <div class="form-group margin-top">
+              <label for="name">Nombre</label>
+              <input v-validate data-vv-rules="required|min:5|max:50|alpha_spaces" data-vv-as="nombre" name="name" type="text" v-model="category.NOMB_CATEGORIA" class="form-control"/>
+              <small class="text-danger" v-show="errors.has('name')">{{ errors.first('name') }}</small>
+            </div>
+            <div class="form-group margin-top">
+              <label for="parent">Categoria Padre</label>
+              <select v-model="category.IDEN_CATEGORIA_PADRE" class="form-control" name="parent">
+                <option v-bind:key="c.IDEN_CATEGORIA" v-for="c in categories" v-bind:value="c.IDEN_CATEGORIA">{{c.NOMB_CATEGORIA}}</option>
+              </select>
+            </div>
+            <div v-if='message'>
+              <span>{{message}}</span>
+            </div>
+            <button type="submit" class="btn btn-default">Guardar</button>
+          </form>
         </div>
       </div>
-    </div>
-  </div>
+    </div><!-- /container -->
+  </section><!-- /Tabla Publicaciones -->
 </template>
 
 <script>

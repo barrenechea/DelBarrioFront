@@ -11,7 +11,7 @@
         <div>
           <label>Categoria</label>
           <select v-model="post.IDEN_CATEGORIA" v-validate data-vv-rules="required" data-vv-as="categoría" name="category">
-            <option value="undefined">-- Seleccionar --</option>
+            <option value="undefined">Seleccionar</option>
             <option v-bind:key="c.IDEN_CATEGORIA" v-for="c in categories" v-bind:value="c.IDEN_CATEGORIA">{{c.NOMB_CATEGORIA}}</option>
           </select>
           <span v-show="errors.has('category')">{{ errors.first('category') }}</span>
@@ -19,7 +19,7 @@
         <div>
           <label>Tipo de publicación</label>
           <select v-model="post.CODI_TIPO_PUBLICACION" v-validate data-vv-rules="required" data-vv-as="tipo de publicación" name="type">
-            <option value="undefined">-- Seleccionar --</option>
+            <option value="undefined">Seleccionar</option>
             <option value="P">Producto</option>
             <option value="S">Servicio</option>
           </select>
@@ -38,23 +38,14 @@
           <label for="contenido-adulto">Contenido Adulto</label>
           <input id="contenido-adulto" type="checkbox" v-model="post.FLAG_CONTENIDO_ADULTO"/>
         </div>
-        <div class="row" v-bind:key="img.IDEN_IMAGEN" v-for="img in post.imagenes">
-          <div class="col-md-2 col-sm-6">
-            <img v-bind:src="'http://delbarrio.barrenechea.cl/api/'+img.URL_IMAGEN" class="img-responsive" alt=""></img>
-          </div>
-          <div class="col-md-2 col-sm-6">
-            <a class="btn btn-danger" v-on:click="deleteImageConfirmation(img.IDEN_IMAGEN, this)">
-              <i class="fa fa-times" title="Eliminar"></i>
-            </a>
-          </div>
-        </div>
-        <div v-if="post.imagenes.length<4">
-          <croppa v-model="images"
+        <div>
+          <croppa v-model="images.image1"
                   :width="200"
                   :height="200"
                   placeholder="Subir Imagen"
                   :placeholder-font-size="18"
                   :prevent-white-space="true"
+                  :initial-image="'https://delbarrio.barrenechea.cl/'+post.imagenes[0].URL_IMAGEN"
           ></croppa>
         </div>
         <div>
@@ -80,14 +71,22 @@ export default {
   name: 'NewPost',
   data () {
     return {
-      categories: {},
-      subcategories: {},
       message: false,
-      images: {}
+      images: {},
+      categories: {}
     }
   },
   asyncData ({ params }) {
-    return categoriescontroller.GET(params.id)
+    return categoriescontroller.GETAll()
+      .then(categories => {
+        return controller.GET(params.id)
+          .then(post => {
+            return {
+              id: post.id,
+              post: post.post
+            }
+          })
+      })
   },
   components: {
     VeeValidate

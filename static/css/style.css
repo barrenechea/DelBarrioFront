@@ -1,8 +1,3 @@
-body{
-    font-family: 'Rubik', sans-serif;
-}
-/* /Body */
-
 .vdp-datepicker__calendar header {
     display: block;
     line-height: 40px;
@@ -17,6 +12,20 @@ body{
 .vdp-datepicker .input-group {
     display: flex !important;
 }
+
+.form-control{
+    border-radius: 0 !important;
+}
+
+.btn {
+    border-radius: 0 !important;
+}
+
+body{
+    font-family: 'Rubik', sans-serif;
+}
+/* /Body */
+
 
 section{
     padding: 50px 0;
@@ -308,7 +317,7 @@ footer{
 }
 
 
-#el-emprendedor .btn-default, #el-producto .btn-default, #publicacion .btn-default, #registro-empresa .btn-default, #configuracion .btn-default, #busqueda .btn-default{
+#el-emprendedor .btn-default, #el-producto .btn-default, #publicacion .btn-default, #registro-empresa .btn-default, #configuracion .btn-default, #busqueda .btn-default, #admin-agregar-faq .btn-default{
     background-color: #4f4344;
     border-color: #4f4344;
     width: 50%;
@@ -317,7 +326,7 @@ footer{
     display: block;
 }
 
-#el-emprendedor .btn-default:hover, #el-producto .btn-default:hover, #publicacion .btn-default:hover, #registro-empresa .btn-default:hover, #configuracion .btn-default:hover, #busqueda .btn-default:hover{ 
+#el-emprendedor .btn-default:hover, #el-producto .btn-default:hover, #publicacion .btn-default:hover, #registro-empresa .btn-default:hover, #configuracion .btn-default:hover, #busqueda .btn-default:hover, #admin-agregar-faq .btn-default:hover{ 
     background-color: #89dbee;
     border-color: #89dbee;
 }
@@ -380,12 +389,17 @@ footer{
 #comentarios{
     padding-top: 0;
 }
+
+.contorno{
+    border: 1px solid #ccc;
+    padding: 20px 30px;
+}
 /*----fin PRODUCTO----*/
 
 
 
 /*---- Inicio NUEVA PUBLICACION ----*/
-#publicacion .fondo-beige, #registro-empresa .fondo-beige, #configuracion .fondo-beige, #faq .fondo-beige, #busqueda .fondo-beige{
+#publicacion .fondo-beige, #registro-empresa .fondo-beige, #configuracion .fondo-beige, #faq .fondo-beige, #busqueda .fondo-beige, #admin-publicaciones .fondo-beige, #admin-denuncias .fondo-beige, #admin-clientes .fondo-beige, #admin-emprendedores .fondo-beige, #admin-faq .fondo-beige, #admin-agregar-faq .fondo-beige, #admin-categorias .fondo-beige{
     background-color: rgba(237, 230, 217, 0.7);
     padding: 25px 25px 60px 25px;
 }
@@ -463,6 +477,75 @@ footer{
     margin-top: 50px;
 }
 /*---- fin CONFIGURACION ----*/
+
+
+/*---- Vistas del Admin ----*/
+/*---- Inicio PUBLICACIONES ----*/
+#admin-categorias .table, #admin-denuncias .table, #admin-clientes .table, #admin-emprendedores .table, #admin-faq .table{
+    background-color: #fff;
+}
+/*---- Fin PUBLICACIONES ----*/
+
+
+/*---- Inicio DENUNCIAS ----*/
+.btn-tabla{
+    background-color: #4f4344;
+    color: #fff;
+    padding: 5px 20px;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+
+.btn-tabla:hover{
+    text-decoration: none;
+    background-color: #89dbee;
+    color: #fff;
+}
+/*---- Fin DENUNCIAS ----*/
+
+
+/*---- Inicio FAQ ----*/
+#admin-faq .fa-minus-circle{
+    margin-left: 25px;
+}
+
+#admin-faq .fa, #admin-publicaciones .fa, #admin-denuncias .fa{
+    font-size: 140%;
+}
+
+#admin-faq .pagination{
+    margin: 0 auto;
+    display: table;
+    margin-top: 60px;
+}
+
+#admin-faq .fa-plus-circle{
+    margin-right: 5px;
+    font-size: 250%;
+}
+
+.agregar p{
+    font-size: 150%;
+    margin-top: 30px;
+}
+
+.agregar a{
+    color: #333;
+}
+
+.agregar a:hover{
+    text-decoration: none;
+    color: #50c1d3;
+}
+
+#admin-agregar-faq .btn-default{
+    margin: 50px auto;
+}
+/*---- fin FAQ ----*/
+
+
+
 
 
 
