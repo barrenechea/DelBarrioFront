@@ -1,44 +1,72 @@
 <template>
-  <div class="container">
-    <div class="bs-component">
-      <div class="jumbotron">
-        <h1>Emprendedores</h1>
-        <div class="row">
-          <div class="col-md-4 offset-md-8">
-            <div class="form-group">
-              <input class="form-control form-control-lg" type="text" id="inputLarge" placeholder="Buscar">
-            </div>
-          </div>
+<section class="container-fluid" id="admin-faq">
+    <div class="container fondo-beige">
+      <div class="row">
+        <div class="col-xs-12">
+          <h2 class="text-center">Emprendedores</h2>
         </div>
-        <table class="table table-responsive">
-          <thead>
-            <tr>
-              <th>Estado</th>
-              <th>Nombre</th>
-              <th>Acción</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr :key="entrepreneur.IDEN_CATEGORIA" v-for="entrepreneur in entrepreneurs">
-              <td>
-                <i class="fa fa-2x" v-bind:class="entrepreneur.FLAG_VIGENTE ? 'fa-check' : 'fa-times'" v-bind:title="entrepreneur.FLAG_VIGENTE ? 'Habilitado' : 'Deshabilitado'"></i>
-              </td>
-              <td><nuxt-link :to="{ path: '/emprendedores/' + entrepreneur.IDEN_EMPRENDEDOR }">{{entrepreneur.DESC_NOMBRE_FANTASIA}}</nuxt-link></td>
-              <td>
-                <nuxt-link :to="{ path: '/administracion/emprendedores/editar/'+entrepreneur.IDEN_EMPRENDEDOR }" class="btn btn-secondary">
-                  <i class="fa fa-pencil-square-o" title="Editar"></i>
-                </nuxt-link>
-                <a class="btn" v-bind:class="entrepreneur.usuario.FLAG_VIGENTE ? 'btn-danger' : 'btn-success'" v-on:click="setState(entrepreneur)" v-bind:title="entrepreneur.usuario.FLAG_VIGENTE ? 'Deshabilitar' : 'Habilitar'">
-                  <i class="fa" v-bind:class="entrepreneur.usuario.FLAG_VIGENTE ? 'fa-times' : 'fa-check'"></i>
+      </div>
+      <div class="row">
+        <div class="col-md-4 col-sm-6 margin-top">
+          <nuxt-link :to="{ path: '/administracion/emprendedores/nuevo' }" class="btn btn-tabla"><i class="fa fa-plus"></i> Agregar</nuxt-link>
+        </div>
+        <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 margin-top">
+          <form class="input-group text-truncate">
+            <input class="form-control" name="search" placeholder="Buscar" autocomplete="off" autofocus="autofocus" type="text">
+            <div class="input-group-btn">
+              <button class="btn btn-outline-success" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row margin-top">
+        <div class="col-xs-12 table-responsive">
+          <table class="table table-hover table-condensed">
+            <thead>
+              <tr>
+                <th>Estado</th>
+                <th>Nombre</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr :key="entrepreneur.IDEN_CATEGORIA" v-for="entrepreneur in entrepreneurs">
+                <td>
+                  <i class="fa fa-2x" v-bind:class="entrepreneur.usuario.FLAG_BAN ? 'fa-times' : 'fa-check'" v-bind:title="entrepreneur.FLAG_BAN ? 'Deshabilitado' : 'Habilitado'"></i>
+                </td>
+                <td><nuxt-link :to="{ path: '/emprendedores/' + entrepreneur.IDEN_EMPRENDEDOR }">{{entrepreneur.DESC_NOMBRE_FANTASIA}}</nuxt-link></td>
+                <td>
+                  <nuxt-link :to="{ path: '/administracion/emprendedores/editar/'+entrepreneur.IDEN_EMPRENDEDOR }" class="btn btn-secondary">
+                    <i class="fa fa-pencil-square-o" title="Editar"></i>
+                  </nuxt-link>
+                  <a class="btn" v-bind:class="entrepreneur.usuario.FLAG_BAN ? 'btn-success' : 'btn-danger'" v-on:click="setState(entrepreneur)" v-bind:title="entrepreneur.usuario.FLAG_BAN ? 'Deshabilitar' : 'Habilitar'">
+                    <i class="fa" v-bind:class="entrepreneur.usuario.FLAG_BAN ? 'fa-check' : 'fa-times'"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <nav aria-label="Page navigation">
+            <ul class="pagination">
+              <li>
+                <a href="#" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
                 </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <nuxt-link :to="{ path: '/administracion/emprendedores/nuevo' }" class="btn btn-success">Agregar</nuxt-link>
+              </li>
+              <li><a href="#">1</a></li>
+              <li><a href="#">2</a></li>
+              <li><a href="#">3</a></li>
+              <li>
+                <a href="#" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
