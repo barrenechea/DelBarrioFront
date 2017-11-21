@@ -37,10 +37,10 @@ export default {
       message: false
     }
   },
-  asyncData ({ params }) {
-    return controller.GET(params.id)
+  asyncData ({ app, params }) {
+    return controller.GET(app, params.id)
       .then(category => {
-        return controller.GETAll()
+        return controller.GETAll(app)
           .then(categories => {
             return {
               id: category.id,

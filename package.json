@@ -19,7 +19,9 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
-    "axios": "^0.17.1",
+    "@nuxtjs/axios": "^4.5.0",
+    "js-cookie": "^2.2.0",
+    "jwt-decode": "^2.2.0",
     "moment": "^2.19.2",
     "nuxt": "^1.0.0-rc11",
     "sweetalert2": "^7.0.0",
@@ -28,7 +30,6 @@
     "vue-social-sharing": "^2.2.10",
     "vue-swiper": "^0.5.0",
     "vue-truncate-collapsed": "^1.1.2",
-    "vue2-breadcrumbs": "^2.0.0",
     "vuejs-datepicker": "^0.9.20"
   },
   "devDependencies": {

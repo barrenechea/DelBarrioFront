@@ -37,8 +37,8 @@ export default {
       message: false
     }
   },
-  asyncData () {
-    return controller.GETAll()
+  asyncData ({ app }) {
+    return controller.GETAll(app)
   },
   methods: {
     validateBeforeSubmit () {
