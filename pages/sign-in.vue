@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h3>Iniciar Sesión</h3>
-    <!--<form @submit.prevent="validateBeforeSubmit">-->
+    <form @submit.prevent="validateBeforeSubmit">
       <div>
         <label>Correo electrónico</label>
           <input type="text" v-model="auth.email"/>
@@ -13,8 +13,8 @@
       <div v-if='message'>
           <span>{{message}}</span>
         </div>
-      <button type="submit" v-on:click="authenticate">LOGIN</button>
-    <!--</form>-->
+      <button type="submit">LOGIN</button>
+    </form>
   </div>
 </template>
 
@@ -30,8 +30,12 @@ export default {
     }
   },
   methods: {
-    authenticate (event) {
-      event.preventDefault()
+    validateBeforeSubmit () {
+      // this.$validator.validateAll().then((result) => {
+      //   if (result) {
+      //     controller.authenticate(this)
+      //   }
+      // }
       controller.login(this)
         .then(() => {
           if (!this.error) {
@@ -39,13 +43,6 @@ export default {
           }
         })
     }
-    /* validateBeforeSubmit () {
-      this.$validator.validateAll().then((result) => {
-        if (result) {
-          controller.authenticate(this)
-        }
-      })
-     } */
   }
 }
 </script>

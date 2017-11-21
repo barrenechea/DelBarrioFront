@@ -29,7 +29,6 @@ function unsetToken () {
   if (process.SERVER_BUILD) return
   window.localStorage.removeItem('token')
   Cookie.remove('jwt')
-  window.localStorage.setItem('logout', Date.now())
 }
 
 function getUserFromCookie (req) {
