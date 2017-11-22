@@ -105,14 +105,15 @@ function PUT (context) {
 
 // estado emprendedor
 function setState (entrepreneur) {
+  console.log(!entrepreneur.usuario.FLAG_BAN)
   axios.put(
-    CFG.apiUrl + 'usuario/' + entrepreneur.IDEN_USUARIO,
+    CFG.apiUrl + 'usuario/' + entrepreneur.usuario.IDEN_USUARIO,
     {
-      FLAG_VIGENTE: !entrepreneur.usuario.FLAG_VIGENTE
+      FLAG_BAN: !entrepreneur.usuario.FLAG_BAN
     }
   ).then(response => {
-    console.log('funciona :)')
-    entrepreneur.usuario.FLAG_VIGENTE = !entrepreneur.usuario.FLAG_VIGENTE
+    console.log(response)
+    entrepreneur.usuario.FLAG_BAN = !entrepreneur.usuario.FLAG_BAN
   }).catch(errors => {
     console.log(errors)
   })

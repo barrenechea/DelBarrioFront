@@ -4,7 +4,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-6">
-                    <a v-bind:href="'/'"><img v-bind:src="'/img/logo-del-barrio.png'" class="img-responsive" alt="Logo Del Barrio"></a>
+                    <nuxt-link to="/"><img v-bind:src="'/img/logo-del-barrio.png'" class="img-responsive" alt="Logo Del Barrio"></nuxt-link>
                 </div>
                 <div class="col-xs-6">
                     <img v-bind:src="'/img/logo-emprende.png'" class="img-responsive" alt="Logo Emprende" align="right"></a>
@@ -12,7 +12,48 @@
             </div>
         </div>
     </header>
-    <!-- /Header-->
+    <!-- /Headers-->
+    <!-- NAV CLIENTE REGISTRADO -->
+    <nav id="navegacion" class="navbar navbar-default" v-if="false">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-left">
+                    <li><nuxt-link to="/"><i class="fa fa-home" aria-hidden="true"></i></nuxt-link></li>
+                </ul>
+                
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle usuario" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Nombre Usuario <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><nuxt-link to="/"><i class="fa fa-wrench" aria-hidden="true"></i> Configuración</nuxt-link></li>
+                            <li><a v-on:click="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar Sesión</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><nuxt-link to="/preguntas-frecuentes"><i class="fa fa-question-circle" aria-hidden="true"></i> Preguntas Frecuentes</nuxt-link></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="input-group text-truncate">
+                    <input class="form-control" name="search" placeholder="Buscar" autocomplete="off" autofocus="autofocus" type="text">
+                    <div class="input-group-btn">
+                        <button class="btn btn-outline-success" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    </div>
+                </form>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <!-- NAV ADMINISTRADOR-->
     <nav id="navegacion" class="navbar navbar-default">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -28,19 +69,99 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-left">
-                    <li><a v-bind:href="'/'"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+                    <li><a href="index.html"><i class="fa fa-home" aria-hidden="true"></i></a></li>
                 </ul>
                 
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle usuario" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Nombre Usuario <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle usuario" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administrador <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><nuxt-link to="/"><i class="fa fa-wrench" aria-hidden="true"></i> Configuración</nuxt-link></li>
-                            <li><a v-on:click="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar Sesión</a></li>
+                            <li><a href="#"><i class="fa fa-wrench" aria-hidden="true"></i> Configuración</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><nuxt-link to="/administracion/preguntas-frecuentes"><i class="fa fa-question-circle" aria-hidden="true"></i> Preguntas Frecuentes</nuxt-link></li>
+                            <li><a href="#"><i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar Sesión</a></li>
                         </ul>
                     </li>
+                </ul>
+                
+                <ul class="nav navbar-nav nav-admin">
+                    <li><nuxt-link to="/administracion/denuncias">Denuncias</nuxt-link></li>
+                    <li><nuxt-link to="/administracion/emprendedores">Emprendedores</nuxt-link></li>
+                    <li><nuxt-link to="/administracion/clientes">Clientes</nuxt-link></li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administración <span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        <li><nuxt-link to="/administracion/categorias">Categorías</nuxt-link></li>
+                        <li><nuxt-link to="/administracion/rubros">Rubros</nuxt-link></li>
+                        <li><nuxt-link to="/administracion/terminos-condiciones">Términos y condiciones</nuxt-link></li>
+                        <li><nuxt-link to="/administracion/preguntas-frecuentes">Preguntas Frecuentes</nuxt-link></li>
+                      </ul>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <!-- NAV EMPRENDEDOR-->
+    <nav id="navegacion" class="navbar navbar-default" v-if="false">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-left">
+                    <li><a href="index.html"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+                </ul>
+                
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle usuario" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Emprendimiento <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"><i class="fa fa-wrench" aria-hidden="true"></i> Configuración</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#"><i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar Sesión</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                
+                <ul class="nav navbar-nav nav-admin">
+                    <li><nuxt-link to="/administracion/publicaciones">Publicaciones</nuxt-link></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <!-- NAV INVITADO -->
+    <nav id="navegacion" class="navbar navbar-default" v-if="false">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-left">
+                    <li><nuxt-link to="/"><i class="fa fa-home" aria-hidden="true"></i></nuxt-link></li>
+                </ul>
+                
+                <ul class="nav navbar-nav navbar-right">
+                    <li><nuxt-link to="/">Inicia sesión</nuxt-link></li>
+                    <li><nuxt-link to="/">Regístrate</nuxt-link></li>
+                    <li role="separator" class="divider"></li>
+                    <li><nuxt-link to="/preguntas-frecuentes"><i class="fa fa-question-circle" aria-hidden="true" title="Preguntas frecuentes"></i></nuxt-link></li>
                 </ul>
                 <form class="input-group text-truncate">
                     <input class="form-control" name="search" placeholder="Buscar" autocomplete="off" autofocus="autofocus" type="text">
@@ -51,6 +172,7 @@
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
+
     <nuxt/>
     <footer class="container-fluid">
         <div class="container">
