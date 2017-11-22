@@ -46,7 +46,8 @@ module.exports = {
   plugins: [
     { src: '~/plugins/vee-validate', ssr: true },
     { src: '~/plugins/croppa', ssr: false },
-    { src: '~/plugins/breadcrumb', ssr: true }
+    { src: '~/plugins/breadcrumb', ssr: true },
+    { src: '~/plugins/auth', ssr: false }
   ],
   /*
   ** Modules initialization
