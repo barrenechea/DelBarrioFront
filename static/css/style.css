@@ -511,3 +511,31 @@ footer{
     padding-right: 0;
     }
 }
+
+#dropbox {
+    outline: 2px dashed grey;
+    background: lightcyan;
+    color: dimgray;
+    padding: 10px 10px;
+    min-height: 200px;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+#dropbox-file {
+    opacity: 0;
+    width: 100%;
+    height: 200px;
+    position: absolute;
+    cursor: pointer;
+}
+
+#dropbox:hover {
+    background: lightblue;
+}
+
+#dropbox p {
+    font-size: 1.2em;
+    text-align:center;
+    padding: 50px 0;
+}
