@@ -3,6 +3,9 @@
 // Return: Obtiene objeto de geocode
 // =======================================================================================
 function GETLocation (app, address) {
+  if (address == null) {
+    address = ''
+  }
   return app.$axios.$get('https://maps.googleapis.com/maps/api/geocode/json?address=' + address + '+santiago+chile&key=AIzaSyCpibWdwMPOk18JLBCpaJj31xN768Z870U')
     .then(response => {
       return {

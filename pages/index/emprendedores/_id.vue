@@ -2,15 +2,19 @@
   <section class="container-fluid">
     <div class="container">
       <div class="row margin-top-sec">
+        <div>
           <gmap-map
-            :center="geocode.geometry.location"
+            :center="geocode ? geocode.geometry.location : { lat: -33.4488897, lng: -70.6692655 }"
             :zoom="15"
             style="width:500px; height:300px">
             <gmap-marker
-            :position="geocode.geometry.location"
-            @click="center=geocode.geometry.location">
+            :position="geocode ? geocode.geometry.location : { lat: -33.4488897, lng: -70.6692655 }">
             </gmap-marker>
+            <gmap-info-window v-if="geocode" :position="geocode ? geocode.geometry.location : { lat: -33.4488897, lng: -70.6692655 }">
+              {{ geocode.formatted_address }}
+            </gmap-info-window>
           </gmap-map>
+        </div>
       </div>
     </div><!-- /container -->
   </section><!-- /El Producto -->
@@ -29,11 +33,11 @@ Vue.use(VueGoogleMaps, {
 
 export default {
   asyncData ({ app, params }) {
-    return locationController.GETLocation(app, 'antonio varas 666')
+    return locationController.GETLocation(app, 'infante 1415')
   },
   data () {
     return {
-      geocode: {}
+      geocode: undefined
     }
   },
   head () {
