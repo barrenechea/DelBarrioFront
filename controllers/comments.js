@@ -1,16 +1,12 @@
-import axios from 'axios'
-import moment from 'moment'
-import { CFG } from '~/controllers/_helpers'
-
 // Obtener categoria especifica según id.
 // Param.: context -> Contexto de la vista .vue, contiene los objetos instanciados en "data".
 // Return: Obtiene objeto de la categoría específica seleccionada en la vista "ListPosts"
 // =======================================================================================
-function GET (id) {
-  return axios.get(CFG.apiUrl + 'comentario/' + id)
+function GET (app, id) {
+  return app.$axios.$get('comentario/' + id)
     .then(response => {
       return {
-        post: response.data.data
+        post: response.data
       }
     }).catch(errors => {
       console.log(errors)
@@ -21,11 +17,11 @@ function GET (id) {
 // Param.: context -> Contexto de la vista .vue, contiene los objetos instanciados en "data".
 // Return: lista todas las publicaciones.
 // =======================================================================================
-function GETAll () {
-  return axios.get(CFG.apiUrl + 'comentario')
+function GETAll (app) {
+  return app.$axios.$get('comentario')
     .then(response => {
       return {
-        posts: response.data.data
+        posts: response.data
       }
     }).catch(errors => {
       console.log(errors)
@@ -45,8 +41,8 @@ function GETAll () {
 //                    }
 // =======================================================================================
 function POST (context) {
-  axios.post(
-    CFG.apiUrl + 'comentario',
+  context.$axios.$post(
+    'comentario',
     {
       IDEN_PUBLICACION: this.$route.params,
       IDEN_USUARIO: 1, // Prueba
@@ -73,8 +69,8 @@ function POST (context) {
 // =======================================================================================
 function PUT (context) {
   if (this.validate(context)) {
-    axios.put(
-      CFG.apiUrl + 'comentario/' + context.post.IDEN_PUBLICACION,
+    context.$axios.$post(
+      'comentario/' + context.post.IDEN_PUBLICACION,
       {
         IDEN_TIPO_PUBLICACION: context.post.IDEN_TIPO_PUBLICACION,
         IDEN_CATEGORIA: context.post.IDEN_CATEGORIA,
@@ -93,21 +89,11 @@ function PUT (context) {
   }
 }
 
-function addSale (context, id) {
-  return axios.post(
-    CFG.apiUrl + 'oferta',
-    {
-      IDEN_PUBLICACION: parseInt(id),
-      FECH_INICIO: moment(new Date(context.sale.FECH_INICIO)).toJSON(),
-      FECH_TERMINO: new Date(context.sale.FECH_TERMINO).toJSON(),
-      NUMR_PRECIO: parseInt(context.sale.NUMR_PRECIO)
-    })
-}
 // comentarios
-function setState (post) {
+function setState (context, post) {
   if (!post.FLAG_BAN) {
-    axios.put(
-      CFG.apiUrl + 'comentario/' + post.IDEN_PUBLICACION,
+    context.$axios.$post(
+      'comentario/' + post.IDEN_PUBLICACION,
       {
         FLAG_VIGENTE: !post.FLAG_VIGENTE
       }
@@ -124,6 +110,5 @@ export default {
   GETAll,
   POST,
   PUT,
-  addSale,
   setState
 }
