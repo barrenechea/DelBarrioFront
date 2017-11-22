@@ -6,10 +6,10 @@
           <div id="carousel" class="carousel slide" v-if="post.imagenes.length > 0">
             <div class="carousel-inner">
               <div class="item active">
-                <img v-bind:src="'http://delbarrio.barrenechea.cl/api/' + post.imagenes[0].URL_IMAGEN" class="img-responsive" alt="">
+                <img v-bind:src="'http://delbarrio.barrenechea.cl/' + post.imagenes[0].URL_IMAGEN" class="img-responsive" alt="">
               </div>
               <div class="item" v-bind:key="img.IDEN_IMAGEN" v-for="img in post.imagenes">
-                <img v-bind:src="'http://delbarrio.barrenechea.cl/api/' + img.URL_IMAGEN" class="img-responsive" alt="">
+                <img v-bind:src="'http://delbarrio.barrenechea.cl/' + img.URL_IMAGEN" class="img-responsive" alt="">
               </div>
             </div>
           </div><!--- Carrousel Grande -->
@@ -18,7 +18,7 @@
               <div class="carousel-inner">
                 <div class="item active" v-if="post.imagenes.length>1" >
                   <div data-target="#carousel" :data-slide-to="img.$index" class="thumb" v-bind:key="img.IDEN_IMAGEN" v-for="img in post.imagenes">
-                      <img v-bind:src="'http://delbarrio.barrenechea.cl/api/' + img.URL_IMAGEN" class="img-responsive" alt="">
+                      <img v-bind:src="'http://delbarrio.barrenechea.cl/' + img.URL_IMAGEN" class="img-responsive" alt="">
                   </div>                
                 </div><!-- /item -->
               </div><!-- /carousel-inner -->
@@ -64,8 +64,8 @@ import controller from '~/controllers/posts'
 var SocialSharing = require('vue-social-sharing')
 
 export default {
-  asyncData ({ params }) {
-    return controller.GET(params.id)
+  asyncData ({ app, params }) {
+    return controller.GET(app, params.id)
   },
   components: {
     SocialSharing

@@ -74,12 +74,12 @@
 import controller from '~/controllers/admin/workfields'
 
 export default {
-  asyncData () {
-    return controller.GETAll()
+  asyncData ({ app }) {
+    return controller.GETAll(app)
   },
   methods: {
     setState: workfield => {
-      controller.setState(workfield)
+      controller.setState(this, workfield)
     }
   }
 }

@@ -179,8 +179,8 @@ export default {
       }
     }
   },
-  asyncData () {
-    return categoriescontroller.GETAll()
+  asyncData ({app}) {
+    return categoriescontroller.GETAll(app)
   },
   components: {
     Datepicker

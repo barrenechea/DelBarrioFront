@@ -73,12 +73,12 @@
 import controller from '~/controllers/admin/entrepreneurs'
 
 export default {
-  asyncData () {
-    return controller.GETAll()
+  asyncData ({ app }) {
+    return controller.GETAll(app)
   },
   methods: {
     setState: entrepreneur => {
-      controller.setState(entrepreneur)
+      controller.setState(this, entrepreneur)
     }
   }
 }

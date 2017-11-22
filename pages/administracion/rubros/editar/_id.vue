@@ -31,8 +31,8 @@ export default {
       message: false
     }
   },
-  asyncData ({ params }) {
-    return controller.GET(params.id)
+  asyncData ({ app, params }) {
+    return controller.GET(app, params.id)
   },
   methods: {
     validateBeforeSubmit () {

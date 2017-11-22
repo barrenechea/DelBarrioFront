@@ -119,10 +119,10 @@ export default {
       subcategorias: {}
     }
   },
-  asyncData ({ params }) {
-    return categoriescontroller.GETAll()
+  asyncData ({ app, params }) {
+    return categoriescontroller.GETAll(app)
       .then(categories => {
-        return controller.GET(params.id)
+        return controller.GET(app, params.id)
           .then(post => {
             return {
               id: post.id,

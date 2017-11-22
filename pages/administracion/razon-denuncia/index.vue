@@ -71,12 +71,12 @@
 import controller from '~/controllers/admin/denouncereasons'
 
 export default {
-  asyncData () {
-    return controller.GETAll()
+  asyncData ({ app }) {
+    return controller.GETAll(app)
   },
   methods: {
     setState: denouncereason => {
-      controller.setState(denouncereason)
+      controller.setState(this, denouncereason)
     }
   }
 }

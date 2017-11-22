@@ -72,8 +72,8 @@
 import controller from '~/controllers/admin/faqs'
 
 export default {
-  asyncData () {
-    return controller.GETAll()
+  asyncData ({ app }) {
+    return controller.GETAll(app)
   },
   methods: {
     deleteFaq: function (f) {

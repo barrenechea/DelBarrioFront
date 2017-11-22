@@ -72,12 +72,12 @@
 import controller from '~/controllers/admin/deactivationreasons'
 
 export default {
-  asyncData () {
-    return controller.GETAll()
+  asyncData ({ app }) {
+    return controller.GETAll(app)
   },
   methods: {
     setState: deactivationreason => {
-      controller.setState(deactivationreason)
+      controller.setState(this, deactivationreason)
     }
   }
 }

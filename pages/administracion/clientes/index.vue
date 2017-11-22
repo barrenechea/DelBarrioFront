@@ -72,12 +72,12 @@ import controller from '~/controllers/admin/clients'
 import moment from 'moment'
 
 export default {
-  asyncData () {
-    return controller.GETAll()
+  asyncData ({ app }) {
+    return controller.GETAll(app)
   },
   methods: {
     setState: client => {
-      controller.setState(client)
+      controller.setState(this, client)
     }
   },
   filters: {

@@ -65,8 +65,8 @@
 <script>
 import controller from '~/controllers/posts'
 export default {
-  asyncData () {
-    return controller.GETAll()
+  asyncData ({ app }) {
+    return controller.GETAll(app)
   },
   head () {
     return {
