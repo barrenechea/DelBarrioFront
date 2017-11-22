@@ -9,7 +9,7 @@
       "host": "0.0.0.0",
       "port": "8080"
     }
-   },
+  },
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
@@ -19,7 +19,9 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
-    "axios": "^0.17.1",
+    "@nuxtjs/axios": "^4.5.0",
+    "js-cookie": "^2.2.0",
+    "jwt-decode": "^2.2.0",
     "moment": "^2.19.2",
     "nuxt": "^1.0.0-rc11",
     "sweetalert2": "^7.0.0",

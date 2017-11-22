@@ -1,17 +1,14 @@
-import axios from 'axios'
 import moment from 'moment'
-import { CFG } from '~/controllers/_helpers'
 import imagecontroller from '~/controllers/images'
-
 // Obtener categoria especifica según id.
 // Param.: context -> Contexto de la vista .vue, contiene los objetos instanciados en "data".
 // Return: Obtiene objeto de la categoría específica seleccionada en la vista "ListPosts"
 // =======================================================================================
-function GET (id) {
-  return axios.get(CFG.apiUrl + 'publicacion/' + id)
+function GET (app, id) {
+  return app.$axios.$get('publicacion/' + id)
     .then(response => {
       return {
-        post: response.data.data
+        post: response.data
       }
     }).catch(errors => {
       console.log(errors)
@@ -22,11 +19,11 @@ function GET (id) {
 // Param.: context -> Contexto de la vista .vue, contiene los objetos instanciados en "data".
 // Return: lista todas las publicaciones.
 // =======================================================================================
-function GETAll () {
-  return axios.get(CFG.apiUrl + 'publicacion')
+function GETAll (app) {
+  return app.$axios.$get('publicacion')
     .then(response => {
       return {
-        posts: response.data.data
+        posts: response.data
       }
     }).catch(errors => {
       console.log(errors)
@@ -46,8 +43,8 @@ function GETAll () {
 //                    }
 // =======================================================================================
 function POST (context, blobs = undefined) {
-  axios.post(
-    CFG.apiUrl + 'publicacion',
+  context.$axios.$post(
+    'publicacion',
     {
       CODI_TIPO_PUBLICACION: context.post.CODI_TIPO_PUBLICACION,
       IDEN_CATEGORIA: context.post.IDEN_SUBCATEGORIA == null ? context.post.IDEN_CATEGORIA : context.post.IDEN_SUBCATEGORIA,
@@ -58,11 +55,10 @@ function POST (context, blobs = undefined) {
       IDEN_EMPRENDEDOR: 1
     }).then(response => {
     if (blobs !== undefined) {
-      imagecontroller.POST(context, response.data.data.IDEN_PUBLICACION, blobs)
+      imagecontroller.POST(context, response.data.IDEN_PUBLICACION, blobs)
     }
-    if (context.selected) {
-      console.log(new Date(context.sale.FECH_INICIO))
-      this.addSale(context, response.data.data.IDEN_PUBLICACION)
+    if (context.isSale) {
+      this.addSale(context, response.data.IDEN_PUBLICACION)
         .then(response => {
           context.post = { FLAG_CONTENIDO_ADULTO: false }
         }).catch(errors => {
@@ -70,6 +66,12 @@ function POST (context, blobs = undefined) {
         })
     }
     context.post = { FLAG_CONTENIDO_ADULTO: false }
+    context.images = {
+      image1: {},
+      image2: {},
+      image3: {},
+      image4: {}
+    }
   }).catch(errors => {
     console.log(errors + 'catch')
     context.error = 'Error inesperado al ingresar Publicación'
@@ -90,8 +92,8 @@ function POST (context, blobs = undefined) {
 // =======================================================================================
 function PUT (context) {
   if (this.validate(context)) {
-    axios.put(
-      CFG.apiUrl + 'publicacion/' + context.post.IDEN_PUBLICACION,
+    context.$axios.$put(
+      'publicacion/' + context.post.IDEN_PUBLICACION,
       {
         IDEN_TIPO_PUBLICACION: context.post.IDEN_TIPO_PUBLICACION,
         IDEN_CATEGORIA: context.post.IDEN_CATEGORIA,
@@ -111,8 +113,8 @@ function PUT (context) {
 }
 
 function addSale (context, id) {
-  return axios.post(
-    CFG.apiUrl + 'oferta',
+  context.$axios.$post(
+    'oferta',
     {
       IDEN_PUBLICACION: parseInt(id),
       FECH_INICIO: moment(new Date(context.sale.FECH_INICIO)).toJSON(),
@@ -121,10 +123,10 @@ function addSale (context, id) {
     })
 }
 // comentarios
-function setState (post) {
+function setState (context, post) {
   if (!post.FLAG_BAN) {
-    axios.put(
-      CFG.apiUrl + 'publicacion/' + post.IDEN_PUBLICACION,
+    context.$axios.$put(
+      'publicacion/' + post.IDEN_PUBLICACION,
       {
         FLAG_VIGENTE: !post.FLAG_VIGENTE
       }

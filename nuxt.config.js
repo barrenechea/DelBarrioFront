@@ -1,5 +1,11 @@
 module.exports = {
   /*
+  ** Router config
+  */
+  router: {
+    middleware: 'check-auth'
+  },
+  /*
   ** Headers of the page
   */
   head: {
@@ -7,9 +13,7 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Nuxt.js project' },
-      // Que es este meta?
-      { property: 'og:image', content: 'http://delbarrio.barrenechea.cl/static/img/logo-del-barrio.png' }
+      { hid: 'description', name: 'description', content: 'Nuxt.js project' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -41,8 +45,21 @@ module.exports = {
   */
   plugins: [
     { src: '~/plugins/vee-validate', ssr: true },
-    { src: '~/plugins/croppa', ssr: false }
+    { src: '~/plugins/croppa', ssr: false },
+    { src: '~/plugins/breadcrumb', ssr: true }
   ],
+  /*
+  ** Modules initialization
+  */
+  modules: [
+    '@nuxtjs/axios'
+  ],
+  /*
+  ** Axios configuration
+  */
+  axios: {
+    baseURL: 'https://delbarrio.barrenechea.cl/api'
+  },
   /*
   ** Build configuration
   */
