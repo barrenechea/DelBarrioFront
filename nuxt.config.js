@@ -1,5 +1,11 @@
 module.exports = {
   /*
+  ** Router config
+  */
+  router: {
+    middleware: 'check-auth'
+  },
+  /*
   ** Headers of the page
   */
   head: {
@@ -39,8 +45,21 @@ module.exports = {
   */
   plugins: [
     { src: '~/plugins/vee-validate', ssr: true },
-    { src: '~/plugins/croppa', ssr: false }
+    { src: '~/plugins/croppa', ssr: false },
+    { src: '~/plugins/breadcrumb', ssr: true }
   ],
+  /*
+  ** Modules initialization
+  */
+  modules: [
+    '@nuxtjs/axios'
+  ],
+  /*
+  ** Axios configuration
+  */
+  axios: {
+    baseURL: 'https://delbarrio.barrenechea.cl/api'
+  },
   /*
   ** Build configuration
   */

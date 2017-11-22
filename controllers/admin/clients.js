@@ -3,11 +3,11 @@
 // Return: Promise
 // =======================================================================================
 function GET (app, id) {
-  return app.$axios.$get('emprendedor/' + id)
+  return app.$axios.$get('persona/' + id)
     .then(res => {
       return {
         id: id,
-        entrepreneur: res.data
+        client: res.data
       }
     }).catch(errors => {
       console.log(errors)
@@ -15,10 +15,10 @@ function GET (app, id) {
 }
 
 function GETAll (app) {
-  return app.$axios.$get('emprendedor')
+  return app.$axios.$get('persona')
     .then(response => {
       return {
-        entrepreneurs: response.data
+        clients: response.data
       }
     }).catch(errors => {
       console.log(errors)
@@ -34,28 +34,23 @@ function GETAll (app) {
 //                    }
 // =======================================================================================
 function POST (context) {
-  if (RutValidation(context.entrepreneur.RUT_EMPRENDEDOR)) {
+  if (RutValidation(context.client.RUT_USUARIO)) {
     context.$axios.$post(
       'usuario',
       {
-        EMAIL_USUARIO: context.entrepreneur.EMAIL_USUARIO,
-        DESC_PASSWORD: context.entrepreneur.DESC_PASSWORD,
-        IDEN_ROL: 2
+        EMAIL_USUARIO: context.client.EMAIL_USUARIO,
+        DESC_PASSWORD: context.client.DESC_PASSWORD
       }
     ).then(response => {
-      console.log(response.data)
       context.$axios.$post(
-        'emprendedor',
+        'persona',
         {
-          IDEN_USUARIO: response.data.IDEN_USUARIO,
-          DESC_EMPRENDEDOR: context.entrepreneur.DESC_EMPRENDEDOR,
-          DESC_NOMBRE_FANTASIA: context.entrepreneur.DESC_NOMBRE_FANTASIA,
-          DESC_NOMBRE_EMPRESA: context.entrepreneur.DESC_NOMBRE_EMPRESA,
-          RUT_EMPRENDEDOR: parseInt(context.entrepreneur.RUT_EMPRENDEDOR.slice(0, -1)),
-          DV_EMPRENDEDOR: context.entrepreneur.RUT_EMPRENDEDOR.slice(-1).toUpperCase()
+          IDEN_USUARIO: response.data.IDEN_USUARIO
+          // AGREGAR DATOS DE CLIENTE
         }
       ).then(response => {
-        context.entrepreneur = {}
+        context.client = {}
+        // SE TIENE QUE AUTENTICAR AUTOMÁTICAMENTE
         context.message = 'Agregado exitosamente!'
       }).catch(errors => {
         context.message = 'Error inesperado'
@@ -81,13 +76,9 @@ function POST (context) {
 // =======================================================================================
 function PUT (context) {
   context.$axios.$put(
-    'emprendedor/' + context.id,
+    'persona/' + context.id,
     {
-      DESC_EMPRENDEDOR: context.entrepreneur.DESC_EMPRENDEDOR,
-      DESC_NOMBRE_FANTASIA: context.entrepreneur.DESC_NOMBRE_FANTASIA,
-      DESC_NOMBRE_EMPRESA: context.entrepreneur.DESC_NOMBRE_EMPRESA,
-      RUT_EMPRENDEDOR: parseInt(context.rut.slice(0, -1)),
-      DV_EMPRENDEDOR: context.rut.slice(-1).toUpperCase()
+      // AGREGAR DATOS CLIENTE
     }
   ).then(response => {
     context.message = 'Editado exitosamente!'
@@ -96,16 +87,15 @@ function PUT (context) {
   })
 }
 
-// estado emprendedor
-function setState (context, entrepreneur) {
-  context.$axios.$put(
-    'usuario/' + entrepreneur.usuario.IDEN_USUARIO,
+// estado persona
+function setState (context, client) {
+  context.$axios.$post(
+    'usuario/' + client.usuario.IDEN_USUARIO,
     {
-      FLAG_BAN: !entrepreneur.usuario.FLAG_BAN
+      FLAG_BAN: !client.usuario.FLAG_BAN
     }
   ).then(response => {
-    console.log(response)
-    entrepreneur.usuario.FLAG_BAN = !entrepreneur.usuario.FLAG_BAN
+    client.usuario.FLAG_BAN = !client.usuario.FLAG_BAN
   }).catch(errors => {
     console.log(errors)
   })

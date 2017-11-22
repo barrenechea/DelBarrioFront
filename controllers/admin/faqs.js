@@ -1,16 +1,13 @@
-import axios from 'axios'
-import { CFG } from '~/controllers/_helpers'
-
 // Obtener categoria especifica según id.
 // Param.: context -> Contexto de la vista .vue, contiene los objetos instanciados en "data".
 // Return: Promise
 // =======================================================================================
-function GET (id) {
-  return axios.get(CFG.apiUrl + 'faq/' + id)
+function GET (app, id) {
+  return app.$axios.$get('faq/' + id)
     .then(res => {
       return {
         id: id,
-        f: res.data.data
+        f: res.data
       }
     }).catch(errors => {
       console.log(errors)
@@ -21,11 +18,11 @@ function GET (id) {
 // Param.: context -> Contexto de la vista .vue, contiene los objetos instanciados en "data".
 // Return: Promise
 // =======================================================================================
-function GETAll () {
-  return axios.get(CFG.apiUrl + 'faq')
+function GETAll (app) {
+  return app.$axios.$get('faq')
     .then(response => {
       return {
-        faqs: response.data.data
+        faqs: response.data
       }
     }).catch(errors => {
       console.log(errors)
@@ -41,8 +38,8 @@ function GETAll () {
 //                    }
 // =======================================================================================
 function POST (context) {
-  axios.post(
-    CFG.apiUrl + 'faq',
+  context.$axios.$post(
+    'faq',
     {
       NOMB_FAQ: context.f.NOMB_FAQ,
       DESC_FAQ: context.f.DESC_FAQ
@@ -51,7 +48,7 @@ function POST (context) {
     context.f = {}
     context.message = 'Agregado exitosamente!'
   }).catch(errors => {
-    context.message = errors.response.data.data.message ? errors.response.data.data.message : 'Error inesperado'
+    context.message = errors.response.data.message ? errors.response.data.message : 'Error inesperado'
   })
 }
 
@@ -67,8 +64,8 @@ function POST (context) {
 //                    }
 // =======================================================================================
 function PUT (context) {
-  axios.put(
-    CFG.apiUrl + 'faq/' + context.id,
+  context.$axios.$put(
+    'faq/' + context.id,
     {
       NOMB_FAQ: context.f.NOMB_FAQ,
       DESC_FAQ: context.f.DESC_FAQ
@@ -76,13 +73,13 @@ function PUT (context) {
   ).then(response => {
     context.message = 'Editado exitosamente!'
   }).catch(errors => {
-    context.message = errors.response.data.data.message ? errors.response.data.data.message : 'Error inesperado'
+    context.message = errors.response.data.message ? errors.response.data.message : 'Error inesperado'
   })
 }
 
 function DELETE (f, context) {
-  axios.delete(
-    CFG.apiUrl + 'faq/' + f.IDEN_FAQ
+  context.$axios.$delete(
+    'faq/' + f.IDEN_FAQ
   ).then(response => {
     context.faqs = context.faqs.filter(item => item !== f)
   }).catch(errors => {
