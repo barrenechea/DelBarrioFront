@@ -39,9 +39,9 @@
                             <li><nuxt-link to="/"><i class="fa fa-wrench" aria-hidden="true"></i> Configuración</nuxt-link></li>
                             <li><nuxt-link to="/sign-out"><i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar Sesión</nuxt-link></li>
                             <li role="separator" class="divider"></li>
-                            <li><nuxt-link to="/preguntas-frecuentes"><i class="fa fa-question-circle" aria-hidden="true"></i> Preguntas Frecuentes</nuxt-link></li>
                         </ul>
                     </li>
+                    <li><nuxt-link to="/preguntas-frecuentes" title="Preguntas frecuentes"><i class="fa fa-question-circle" aria-hidden="true"></i></nuxt-link></li>
                 </ul>
                 <form class="input-group text-truncate">
                     <input class="form-control" name="search" placeholder="Buscar" autocomplete="off" autofocus="autofocus" type="text">
@@ -81,6 +81,7 @@
                             <li><nuxt-link to="/sign-out"><i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar Sesión</nuxt-link></li>
                         </ul>
                     </li>
+                    <li><nuxt-link to="/preguntas-frecuentes" title="Preguntas frecuentes"><i class="fa fa-question-circle" aria-hidden="true"></i></nuxt-link></li>
                 </ul>
                 
                 <ul class="nav navbar-nav nav-admin">
@@ -118,6 +119,7 @@
                             <li><nuxt-link to="/sign-out"><i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar Sesión</nuxt-link></li>
                         </ul>
                     </li>
+                    <li><nuxt-link to="/preguntas-frecuentes" title="Preguntas frecuentes"><i class="fa fa-question-circle" aria-hidden="true"></i></nuxt-link></li>
                 </ul>
                 
                 <ul class="nav navbar-nav nav-admin">
@@ -128,6 +130,9 @@
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administración <span class="caret"></span></a>
                       <ul class="dropdown-menu">
                         <li><nuxt-link to="/administracion/categorias">Categorías</nuxt-link></li>
+                        <li><nuxt-link to="/administracion/rubros">Rubros</nuxt-link></li>
+                        <li><nuxt-link to="/administracion/razon-denuncia">Razón de denuncia</nuxt-link></li>
+                        <li><nuxt-link to="/administracion/razon-desactivacion">Razón de desactivación</nuxt-link></li>
                         <li><nuxt-link to="/administracion/rubros">Rubros</nuxt-link></li>
                         <li><nuxt-link to="/administracion/terminos-condiciones">Términos y condiciones</nuxt-link></li>
                         <li><nuxt-link to="/administracion/preguntas-frecuentes">Preguntas Frecuentes</nuxt-link></li>
@@ -158,9 +163,8 @@
                 </ul>
                 
                 <ul class="nav navbar-nav navbar-right">
-                    <li><nuxt-link to="/sign-in">Inicia sesión</nuxt-link></li>
-                    <li><nuxt-link to="/sign-up">Regístrate</nuxt-link></li>
-                    <li role="separator" class="divider"></li>
+                    <li><nuxt-link to="/autenticar">Inicia sesión</nuxt-link></li>
+                    <li><nuxt-link to="/registro">Regístrate</nuxt-link></li>
                     <li><nuxt-link to="/preguntas-frecuentes" title="Preguntas frecuentes"><i class="fa fa-question-circle" aria-hidden="true"></i></nuxt-link></li>
                 </ul>
                 <form class="input-group text-truncate">

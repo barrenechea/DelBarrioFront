@@ -1,11 +1,9 @@
-import moment from 'moment'
-import imagecontroller from '~/controllers/images'
 // Obtener categoria especifica según id.
 // Param.: context -> Contexto de la vista .vue, contiene los objetos instanciados en "data".
 // Return: Obtiene objeto de la categoría específica seleccionada en la vista "ListPosts"
 // =======================================================================================
 function GET (app, id) {
-  return app.$axios.$get('publicacion/' + id)
+  return app.$axios.$get('comentario/' + id)
     .then(response => {
       return {
         post: response.data
@@ -20,7 +18,7 @@ function GET (app, id) {
 // Return: lista todas las publicaciones.
 // =======================================================================================
 function GETAll (app) {
-  return app.$axios.$get('publicacion')
+  return app.$axios.$get('comentario')
     .then(response => {
       return {
         posts: response.data
@@ -42,36 +40,15 @@ function GETAll (app) {
 //                      FLAG_CONTENIDO_ADULTO: bool
 //                    }
 // =======================================================================================
-function POST (context, blobs = undefined) {
+function POST (context) {
   context.$axios.$post(
-    'publicacion',
+    'comentario',
     {
-      CODI_TIPO_PUBLICACION: context.post.CODI_TIPO_PUBLICACION,
-      IDEN_CATEGORIA: context.post.IDEN_SUBCATEGORIA == null ? context.post.IDEN_CATEGORIA : context.post.IDEN_SUBCATEGORIA,
-      NOMB_PUBLICACION: context.post.NOMB_PUBLICACION,
-      DESC_PUBLICACION: context.post.DESC_PUBLICACION,
-      NUMR_PRECIO: parseInt(context.post.NUMR_PRECIO),
-      FLAG_CONTENIDO_ADULTO: context.post.FLAG_CONTENIDO_ADULTO,
-      IDEN_EMPRENDEDOR: 1
+      IDEN_PUBLICACION: this.$route.params,
+      IDEN_USUARIO: 1, // Prueba
+      DESC_COMENTARIO: context.post.DESC_COMENTARIO
     }).then(response => {
-    if (blobs !== undefined) {
-      imagecontroller.POST(context, response.data.IDEN_PUBLICACION, blobs)
-    }
-    if (context.isSale) {
-      this.addSale(context, response.data.IDEN_PUBLICACION)
-        .then(response => {
-          context.post = { FLAG_CONTENIDO_ADULTO: false }
-        }).catch(errors => {
-          context.error = 'Error inesperado al ingresar oferta'
-        })
-    }
-    context.post = { FLAG_CONTENIDO_ADULTO: false }
-    context.images = {
-      image1: {},
-      image2: {},
-      image3: {},
-      image4: {}
-    }
+    console.log('Prueba')
   }).catch(errors => {
     console.log(errors + 'catch')
     context.error = 'Error inesperado al ingresar Publicación'
@@ -92,8 +69,8 @@ function POST (context, blobs = undefined) {
 // =======================================================================================
 function PUT (context) {
   if (this.validate(context)) {
-    context.$axios.$put(
-      'publicacion/' + context.post.IDEN_PUBLICACION,
+    context.$axios.$post(
+      'comentario/' + context.post.IDEN_PUBLICACION,
       {
         IDEN_TIPO_PUBLICACION: context.post.IDEN_TIPO_PUBLICACION,
         IDEN_CATEGORIA: context.post.IDEN_CATEGORIA,
@@ -112,21 +89,11 @@ function PUT (context) {
   }
 }
 
-function addSale (context, id) {
-  context.$axios.$post(
-    'oferta',
-    {
-      IDEN_PUBLICACION: parseInt(id),
-      FECH_INICIO: moment(new Date(context.sale.FECH_INICIO)).toJSON(),
-      FECH_TERMINO: new Date(context.sale.FECH_TERMINO).toJSON(),
-      NUMR_PRECIO: parseInt(context.sale.NUMR_PRECIO)
-    })
-}
 // comentarios
 function setState (context, post) {
   if (!post.FLAG_BAN) {
-    context.$axios.$put(
-      'publicacion/' + post.IDEN_PUBLICACION,
+    context.$axios.$post(
+      'comentario/' + post.IDEN_PUBLICACION,
       {
         FLAG_VIGENTE: !post.FLAG_VIGENTE
       }
@@ -143,6 +110,5 @@ export default {
   GETAll,
   POST,
   PUT,
-  addSale,
   setState
 }
