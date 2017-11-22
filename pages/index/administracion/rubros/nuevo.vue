@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6 col-md-offset-3 fondo-beige">
-          <h2 class="text-center">Nueva Categoría</h2>
+          <h2 class="text-center">Nuevo Rubro</h2>
           <form @submit.prevent="validateBeforeSubmit">
             <div class="form-group margin-top">
               <label for="name">Nombre</label>
@@ -31,9 +31,6 @@ export default {
       workfield: {},
       message: false
     }
-  },
-  asyncData () {
-    return controller.GETAll()
   },
   methods: {
     validateBeforeSubmit () {
