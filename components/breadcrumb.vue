@@ -58,7 +58,9 @@
     '/administracion/razon-desactivacion/nuevo': 'Nuevo',
     '/administracion/razon-desactivacion/editar': 'Editar',
     // TERMINOS Y CONDICIONES
-    '/administracion/terminos-condiciones': 'Términos y Condiciones'
+    '/administracion/terminos-condiciones': 'Términos y Condiciones',
+    // MODERAR CONTENIDO
+    '/administracion/moderar-publicaciones': 'Moderar publicaciones'
   }
 
   export default {

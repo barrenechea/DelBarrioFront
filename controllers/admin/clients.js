@@ -76,7 +76,7 @@ function POST (context) {
 // =======================================================================================
 function PUT (context) {
   context.$axios.$put(
-    'persona/' + context.id,
+    'private/persona/' + context.id,
     {
       // AGREGAR DATOS CLIENTE
     }
@@ -90,7 +90,7 @@ function PUT (context) {
 // estado persona
 function setState (context, client) {
   context.$axios.$post(
-    'usuario/' + client.usuario.IDEN_USUARIO,
+    'private/usuario/' + client.usuario.IDEN_USUARIO,
     {
       FLAG_BAN: !client.usuario.FLAG_BAN
     }

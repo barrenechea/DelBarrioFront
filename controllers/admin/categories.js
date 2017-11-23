@@ -61,7 +61,7 @@ function POST (context) {
 // =======================================================================================
 function PUT (context) {
   context.$axios.$put(
-    'categoria/' + context.id,
+    'private/categoria/' + context.id,
     {
       NOMB_CATEGORIA: context.category.NOMB_CATEGORIA,
       IDEN_CATEGORIA_PADRE: context.category.IDEN_CATEGORIA_PADRE
@@ -76,7 +76,7 @@ function PUT (context) {
 // comentarios
 function setState (context, category) {
   context.$axios.$put(
-    'categoria/' + category.IDEN_CATEGORIA,
+    'private/categoria/' + category.IDEN_CATEGORIA,
     {
       FLAG_VIGENTE: !category.FLAG_VIGENTE
     }

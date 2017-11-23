@@ -6,7 +6,7 @@ function POST (context, id, blobs) {
     formData.append('gallery', blobs[i], 'image' + i + '.png')
   }
   context.$axios.$post(
-    'imagen',
+    'private/imagen',
     formData
   ).then(response => {
     context.post = { FLAG_CONTENIDO_ADULTO: false } // Limpiar campos

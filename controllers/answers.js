@@ -25,20 +25,22 @@ function GETAll (app) {
 //                      FLAG_CONTENIDO_ADULTO: bool
 //                    }
 // =======================================================================================
-function POST (context) {
+function POST (context, id) {
   context.$axios.$post(
-    'private/comentario',
+    'private/respuesta',
     {
-      IDEN_PUBLICACION: context.post.IDEN_PUBLICACION,
-      IDEN_USUARIO: 1, // Prueba
-      DESC_COMENTARIO: context.comment.DESC_COMENTARIO
+      IDEN_COMENTARIO: id,
+      DESC_RESPUESTA: context.answer.DESC_RESPUESTA
     }).then(response => {
-    context.comment = { }
-    context.message.message = 'Se ha enviado tu pregunta'
+    console.log(response)
+    context.answer = { }
+    context.message.message = 'Se ha enviado tu respuesta'
     context.message.error = false
     // ACTUALIZAR LOS MENSAJES DESPUÉS DE AGREGARLOS.
     context.post.comentarios = context.post.comentarios.push(context.comment)
   }).catch(errors => {
+    console.log(errors.request)
+    console.log(errors.response)
     context.message.message = 'Lo sentimos, ha ocurrido un error inesperado.'
     context.message.error = true
   })

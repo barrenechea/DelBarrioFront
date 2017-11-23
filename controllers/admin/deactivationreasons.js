@@ -3,7 +3,7 @@
 // Return: lista todas las categorías.
 // =======================================================================================
 function GETAll (app) {
-  return app.$axios.$get('motivo_deshabilitacion')
+  return app.$axios.$get('private/motivo_deshabilitacion')
     .then(response => {
       return {
         deactivationreasons: response.data
@@ -23,7 +23,7 @@ function GETAll (app) {
 // =======================================================================================
 function POST (context) {
   context.$axios.$post(
-    'motivo_deshabilitacion',
+    'private/motivo_deshabilitacion',
     {
       NOMB_MOTIVO_DESHABILITACION: context.deactivationreason.NOMB_MOTIVO_DESHABILITACION
     }
@@ -38,7 +38,7 @@ function POST (context) {
 // comentarios
 function setState (context, deactivationreason) {
   context.$axios.$put(
-    'motivo_deshabilitacion/' + deactivationreason.IDEN_MOTIVO_DESHABILITACION,
+    'private/motivo_deshabilitacion/' + deactivationreason.IDEN_MOTIVO_DESHABILITACION,
     {
       FLAG_VIGENTE: !deactivationreason.FLAG_VIGENTE
     }
