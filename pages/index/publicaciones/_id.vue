@@ -29,15 +29,16 @@
         <div class="col-sm-6">
           <h2>{{post.NOMB_PUBLICACION}}</h2>
           <div class="estrellas">
-            <i class="fa fa-star" aria-hidden="true"></i>
-            <i class="fa fa-star" aria-hidden="true"></i>
-            <i class="fa fa-star" aria-hidden="true"></i>
-            <i class="fa fa-star-o" aria-hidden="true"></i>
-            <i class="fa fa-star-o" aria-hidden="true"></i>
-            <a data-toggle="modal" data-target="#calificacionModal" href="#">{{post.calificaciones.length}} opiniones</a>
+            <star-rating 
+              v-model="post.NUMR_CALIFICACION"
+              :increment="0.5"
+              :star-size="35"
+              :read-only="true"
+          ></star-rating>
+            <p><a data-toggle="modal" data-target="#calificacionModal" href="#"> ({{post.calificaciones.length}} opiniones)</a></p>
           </div>
-          <p class="margin-top-20"><i class="fa fa-eye" aria-hidden="true"></i> (15)</p> <!-- Agregarle el contador de visitas-->
-          <a href="#comentarios">Comentarios ({{post.comentarios.length}})</a>
+          <p class="margin-top-20"><i class="fa fa-eye" aria-hidden="true"></i> ({{post.NUMR_CONTADOR}})</p>
+          <a href="#comentarios">({{post.comentarios.length}} comentarios)</a>
           <h3>{{post.NUMR_PRECIO}}<small>C/U</small></h3>
           <h4>Descripción</h4>                    
           <p class="info-prod">{{post.DESC_PUBLICACION}}</p>
@@ -60,7 +61,6 @@
   </section><!-- /El Producto -->
 
   <div id = "interacciones" v-if="isAuthenticated">
-    <!--TODO -->
     <section id="calificaciones" class="container-fluid">
       <div class="container">
         <div class="row">
@@ -68,33 +68,33 @@
             <hr>
             <h2 class="margin-top">Calificaciones</h2>
             <p>Ingresa tu calificación</p>          
-            <div class="estrellas">
-              <i class="fa fa-star-o fa-2x" aria-hidden="true"></i>
-              <i class="fa fa-star-o fa-2x" aria-hidden="true"></i>
-              <i class="fa fa-star-o fa-2x" aria-hidden="true"></i>
-              <i class="fa fa-star-o fa-2x" aria-hidden="true"></i>
-              <i class="fa fa-star-o fa-2x" aria-hidden="true"></i>
-            </div>
+            <star-rating 
+              v-model="rating.NUMR_VALOR"
+              :increment="1"
+              :star-size="35"
+            ></star-rating>
             <form action="">
               <div class="form-group margin-top-20">
-                <textarea class="form-control" rows="3"></textarea>
+                <textarea class="form-control" rows="3" v-model="rating.DESC_CALIFICACION"></textarea>
               </div>
-              <button type="submit" class="btn btn-default">Calificar</button>
+              <button type="submit" @click="ratingPOST()" class="btn btn-default">Calificar</button>
             </form>
           </div>
         </div>
               
         <div class="row margin-top">
           <div class="col-xs-12 contorno">
-            <h3>Usuario Z</h3>
+            <h3>Última calificación</h3>
             <div class="estrellas">
-              <i class="fa fa-star-o fa-2x" aria-hidden="true"></i>
-              <i class="fa fa-star-o fa-2x" aria-hidden="true"></i>
-              <i class="fa fa-star-o fa-2x" aria-hidden="true"></i>
-              <i class="fa fa-star-o fa-2x" aria-hidden="true"></i>
-              <i class="fa fa-star-o fa-2x" aria-hidden="true"></i>
+              <star-rating 
+                v-model="post.calificaciones[0].NUMR_VALOR"
+                :increment="1"
+                :star-size="35"
+                :read-only="true"
+              ></star-rating>
             </div>
-            <p class="margin-top-20">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique hic, delectus magni. Nobis neque nihil, reiciendis facilis debitis laudantium temporibus quae recusandae sit nisi ipsum perferendis numquam ratione ipsam omnis!</p>
+            <small>{{post.calificaciones[0].FECH_CREACION | dateFormat}}</small>
+            <p class="margin-top-20">{{post.calificaciones[0].DESC_CALIFICACION}}</p>
             <p><a href="#" class="margin-top">Denunciar</a></p>
             <p class="text-center"><a data-toggle="modal" data-target="#calificacionModal" href="#">Ver más</a></p>
           </div>
@@ -109,10 +109,20 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Modal Header</h4>
+          <h4 class="modal-title">Calificaciones</h4>
         </div>
         <div class="modal-body">
-          <p>This is a large modal.</p>
+          <div :key="rating.IDEN_CALIFICACION" v-for="rating in post.calificaciones">
+            <star-rating 
+              v-model="rating.NUMR_VALOR"
+              :increment="0.5"
+              :star-size="20"
+              :read-only="true"
+            ></star-rating>
+            <p><small>{{rating.FECH_CREACION | dateFormat}}</small></p>
+            <p>{{rating.DESC_CALIFICACION}} </p>
+            <hr>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -130,21 +140,29 @@
         <p>Ingresa tu comentario</p>
 
         <!--FORM DE COMENTAR-->
-        <form @submit.prevent="validateBeforeSubmit(true)">
+        <form>
           <div class="form-group margin-top-20">
             <textarea class="form-control" rows="3" v-validate data-vv-rules="required" data-vv-as="comentario" name="com" v-model="comment.DESC_COMENTARIO"></textarea>
           </div>
           <span :class="message.error ? '' : 'text-danger'" v-if="message.error">{{message.commentmessage}}</span>
-          <p><button type="submit" class="btn btn-default">Comentar</button></p>
+          <p><button type="submit" @click="commentPOST()" class="btn btn-default">Comentar</button></p>
         </form>
         <!--FIN FORM DE COMENTAR-->
 
       </div>
       <div class="row margin-top" v-for="c in post.comentarios" :key="c.IDEN_COMENTARIO">
         <div class="col-xs-12 contorno">
-          <small>{{c.FECH_CREACION | dateFormat}}</small>
-          <p class="margin-top-20"><i class="fa fa-comment"></i> {{c.DESC_COMENTARIO}}</p>
-          <p v-if="c.respuesta.DESC_COMENTARIO" class="margin-top-20"><i class="fa fa-comments-o"></i> {{c.respuesta.DESC_RESPUESTA}}</p>
+          <p class="margin-top-20">
+            <i class="fa fa-comment"> </i>
+            <small class="margin-left"> {{c.FECH_CREACION | dateFormat}}</small>
+            {{c.DESC_COMENTARIO}}
+          </p>
+          <p v-if="c.respuesta.DESC_RESPUESTA" class="margin-top-20">
+            <i class="fa fa-comments-o"> </i>
+            <small> {{c.respuesta.FECH_CREACION | dateFormat}}</small>
+            {{c.respuesta.DESC_RESPUESTA}}
+          </p>
+
           <p>
             <a href="#" class="margin-top">Denunciar</a>
             <span v-if="isAuthenticated && loggedUser.rol === 102 && c.respuesta.IDEN_RESPUESTA === undefined"> -
@@ -154,11 +172,11 @@
           <div class="comentarios" v-if="c.IDEN_COMENTARIO == selected">
 
             <!--FORM RESPUESTAS-->
-            <form id='writeComments'  @submit.prevent="validateBeforeSubmit(false)">
+            <form id='writeComments'>
               <div class="form-group margin-top-20">
                 <textarea class="form-control" rows="3" v-validate data-vv-rules="required" data-vv-as="respuesta" name="ans" v-model="answer.DESC_RESPUESTA"></textarea>
               </div>
-              <button type="submit" class="btn btn-default">Enviar</button>
+              <button type="submit" @click="answerPOST()" class="btn btn-default">Enviar</button>
               <button @click="selected=''" class="btn btn-default">Ocultar</button>
               <span :class="message.error ? '' : 'text-danger'" v-if="message.error">{{message.answermessage}}</span>
             </form>
@@ -169,7 +187,6 @@
     </div><!-- /container -->
   </section><!-- /Comentarios -->
 </div>
-  
 
 </div>
   
@@ -180,8 +197,10 @@
 import controller from '~/controllers/posts'
 import commentscontroller from '~/controllers/comments'
 import answerscontroller from '~/controllers/answers'
+import ratingscontroller from '~/controllers/ratings'
 import moment from 'moment'
 import { mapGetters } from 'vuex'
+import StarRating from 'vue-star-rating'
 
 var SocialSharing = require('vue-social-sharing')
 
@@ -194,33 +213,27 @@ export default {
       comment: {},
       message: {message: '', error: false, commentmessage: '', answermessage: ''},
       selected: false,
-      answer: {}
+      answer: {},
+      rating: {NUMR_VALOR: 0}
     }
   },
   components: {
-    SocialSharing
+    SocialSharing,
+    StarRating
   },
   computed: mapGetters([
     'isAuthenticated',
     'loggedUser'
   ]),
   methods: {
-    validateBeforeSubmit (isComment) {
-      if (isComment) {
-        if (this.comment.DESC_COMENTARIO === undefined || this.comment.DESC_COMENTARIO.length < 1 || this.comment.DESC_COMENTARIO > 255) {
-          this.message.commentmessage = 'Ingrese comentario'
-          this.message.error = true
-        } else {
-          commentscontroller.POST(this)
-        }
-      } else {
-        if (this.answer.DESC_RESPUESTA === undefined || this.answer.DESC_RESPUESTA.length < 1 || this.answer.DESC_RESPUESTA > 255) {
-          this.message.answermessage = 'Ingrese respuesta'
-          this.message.error = true
-        } else {
-          answerscontroller.POST(this)
-        }
-      }
+    commentPOST () {
+      commentscontroller.POST(this)
+    },
+    ratingPOST () {
+      ratingscontroller.POST(this)
+    },
+    answerPOST () {
+      answerscontroller.POST(this)
     },
     openAnswer (event) {
       this.selected = event

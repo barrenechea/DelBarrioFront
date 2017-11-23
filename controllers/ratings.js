@@ -26,27 +26,21 @@ function GETAll (app) {
 //                    }
 // =======================================================================================
 function POST (context) {
-  if (context.answer.DESC_RESPUESTA === undefined || context.answer.DESC_RESPUESTA.length < 1 || context.answer.DESC_RESPUESTA > 255) {
-    context.message.answer = 'Ingrese respuesta'
+  context.$axios.$post(
+    'private/calificacion',
+    {
+      IDEN_PUBLICACION: context.post.IDEN_PUBLICACION,
+      DESC_CALIFICACION: context.rating.DESC_CALIFICACION,
+      NUMR_VALOR: context.rating.NUMR_VALOR
+    }).then(response => {
+    context.rating = { }
+    context.message.message = 'Se ha enviado tu calificacion'
+    context.message.error = false
+    // ACTUALIZAR LAS CALIFICACIONES DESPUÉS DE AGREGARLOS.
+  }).catch(errors => {
+    context.message.message = 'Lo sentimos, ha ocurrido un error inesperado.'
     context.message.error = true
-  } else {
-    context.$axios.$post(
-      'private/respuesta',
-      {
-        IDEN_COMENTARIO: parseInt(context.selected),
-        DESC_RESPUESTA: context.answer.DESC_RESPUESTA
-      }).then(response => {
-      console.log(response)
-      context.answer = { }
-      context.message.message = 'Se ha enviado tu respuesta'
-      context.message.error = false
-      // ACTUALIZAR LOS MENSAJES DESPUÉS DE AGREGARLOS.
-    }).catch(errors => {
-      console.log(errors.response)
-      context.message.message = 'Lo sentimos, ha ocurrido un error inesperado.'
-      context.message.error = true
-    })
-  }
+  })
 }
 
 // =======================================================================================

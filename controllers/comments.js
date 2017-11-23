@@ -26,22 +26,27 @@ function GETAll (app) {
 //                    }
 // =======================================================================================
 function POST (context) {
-  context.$axios.$post(
-    'private/comentario',
-    {
-      IDEN_PUBLICACION: context.post.IDEN_PUBLICACION,
-      IDEN_USUARIO: 1, // Prueba
-      DESC_COMENTARIO: context.comment.DESC_COMENTARIO
-    }).then(response => {
-    context.comment = { }
-    context.message.message = 'Se ha enviado tu pregunta'
-    context.message.error = false
-    // ACTUALIZAR LOS MENSAJES DESPUÉS DE AGREGARLOS.
-    context.post.comentarios = context.post.comentarios.push(context.comment)
-  }).catch(errors => {
-    context.message.message = 'Lo sentimos, ha ocurrido un error inesperado.'
+  if (context.comment.DESC_COMENTARIO === undefined || context.comment.DESC_COMENTARIO.length < 1 || context.comment.DESC_COMENTARIO > 255) {
+    context.message.comment = 'Ingrese comentario'
     context.message.error = true
-  })
+  } else {
+    context.$axios.$post(
+      'private/comentario',
+      {
+        IDEN_PUBLICACION: context.post.IDEN_PUBLICACION,
+        DESC_COMENTARIO: context.comment.DESC_COMENTARIO
+      }).then(response => {
+      context.comment = { }
+      context.message.message = 'Se ha enviado tu pregunta'
+      context.message.error = false
+      context.$router.push({ path: '/publicaciones/' + context.post.IDEN_PUBLICACION + '/#comentarios' })
+      // ACTUALIZAR LOS MENSAJES DESPUÉS DE AGREGARLOS.
+      context.post.comentarios = context.post.comentarios.push(context.comment)
+    }).catch(errors => {
+      context.message.message = 'Lo sentimos, ha ocurrido un error inesperado.'
+      context.message.error = true
+    })
+  }
 }
 
 // =======================================================================================
