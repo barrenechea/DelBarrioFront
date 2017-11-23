@@ -7,7 +7,7 @@
                     <nuxt-link to="/"><img v-bind:src="'/img/logo-del-barrio.png'" class="img-responsive" alt="Logo Del Barrio"></nuxt-link>
                 </div>
                 <div class="col-xs-6">
-                    <img v-bind:src="'/img/logo-emprende.png'" class="img-responsive" alt="Logo Emprende" align="right"></a>
+                    <a href="http://www.providencia.cl/infante1415"><img v-bind:src="'/img/logo-emprende.png'" class="img-responsive" alt="Logo Emprende" align="right"></a>
                 </div>
             </div>
         </div>
@@ -69,7 +69,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-left">
-                    <li><a href="index.html"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+                    <li><nuxt-link to="/"><i class="fa fa-home" aria-hidden="true"></i></nuxt-link></li>
                 </ul>
                 
                 <ul class="nav navbar-nav navbar-right">
@@ -108,7 +108,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-left">
-                    <li><a href="index.html"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+                    <li><nuxt-link to="/"><i class="fa fa-home" aria-hidden="true"></i></nuxt-link></li>
                 </ul>
                 
                 <ul class="nav navbar-nav navbar-right">

@@ -31,11 +31,11 @@
           <div class="estrellas">
             <star-rating 
               v-model="post.NUMR_CALIFICACION"
-              :increment="0.5"
+              :increment="0.1"
               :star-size="35"
               :read-only="true"
           ></star-rating>
-            <p><a data-toggle="modal" data-target="#calificacionModal" href="#"> ({{post.calificaciones.length}} opiniones)</a></p>
+            <p><a href="#" data-toggle="modal" data-target="#modal" > ({{post.calificaciones.length}} opiniones)</a></p>
           </div>
           <p class="margin-top-20"><i class="fa fa-eye" aria-hidden="true"></i> ({{post.NUMR_CONTADOR}})</p>
           <a href="#comentarios">({{post.comentarios.length}} comentarios)</a>
@@ -103,34 +103,7 @@
     </section><!-- /Calificaciones -->
   
 
-  <!-- Modal de calificaciones -->
-  <div class="modal fade" id="calificacionModal" role="dialog">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Calificaciones</h4>
-        </div>
-        <div class="modal-body">
-          <div :key="rating.IDEN_CALIFICACION" v-for="rating in post.calificaciones">
-            <star-rating 
-              v-model="rating.NUMR_VALOR"
-              :increment="0.5"
-              :star-size="20"
-              :read-only="true"
-            ></star-rating>
-            <p><small>{{rating.FECH_CREACION | dateFormat}}</small></p>
-            <p>{{rating.DESC_CALIFICACION}} </p>
-            <hr>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
+  
 
   <section id="comentarios" name="comentarios" class="container-fluid">
     <div class="container">
@@ -186,6 +159,56 @@
       </div>
     </div><!-- /container -->
   </section><!-- /Comentarios -->
+
+  <!-- Modals -->
+<section id="modals">
+  <!-- Modal de calificacion -->
+  <div class="modal fade" id="modal" v-if="isAuthenticated" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Calificaciones</h4>
+        </div>
+        <div class="modal-body">
+          <div :key="rating.IDEN_CALIFICACION" v-for="rating in post.calificaciones">
+            <star-rating 
+              v-model="rating.NUMR_VALOR"
+              :increment="0.5"
+              :star-size="20"
+              :read-only="true"
+            ></star-rating>
+            <p><small>{{rating.FECH_CREACION | dateFormat}}</small></p>
+            <p>{{rating.DESC_CALIFICACION}} </p>
+            <hr>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Autenticar modal-->
+  <div class="modal fade" id="modal" v-if="!isAuthenticated" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">¡No puedes ver este contenido!</h4>
+        </div>
+        <div class="modal-body">
+          <p>Debes <nuxt-link to="/autenticar">iniciar sesión</nuxt-link> para visualizar esta funcionalidad</p>
+            <p>¿No tienes cuenta aún? <nuxt-link to="/registro">¡Regístrate!</nuxt-link></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 </div>
 
 </div>
@@ -214,7 +237,7 @@ export default {
       message: {message: '', error: false, commentmessage: '', answermessage: ''},
       selected: false,
       answer: {},
-      rating: {NUMR_VALOR: 0}
+      rating: {}
     }
   },
   components: {
