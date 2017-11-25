@@ -3,7 +3,7 @@
 // Return: lista todas las categorías.
 // =======================================================================================
 function GETAll (app) {
-  return app.$axios.$get('motivo_denuncia')
+  return app.$axios.$get('private/motivo_denuncia')
     .then(response => {
       return {
         denouncereasons: response.data
@@ -23,7 +23,7 @@ function GETAll (app) {
 // =======================================================================================
 function POST (context) {
   context.$axios.$post(
-    'motivo_denuncia',
+    'private/motivo_denuncia',
     {
       NOMB_MOTIVO_DENUNCIA: context.denouncereason.NOMB_MOTIVO_DENUNCIA
     }
@@ -38,7 +38,7 @@ function POST (context) {
 // comentarios
 function setState (context, denouncereason) {
   context.$axios.$put(
-    'motivo_denuncia/' + denouncereason.IDEN_MOTIVO_DENUNCIA,
+    'private/motivo_denuncia/' + denouncereason.IDEN_MOTIVO_DENUNCIA,
     {
       FLAG_VIGENTE: !denouncereason.FLAG_VIGENTE
     }

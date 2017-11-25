@@ -45,7 +45,7 @@ function POST (context) {
     ).then(response => {
       console.log(response.data)
       context.$axios.$post(
-        'emprendedor',
+        'private/emprendedor',
         {
           IDEN_USUARIO: response.data.IDEN_USUARIO,
           DESC_EMPRENDEDOR: context.entrepreneur.DESC_EMPRENDEDOR,
@@ -81,7 +81,7 @@ function POST (context) {
 // =======================================================================================
 function PUT (context) {
   context.$axios.$put(
-    'emprendedor/' + context.id,
+    'private/emprendedor/' + context.id,
     {
       DESC_EMPRENDEDOR: context.entrepreneur.DESC_EMPRENDEDOR,
       DESC_NOMBRE_FANTASIA: context.entrepreneur.DESC_NOMBRE_FANTASIA,
@@ -99,7 +99,7 @@ function PUT (context) {
 // estado emprendedor
 function setState (context, entrepreneur) {
   context.$axios.$put(
-    'usuario/' + entrepreneur.usuario.IDEN_USUARIO,
+    'private/usuario/' + entrepreneur.usuario.IDEN_USUARIO,
     {
       FLAG_BAN: !entrepreneur.usuario.FLAG_BAN
     }

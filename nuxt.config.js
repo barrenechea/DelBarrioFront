@@ -46,7 +46,11 @@ module.exports = {
   plugins: [
     { src: '~/plugins/vee-validate', ssr: true },
     { src: '~/plugins/croppa', ssr: false },
-    { src: '~/plugins/breadcrumb', ssr: true }
+    { src: '~/plugins/breadcrumb', ssr: true },
+    { src: '~/plugins/auth', ssr: false },
+    { src: '~/plugins/star-rating', ssr: false },
+    { src: '~/plugins/social-sharing', ssr: true },
+    { src: '~/plugins/vue-scrollto', ssr: true }
   ],
   /*
   ** Modules initialization
@@ -70,7 +74,8 @@ module.exports = {
     vendor: [
       'axios',
       'vee-validate',
-      'vue-croppa'
+      'vue-croppa',
+      'vue-scrollto'
     ],
     /*
     ** Run ESLint on save

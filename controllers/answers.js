@@ -26,44 +26,23 @@ function GETAll (app) {
 //                    }
 // =======================================================================================
 function POST (context) {
-  if (context.comment.DESC_COMENTARIO === undefined || context.comment.DESC_COMENTARIO.length < 1 || context.comment.DESC_COMENTARIO > 255) {
-    context.message.comment = 'Ingrese comentario'
+  if (context.answer.DESC_RESPUESTA === undefined || context.answer.DESC_RESPUESTA.length < 1 || context.answer.DESC_RESPUESTA > 255) {
+    context.message.answer = 'Ingrese respuesta'
     context.message.error = true
   } else {
-    // Creación de objeto dummy para simular respuesta instantánea del server
-    // Eliminar atributos del objeto que no se estén utilizando en la vista (si hay alguno que no se use)
-    // Menos IDEN_PUBLICACION y DESC_COMENTARIO, se están usando en Axios abajo
-    let dummyEntity = {
-      DESC_COMENTARIO: context.comment.DESC_COMENTARIO,
-      IDEN_PUBLICACION: context.post.IDEN_PUBLICACION,
-      FECH_CREACION: new Date().toJSON(),
-      FLAG_BAN: false,
-      IDEN_COMENTARIO: 0,
-      IDEN_USUARIO: context.loggedUser.id,
-      respuesta: {}
-    }
-    // Limpiar campo de comentario
-    context.comment = { }
-    // Agregar objeto dummy al comienzo del array de comentarios
-    context.post.comentarios.unshift(dummyEntity)
-    context.$scrollTo('#listComentarios')
     context.$axios.$post(
-      'private/comentario',
+      'private/respuesta',
       {
-        IDEN_PUBLICACION: dummyEntity.IDEN_PUBLICACION,
-        DESC_COMENTARIO: dummyEntity.DESC_COMENTARIO
+        IDEN_COMENTARIO: parseInt(context.selected),
+        DESC_RESPUESTA: context.answer.DESC_RESPUESTA
       }).then(response => {
-      context.message.message = ''
+      console.log(response)
+      context.answer = { }
+      context.message.message = 'Se ha enviado tu respuesta'
       context.message.error = false
+      // ACTUALIZAR LOS MENSAJES DESPUÉS DE AGREGARLOS.
     }).catch(errors => {
-      // Eliminar el objeto dummy del arreglo en caso de errores server-side
-      context.post.comentarios.shift()
-      // Volver a poner texto en el campo de comentario
-      context.comment = {
-        DESC_COMENTARIO: dummyEntity.DESC_COMENTARIO
-      }
-      context.$scrollTo('#comentarios')
-      // Tirar una de esas notificaciones bien Spotify
+      console.log(errors.response)
       context.message.message = 'Lo sentimos, ha ocurrido un error inesperado.'
       context.message.error = true
     })

@@ -39,7 +39,7 @@ function GETAll (app) {
 // =======================================================================================
 function POST (context) {
   context.$axios.$post(
-    'faq',
+    'private/faq',
     {
       NOMB_FAQ: context.f.NOMB_FAQ,
       DESC_FAQ: context.f.DESC_FAQ
@@ -65,7 +65,7 @@ function POST (context) {
 // =======================================================================================
 function PUT (context) {
   context.$axios.$put(
-    'faq/' + context.id,
+    'private/faq/' + context.id,
     {
       NOMB_FAQ: context.f.NOMB_FAQ,
       DESC_FAQ: context.f.DESC_FAQ
@@ -79,7 +79,7 @@ function PUT (context) {
 
 function DELETE (f, context) {
   context.$axios.$delete(
-    'faq/' + f.IDEN_FAQ
+    'private/faq/' + f.IDEN_FAQ
   ).then(response => {
     context.faqs = context.faqs.filter(item => item !== f)
   }).catch(errors => {
