@@ -88,7 +88,7 @@
           </div>
         </div>
               
-        <div class="row margin-top">
+        <div class="row margin-top" v-if="post.calificaciones.length > 0">
           <div class="col-xs-12 contorno">
             <h3>Última calificación</h3>
             <div class="estrellas">

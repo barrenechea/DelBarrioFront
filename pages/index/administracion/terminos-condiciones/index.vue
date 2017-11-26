@@ -23,7 +23,7 @@ export default {
     return {
       isInitial: true,
       isSaving: false,
-      formData: {}
+      file: {}
     }
   },
   components: {
@@ -36,14 +36,12 @@ export default {
       }
       this.isInitial = false
       this.isSaving = true
-      var fData = new FormData()
-      fData.append('TERMINOS_CONDICIONES', files[0], files[0].name)
-      this.formData = fData
+      this.file = files[0]
       console.log(files[0])
     },
     saveFile (e) {
       e.preventDefault()
-      controller.saveTermsConditions(this, this.formData)
+      controller.saveTermsConditions(this)
     }
   }
 }
