@@ -8,7 +8,7 @@
       </div>
       <div class="row">
         <div class="col-md-4 col-sm-6 margin-top">
-          <nuxt-link :to="{ path: '/administracion/emprendedores/nuevo' }" class="btn btn-tabla"><i class="fa fa-plus"></i> Agregar</nuxt-link>
+          <nuxt-link :to="{ path: '/administracion/preguntas-frecuentes/nueva' }" class="btn btn-tabla"><i class="fa fa-plus"></i> Agregar</nuxt-link>
         </div>
         <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 margin-top">
           <form class="input-group text-truncate">

@@ -50,7 +50,8 @@ module.exports = {
     { src: '~/plugins/auth', ssr: false },
     { src: '~/plugins/star-rating', ssr: false },
     { src: '~/plugins/social-sharing', ssr: true },
-    { src: '~/plugins/vue-scrollto', ssr: true }
+    { src: '~/plugins/vue-scrollto', ssr: true },
+    { src: '~/plugins/vue2-notify', ssr: false }
   ],
   /*
   ** Modules initialization
@@ -75,7 +76,9 @@ module.exports = {
       'axios',
       'vee-validate',
       'vue-croppa',
-      'vue-scrollto'
+      'vue-scrollto',
+      'velocity-animate',
+      'vue2-notify'
     ],
     /*
     ** Run ESLint on save

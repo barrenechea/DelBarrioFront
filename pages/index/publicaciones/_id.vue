@@ -4,10 +4,10 @@
     <div class="container">
       <div class="row margin-top-sec">
         <div class="col-sm-6">
-          <div id="carousel" class="carousel slide" v-if="post.imagenes.length > 0">
+          <div id="carousel" class="carousel slide">
             <div class="carousel-inner">
               <div class="item active">
-                <img v-bind:src="'https://delbarrio.barrenechea.cl/' + post.imagenes[0].URL_IMAGEN" class="img-responsive" alt="">
+                <img v-bind:src="post.imagenes.length > 0 ? 'https://delbarrio.barrenechea.cl/' + post.imagenes[0].URL_IMAGEN : '/img/no-image.jpg'" class="img-responsive" alt="">
               </div>
               <div class="item" :key="img.IDEN_IMAGEN" v-for="img in post.imagenes">
                 <img v-bind:src="'https://delbarrio.barrenechea.cl/' + img.URL_IMAGEN" class="img-responsive" alt="">
@@ -38,7 +38,8 @@
                 :read-only="true">
               </star-rating>
             </no-ssr>
-            <p><a href="#" data-toggle="modal" data-target="#modal"> ({{ post.calificaciones.length }} {{ post.calificaciones.length === 1 ? 'calificación' : 'calificaciones' }})</a></p>
+            <p v-if="post.calificaciones.length < 5">Aún no hay suficientes calificaciones</p>
+            <p v-else><a href="#" data-toggle="modal" data-target="#modal"> ({{ post.calificaciones.length }} {{ post.calificaciones.length === 1 ? 'calificación' : 'calificaciones' }})</a></p>
           </div>
           <p class="margin-top-20"><i class="fa fa-eye" aria-hidden="true"></i> ({{post.NUMR_CONTADOR}})</p>
           <a v-if="isAuthenticated" href="#" v-scroll-to="'#comentarios'">({{ post.comentarios.length }} {{ post.comentarios.length === 1 ? 'comentario' : 'comentarios' }})</a>
@@ -47,7 +48,6 @@
           <h4>Descripción</h4>                    
           <p class="info-prod">{{post.DESC_PUBLICACION}}</p>
           <button type="button" class="btn btn-default margin-top-20">Contactar Vendedor</button>
-          <a href="#" class="margin-top">Denunciar publicación</a>   
           <social-sharing
                       v-bind:title="post.NOMB_PUBLICACION + ' | Del Barrio - Providencia'"
                       description="Portal de emprendimientos en Providencia."
@@ -59,6 +59,7 @@
                 <network network="twitter"><a style="cursor:pointer;"><i class="fa fa-twitter-square" aria-hidden="true"></i></a></network>
             </div>
           </social-sharing>
+          <a href="#" @click="type = 'pub'" class="margin-top" data-toggle="modal" :data-target= "isAuthenticated ? '#denounceModal' : '#modal'">Denunciar</a>
         </div>
       </div>
     </div><!-- /container -->
@@ -88,7 +89,7 @@
           </div>
         </div>
               
-        <div class="row margin-top">
+        <div class="row margin-top" v-if="post.calificaciones.length > 0">
           <div class="col-xs-12 contorno">
             <h3>Última calificación</h3>
             <div class="estrellas">
@@ -103,7 +104,7 @@
             </div>
             <small>{{post.calificaciones[0].FECH_CREACION | dateFormat}}</small>
             <p class="margin-top-20">{{post.calificaciones[0].DESC_CALIFICACION}}</p>
-            <p><a href="#" class="margin-top">Denunciar</a></p>
+            <p><a href="#" @click="type = 'cal', iden = post.calificaciones[0].IDEN_CALIFICACION" class="margin-top" data-toggle="modal" :data-target= "isAuthenticated ? '#denounceModal' : '#modal'">Denunciar</a></p>
             <p class="text-center"><a data-toggle="modal" data-target="#modal" href="#">Ver más</a></p>
           </div>
         </div>
@@ -140,26 +141,9 @@
               <small> {{c.respuesta.FECH_CREACION | dateFormat}}</small>
               {{c.respuesta.DESC_RESPUESTA}}
             </p>
-
             <p>
-              <a href="#" class="margin-top">Denunciar</a>
-              <span v-if="isAuthenticated && loggedUser.rol === 102 && c.respuesta.IDEN_RESPUESTA === undefined"> -
-                <a :id="c.IDEN_COMENTARIO" style="cursor: pointer" @click="openAnswer($event.toElement.id)" class="margin-top">Responder</a>
-              </span>
+              <a href="#" @click="type = 'com', iden = c.IDEN_COMENTARIO" class="margin-top" data-toggle="modal" :data-target= "isAuthenticated ? '#denounceModal' : '#modal'">Denunciar</a>
             </p>
-            <div class="comentarios" v-if="c.IDEN_COMENTARIO == selected">
-
-              <!--FORM RESPUESTAS-->
-              <form id='writeComments' @submit.prevent="answerPOST">
-                <div class="form-group margin-top-20">
-                  <textarea class="form-control" rows="3" v-validate data-vv-rules="required" data-vv-as="respuesta" name="ans" v-model="answer.DESC_RESPUESTA"></textarea>
-                </div>
-                <button type="submit" class="btn btn-default">Enviar</button>
-                <button @click="selected=false" class="btn btn-default">Ocultar</button>
-                <span :class="message.error ? '' : 'text-danger'" v-if="message.error">{{message.answermessage}}</span>
-              </form>
-              <!--FIN FORM RESPUESTAS-->
-            </div>
           </div>
         </div>
       </div><!-- /container -->
@@ -192,7 +176,40 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Volver</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de denuncia -->
+    <div class="modal fade" id="denounceModal" v-if="isAuthenticated" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Denunciar {{type == 'pub' ? 'publicación' : type == 'cal' ? 'calificación' : 'comentario'}}</h4>
+          </div>
+          <div class="modal-body">
+            <form @submit.prevent="denouncePOST()">
+              <h5>Selecciona tu motivo de denuncia</h5>
+              <div class="form-group" :key="denouncereason.IDEN_MOTIVO_DENUNCIA" v-for="denouncereason in denouncereasons">
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="denounce" :value="denouncereason.IDEN_MOTIVO_DENUNCIA" v-model="denounce.IDEN_MOTIVO_DENUNCIA"> {{denouncereason.NOMB_MOTIVO_DENUNCIA}}
+                  </label>
+                </div>
+              </div>
+              <div class="form-group margin-top">
+                <label for="denounceComment">Más detalles</label>
+                <textarea id="denounceComment" class="form-control" rows="5" v-model="denounce.DESC_DENUNCIA"></textarea>
+                <span :class="denounce.DESC_DENUNCIA.length > 250 ? 'text-danger' : ''">{{denounce.DESC_DENUNCIA.length}} de 250 caracteres</span>
+              </div>
+                <button type="submit" class="btn btn-default">Enviar</button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Volver</button>
           </div>
         </div>
       </div>
@@ -200,7 +217,7 @@
 
     <!--Autenticar modal-->
     <div class="modal fade" id="modal" v-if="!isAuthenticated" role="dialog">
-      <div class="modal-dialog modal-sm">
+      <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -211,36 +228,47 @@
               <p>¿No tienes cuenta aún? <nuxt-link to="/registro">¡Regístrate!</nuxt-link></p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Volver</button>
           </div>
         </div>
       </div>
     </div>
   </section>
 </div>
-  
 
 </template>
 
 <script>
 import controller from '~/controllers/posts'
 import commentscontroller from '~/controllers/comments'
-import answerscontroller from '~/controllers/answers'
 import ratingscontroller from '~/controllers/ratings'
+import denouncereasonscontroller from '~/controllers/admin/denouncereasons'
+import denouncecontroller from '~/controllers/admin/denounces'
+
 import moment from 'moment'
 import { mapGetters } from 'vuex'
 
 export default {
   asyncData ({ app, params }) {
     return controller.GET(app, params.id)
+      .then(post => {
+        return denouncereasonscontroller.GETAll(app)
+          .then(denouncereasons => {
+            return {
+              post: post.post,
+              denouncereasons: denouncereasons.denouncereasons
+            }
+          })
+      })
   },
   data () {
     return {
       comment: {},
-      message: {message: '', error: false, commentmessage: '', answermessage: ''},
-      selected: false,
-      answer: {},
-      rating: {}
+      message: {message: '', error: false, commentmessage: ''},
+      rating: {},
+      type: '',
+      denounce: { DESC_DENUNCIA: '' },
+      iden: ''
     }
   },
   computed: mapGetters([
@@ -254,12 +282,8 @@ export default {
     ratingPOST () {
       ratingscontroller.POST(this)
     },
-    answerPOST () {
-      answerscontroller.POST(this)
-    },
-    openAnswer (event) {
-      this.selected = event
-      this.answer.DESC_RESPUESTA = ''
+    denouncePOST () {
+      denouncecontroller.POST(this)
     }
   },
   filters: {
