@@ -71,40 +71,44 @@
               </div>
               <div class="row"> <!-- Corregir estilos -->
                 <div class="col-sm-6">
-                  <croppa v-model="images.image1"
-                          :width="200"
+                  <no-ssr>
+                  <croppa :width="200"
                           :height="200"
                           placeholder="Subir Imagen"
                           :placeholder-font-size="18"
                           :prevent-white-space="true"
                           ></croppa>
+                  </no-ssr>
                 </div>
                 <div class="col-sm-6">
-                  <croppa v-model="images.image2"
-                          :width="200"
+                  <no-ssr>
+                  <croppa :width="200"
                           :height="200"
                           placeholder="Subir Imagen"
                           :placeholder-font-size="18"
                           :prevent-white-space="true"
                           ></croppa>
+                  </no-ssr>
                 </div>
                 <div class="col-sm-6">
-                  <croppa v-model="images.image3"
-                          :width="200"
+                  <no-ssr>
+                  <croppa :width="200"
                           :height="200"
                           placeholder="Subir Imagen"
                           :placeholder-font-size="18"
                           :prevent-white-space="true"
                           ></croppa>
+                  </no-ssr>
                 </div>
                 <div class="col-sm-6">
-                  <croppa v-model="images.image4"
-                          :width="200"
+                  <no-ssr>
+                  <croppa :width="200"
                           :height="200"
                           placeholder="Subir Imagen"
                           :placeholder-font-size="18"
                           :prevent-white-space="true"
                           ></croppa>
+                  </no-ssr>
                 </div>
               </div>          
               <div v-if="isSale">
@@ -170,13 +174,8 @@ export default {
       subcategorias: {},
       message: false,
       selectedIndex: null,
-      isSale: false,
-      images: {
-        image1: {},
-        image2: {},
-        image3: {},
-        image4: {}
-      }
+      isSale: false
+      // Se elimina modelo images, ya que no se utilizará
     }
   },
   asyncData ({app}) {
@@ -194,15 +193,19 @@ export default {
       this.$validator.validateAll().then(async (result) => {
         if (result) {
           let blobs = []
-          for (var key in this.images) {
-            if (this.images[key].imageSet) {
-              let blob = await this.images[key].promisedBlob()
+          // Recorrer directamente los componentes, en vez de los modelos
+          for (var key in this.$children) {
+            // Validar que efectivamente contiene los atributos que corresponden a un componente vue-croppa
+            if (this.$children[key] && this.$children[key].$children && this.$children[key].$children[0] && this.$children[key].$children[0].imageSet) {
+              let blob = await this.$children[key].$children[0].promisedBlob()
               blobs.push(blob)
             }
           }
           if (blobs.length > 0) {
+            console.log('POST with blobs!')
             controller.POST(this, blobs)
           } else {
+            console.log('POST without blobs :(')
             controller.POST(this)
           }
         }
