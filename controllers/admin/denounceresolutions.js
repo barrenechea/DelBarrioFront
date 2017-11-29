@@ -1,10 +1,8 @@
 function GETAll (app) {
-  return app.$axios.$get('private/denuncia')
+  return app.$axios.$get('private/resolucion_denuncia')
     .then(response => {
       return {
-        publicaciones: response.data.filter(data => { return data.IDEN_PUBLICACION != null }),
-        comentarios: response.data.filter(data => { return data.IDEN_COMENTARIO != null }),
-        calificaciones: response.data.filter(data => { return data.IDEN_CALIFICACION != null })
+        resolucion: response.data
       }
     }).catch(errors => {
       console.log(errors)
@@ -19,63 +17,41 @@ function GETAll (app) {
 //                      body:  string (req | len < 255)
 //                    }
 // =======================================================================================
-function ratingDenounce (context) {
-  context.$axios.$post(
-    'private/denuncia',
-    {
-      IDEN_CALIFICACION: context.iden,
-      IDEN_MOTIVO_DENUNCIA: context.denounce.IDEN_MOTIVO_DENUNCIA,
-      DESC_DENUNCIA: context.denounce.DESC_DENUNCIA
-    }
-  ).then(response => {
-    context.$notify.success('Se ha enviado tu denuncia.')
-  }).catch(errors => {
-    context.message = errors.response.data.data.message ? errors.response.data.data.message : 'Error inesperado'
-  })
-}
-
-function postDenounce (context) {
-  context.$axios.$post(
-    'private/denuncia',
-    {
-      IDEN_PUBLICACION: context.post.IDEN_PUBLICACION,
-      IDEN_MOTIVO_DENUNCIA: context.denounce.IDEN_MOTIVO_DENUNCIA,
-      DESC_DENUNCIA: context.denounce.DESC_DENUNCIA
-    }
-  ).then(response => {
-    context.$notify.success('Se ha enviado tu denuncia.')
-  }).catch(errors => {
-    context.$notify.danger('Ha ocurrido un error. Vuelve a intentarlo más tarde.')
-  })
-}
-
-function commentDenounce (context) {
-  context.$axios.$post(
-    'private/denuncia',
-    {
-      IDEN_COMENTARIO: context.iden,
-      IDEN_MOTIVO_DENUNCIA: context.denounce.IDEN_MOTIVO_DENUNCIA,
-      DESC_DENUNCIA: context.denounce.DESC_DENUNCIA
-    }
-  ).then(response => {
-    context.$notify.success('Se ha enviado tu denuncia.')
-  }).catch(errors => {
-    context.message = errors.response.data.data.message ? errors.response.data.data.message : 'Error inesperado'
-  })
-}
 
 function POST (context) {
-  parseInt(context.iden)
-  parseInt(context.denounce.IDEN_MOTIVO_DENUNCIA)
-  if (context.type === 'pub') {
-    this.postDenounce(context)
-  } else {
-    if (context.type === 'com') {
-      this.commentDenounce(context)
-    } else {
-      this.ratingDenounce(context)
+  context.$axios.$post(
+    'resolucion_denuncia',
+    {
+      IDEN_USUARIO: 1,
+      IDEN_DENUNCIA: context.denounceDetail.IDEN_DENUNCIA,
+      DESC_RESOLUCION: context.denounceresolution.DESC_RESOLUCION
     }
-  }
+  ).then(response => {
+    if (context.isBan) {
+      context.id = context.denounceDetail.IDEN_PUBLICACION ? context.denounceDetail.IDEN_PUBLICACION : context.denounceDetail.IDEN_CALIFICACION ? context.denounceDetail.IDEN_CALIFICACION : context.denounceDetail.IDEN_COMENTARIO
+      context.model = context.denounceDetail.IDEN_PUBLICACION ? 'publicacion' : context.denounceDetail.IDEN_CALIFICACION ? 'calificacion' : 'comentario'
+      this.ban(context)
+    } else {
+      context.$notify.success('Se ha resuelto denuncia.')
+    }
+  }).catch(errors => {
+    console.log(errors)
+    context.$notify.danger('Error. Intente más tarde.')
+  })
+}
+
+function ban (context) {
+  console.log('private/' + context.model + '/' + context.id)
+  context.$axios.$put(
+    'private/' + context.model + '/' + context.id,
+    {
+      FLAG_BAN: true
+    }
+  ).then(response => {
+    context.$notify.success('Se ha resuelto denuncia.')
+  }).catch(errors => {
+    context.$notify.danger('Error. Intente más tarde.')
+  })
 }
 
 // Enviar PUT request a la fuente. Se utilizó placeholder.
@@ -123,7 +99,5 @@ export default {
   POST,
   PUT,
   setState,
-  commentDenounce,
-  postDenounce,
-  ratingDenounce
+  ban
 }

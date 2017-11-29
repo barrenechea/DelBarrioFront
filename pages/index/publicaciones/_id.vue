@@ -66,6 +66,7 @@
   </section><!-- /El Producto -->
 
   <div id="interacciones" v-if="isAuthenticated">
+    <!-- CALIFICACIONES -->
     <section id="calificaciones" class="container-fluid">
       <div class="container">
         <div class="row">
@@ -77,19 +78,23 @@
               <star-rating
                 v-model="rating.NUMR_VALOR"
                 :increment="1"
-                :star-size="35">
+                :star-size="35"
+                v-validate data-vv-rules="'required'"
+                data-vv-name="value"
+                name="value">
               </star-rating>
             </no-ssr>
-            <form @submit.prevent="ratingPOST">
+            <form @submit.prevent="validateRating">
               <div class="form-group margin-top-20">
                 <textarea class="form-control" rows="3" v-model="rating.DESC_CALIFICACION"></textarea>
               </div>
+              <small class="text-danger" v-show="errors.has('value')"><p>{{ errors.first('value') }}</p></small>
               <button type="submit" class="btn btn-default">Calificar</button>
             </form>
           </div>
         </div>
               
-        <div class="row margin-top" v-if="post.calificaciones.length > 0">
+        <div id="rating" class="row margin-top" v-if="post.calificaciones.length > 0">
           <div class="col-xs-12 contorno">
             <h3>Última calificación</h3>
             <div class="estrellas">
@@ -111,6 +116,7 @@
       </div><!-- /container -->
     </section><!-- /Calificaciones -->
 
+    <!-- COMENTARIOS -->
     <section id="comentarios" name="comentarios" class="container-fluid">
       <div class="container">
         <div class="row">
@@ -119,18 +125,24 @@
           <p>Ingresa tu comentario</p>
 
           <!--FORM DE COMENTAR-->
-          <form @submit.prevent="commentPOST">
+          <form @submit.prevent="validateComment">
             <div class="form-group margin-top-20">
               <textarea class="form-control" rows="3" v-validate data-vv-rules="required" data-vv-as="comentario" name="com" v-model="comment.DESC_COMENTARIO"></textarea>
             </div>
-            <span :class="message.error ? '' : 'text-danger'" v-if="message.error">{{message.commentmessage}}</span>
+            <small class="text-danger" v-show="errors.has('com')">{{ errors.first('com') }}</small>
             <p><button type="submit" class="btn btn-default">Comentar</button></p>
           </form>
           <!--FIN FORM DE COMENTAR-->
 
         </div>
         <div id="listComentarios" class="row margin-top" v-for="c in post.comentarios" :key="c.IDEN_COMENTARIO">
-          <div class="col-xs-12 contorno">
+          <div v-if="c.FLAG_BAN" class="col-xs-12 contorno ban">
+            <p class="margin-top-20">
+              <i class="fa fa-info-circle"> </i>
+              <span> Este comentario ha sido eliminado por no cumplir con los <a>términos y condiciones</a> del sitio</span>
+            </p>
+          </div>
+          <div v-else class="col-xs-12 contorno">
             <p class="margin-top-20">
               <i class="fa fa-comment"> </i>
               <small class="margin-left"> {{c.FECH_CREACION | dateFormat}}</small>
@@ -276,11 +288,15 @@ export default {
     'loggedUser'
   ]),
   methods: {
-    commentPOST () {
-      commentscontroller.POST(this)
+    validateComment () {
+      this.$validator.validate('com', this.com).then((result) => {
+        if (result) commentscontroller.POST(this)
+      })
     },
-    ratingPOST () {
-      ratingscontroller.POST(this)
+    validateRating () {
+      this.$validator.validate('value', this.value).then((result) => {
+        if (result) ratingscontroller.POST(this)
+      })
     },
     denouncePOST () {
       denouncecontroller.POST(this)

@@ -406,6 +406,10 @@ footer{
     border: 1px solid #ccc;
     padding: 20px 30px;
 }
+
+.ban{
+    background-color: rgb(240, 240, 240);
+}
 /*----fin PRODUCTO----*/
 
 
