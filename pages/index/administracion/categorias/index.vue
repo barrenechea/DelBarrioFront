@@ -29,12 +29,13 @@
                 <th>Acción</th>
               </tr>
             </thead>
-            <tbody>
-              <tr :key="category.IDEN_CATEGORIA" v-for="category in categories">
+            <tbody :key="category.IDEN_CATEGORIA" v-for="category in categories">
+              <!-- CATEGORÍAS -->
+              <tr data-toggle="collapse" :data-target="'#'+category.IDEN_CATEGORIA" @click="selected = category.IDEN_CATEGORIA, open= !open">
                 <td>
                   <i class="fa fa-2x" v-bind:class="category.FLAG_VIGENTE ? 'fa-check' : 'fa-times'" v-bind:title="category.FLAG_VIGENTE ? 'Habilitado' : 'Deshabilitado'"></i>
                 </td>
-                <td>{{category.NOMB_CATEGORIA}}</td>
+                <td><i v-if="category.subcategorias.length > 0" :class="selected == category.IDEN_CATEGORIA && open ? 'fa fa-caret-down' : 'fa fa-caret-right' "></i> {{category.NOMB_CATEGORIA}}</td>
                 <td>
                   <nuxt-link :to="{ path: '/administracion/categorias/editar/'+category.IDEN_CATEGORIA }" class="btn btn-secondary">
                     <i class="fa fa-pencil-square-o" title="Editar"></i>
@@ -44,25 +45,23 @@
                   </a>
                 </td>
               </tr>
+              <!-- SUBCATEGORÍAS -->
+              <tr :id="category.IDEN_CATEGORIA" v-for="subcategory in category.subcategorias" :key="subcategory.IDEN_CATEGORIA" class="collapse">
+                <td>
+                  <i class="fa fa-2x" v-bind:class="subcategory.FLAG_VIGENTE ? 'fa-check' : 'fa-times'" v-bind:title="subcategory.FLAG_VIGENTE ? 'Habilitado' : 'Deshabilitado'"></i>
+                </td>
+                <td>{{subcategory.NOMB_CATEGORIA}}</td>
+                <td>
+                  <nuxt-link :to="{ path: '/administracion/categorias/editar/'+subcategory.IDEN_CATEGORIA }" class="btn btn-secondary">
+                    <i class="fa fa-pencil-square-o" title="Editar"></i>
+                  </nuxt-link>
+                  <a class="btn" v-bind:class="subcategory.FLAG_VIGENTE ? 'btn-danger' : 'btn-success'" v-on:click="setState(subcategory)" v-bind:title="subcategory.FLAG_VIGENTE ? 'Deshabilitar' : 'Habilitar'">
+                    <i class="fa" v-bind:class="subcategory.FLAG_VIGENTE ? 'fa-times' : 'fa-check'"></i>
+                  </a>
+                </td>
+              </tr>
             </tbody>
           </table>
-          <nav aria-label="Page navigation">
-            <ul class="pagination">
-              <li>
-                <a href="#" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                </a>
-              </li>
-              <li><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li>
-                <a href="#" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
         </div>
       </div>
     </div>
@@ -75,6 +74,12 @@ import controller from '~/controllers/admin/categories'
 export default {
   asyncData ({ app }) {
     return controller.GETAll(app)
+  },
+  data () {
+    return {
+      selected: 'fa fa-caret-right',
+      open: false
+    }
   },
   methods: {
     setState (category) {

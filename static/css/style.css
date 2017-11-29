@@ -21,8 +21,14 @@
     border-radius: 0 !important;
 }
 
+html {
+    position: relative;
+    min-height: 100%;
+}
+
 body{
     font-family: 'Rubik', sans-serif;
+    margin-bottom: 100px;
 }
 /* /Body */
 
@@ -82,10 +88,14 @@ p{
 
 header{
     padding: 5px 0;
+    padding-top: 20px;
     background-color: #e0daca;
 }
 /* /Header */
 
+.navbar {
+    margin-bottom: 0;
+}
 
 .navbar-default{
     background-color: #4f4344;
@@ -279,9 +289,11 @@ header{
 
 /*----Inicio FOOTER----*/
 footer{
-    padding: 50px 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
     background-color: #e0daca;
-    margin-top: 50px;
 }
 /*----fin FOOTER----*/
 
@@ -393,6 +405,10 @@ footer{
 .contorno{
     border: 1px solid #ccc;
     padding: 20px 30px;
+}
+
+.ban{
+    background-color: rgb(240, 240, 240);
 }
 /*----fin PRODUCTO----*/
 
@@ -593,4 +609,32 @@ footer{
     #el-emprendedor p, #el-emprendedor h2{
     padding-right: 0;
     }
+}
+
+#dropbox {
+    outline: 2px dashed grey;
+    background: lightcyan;
+    color: dimgray;
+    padding: 10px 10px;
+    min-height: 200px;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+#dropbox-file {
+    opacity: 0;
+    width: 100%;
+    height: 200px;
+    position: absolute;
+    cursor: pointer;
+}
+
+#dropbox:hover {
+    background: lightblue;
+}
+
+#dropbox p {
+    font-size: 1.2em;
+    text-align:center;
+    padding: 50px 0;
 }

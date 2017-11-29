@@ -36,7 +36,7 @@ function GETAll (app) {
 // =======================================================================================
 function POST (context) {
   context.$axios.$post(
-    'rubro',
+    'private/rubro',
     {
       NOMB_RUBRO: context.workfield.NOMB_RUBRO
     }
@@ -55,7 +55,7 @@ function POST (context) {
 // =======================================================================================
 function PUT (context) {
   context.$axios.$put(
-    'rubro/' + context.id,
+    'private/rubro/' + context.id,
     {
       NOMB_RUBRO: context.workfield.NOMB_RUBRO
     }
@@ -69,7 +69,7 @@ function PUT (context) {
 // comentarios
 function setState (context, workfield) {
   context.$axios.$put(
-    'rubro/' + workfield.IDEN_RUBRO,
+    'private/rubro/' + workfield.IDEN_RUBRO,
     {
       FLAG_VIGENTE: !workfield.FLAG_VIGENTE
     }

@@ -7,7 +7,7 @@
                     <nuxt-link to="/"><img v-bind:src="'/img/logo-del-barrio.png'" class="img-responsive" alt="Logo Del Barrio"></nuxt-link>
                 </div>
                 <div class="col-xs-6">
-                    <img v-bind:src="'/img/logo-emprende.png'" class="img-responsive" alt="Logo Emprende" align="right"></a>
+                    <a href="http://www.providencia.cl/infante1415"><img v-bind:src="'/img/logo-emprende.png'" class="img-responsive" alt="Logo Emprende" align="right"></a>
                 </div>
             </div>
         </div>
@@ -69,13 +69,14 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-left">
-                    <li><a href="index.html"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+                    <li><nuxt-link to="/"><i class="fa fa-home" aria-hidden="true"></i></nuxt-link></li>
                 </ul>
                 
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle usuario" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ loggedUser.nombre }} <span class="caret"></span></a>
                         <ul class="dropdown-menu">
+                            <li><nuxt-link to="/mi-cuenta"><i class="fa fa-wrench" aria-hidden="true"></i> Mi cuenta</nuxt-link></li>
                             <li><a href="#"><i class="fa fa-wrench" aria-hidden="true"></i> Configuración</a></li>
                             <li role="separator" class="divider"></li>
                             <li><nuxt-link to="/sign-out"><i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar Sesión</nuxt-link></li>
@@ -107,7 +108,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-left">
-                    <li><a href="index.html"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+                    <li><nuxt-link to="/"><i class="fa fa-home" aria-hidden="true"></i></nuxt-link></li>
                 </ul>
                 
                 <ul class="nav navbar-nav navbar-right">
@@ -123,6 +124,7 @@
                 </ul>
                 
                 <ul class="nav navbar-nav nav-admin">
+                    <li><nuxt-link to="/administracion/moderar-publicaciones">Publicaciones</nuxt-link></li>
                     <li><nuxt-link to="/administracion/denuncias">Denuncias</nuxt-link></li>
                     <li><nuxt-link to="/administracion/emprendedores">Emprendedores</nuxt-link></li>
                     <li><nuxt-link to="/administracion/clientes">Clientes</nuxt-link></li>

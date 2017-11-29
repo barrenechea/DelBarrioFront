@@ -44,7 +44,7 @@ function GETAll (app) {
 // =======================================================================================
 function POST (context, blobs = undefined) {
   context.$axios.$post(
-    'publicacion',
+    'private/publicacion',
     {
       CODI_TIPO_PUBLICACION: context.post.CODI_TIPO_PUBLICACION,
       IDEN_CATEGORIA: context.post.IDEN_SUBCATEGORIA == null ? context.post.IDEN_CATEGORIA : context.post.IDEN_SUBCATEGORIA,
@@ -54,6 +54,7 @@ function POST (context, blobs = undefined) {
       FLAG_CONTENIDO_ADULTO: context.post.FLAG_CONTENIDO_ADULTO,
       IDEN_EMPRENDEDOR: 1
     }).then(response => {
+    console.log(blobs)
     if (blobs !== undefined) {
       imagecontroller.POST(context, response.data.IDEN_PUBLICACION, blobs)
     }
@@ -72,6 +73,7 @@ function POST (context, blobs = undefined) {
       image3: {},
       image4: {}
     }
+    context.message = 'Se ha agregado con éxito'
   }).catch(errors => {
     console.log(errors + 'catch')
     context.error = 'Error inesperado al ingresar Publicación'
@@ -93,7 +95,7 @@ function POST (context, blobs = undefined) {
 function PUT (context) {
   if (this.validate(context)) {
     context.$axios.$put(
-      'publicacion/' + context.post.IDEN_PUBLICACION,
+      'private/publicacion/' + context.post.IDEN_PUBLICACION,
       {
         IDEN_TIPO_PUBLICACION: context.post.IDEN_TIPO_PUBLICACION,
         IDEN_CATEGORIA: context.post.IDEN_CATEGORIA,
@@ -114,7 +116,7 @@ function PUT (context) {
 
 function addSale (context, id) {
   context.$axios.$post(
-    'oferta',
+    'private/oferta',
     {
       IDEN_PUBLICACION: parseInt(id),
       FECH_INICIO: moment(new Date(context.sale.FECH_INICIO)).toJSON(),
@@ -126,7 +128,7 @@ function addSale (context, id) {
 function setState (context, post) {
   if (!post.FLAG_BAN) {
     context.$axios.$put(
-      'publicacion/' + post.IDEN_PUBLICACION,
+      'private/publicacion/' + post.IDEN_PUBLICACION,
       {
         FLAG_VIGENTE: !post.FLAG_VIGENTE
       }

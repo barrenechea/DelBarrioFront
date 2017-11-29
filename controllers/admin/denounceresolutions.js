@@ -1,24 +1,8 @@
-// Obtener categoría especifica según id.
-// Param.: context -> Contexto de la vista .vue, contiene los objetos instanciados en "data".
-// Return: Promise
-// =======================================================================================
-function GET (app, id) {
-  return app.$axios.$get('categoria/' + id)
-    .then(res => {
-      return {
-        id: id,
-        category: res.data
-      }
-    }).catch(errors => {
-      console.log(errors)
-    })
-}
-
 function GETAll (app) {
-  return app.$axios.$get('categoria')
+  return app.$axios.$get('private/resolucion_denuncia')
     .then(response => {
       return {
-        categories: response.data
+        resolucion: response.data
       }
     }).catch(errors => {
       console.log(errors)
@@ -33,18 +17,40 @@ function GETAll (app) {
 //                      body:  string (req | len < 255)
 //                    }
 // =======================================================================================
+
 function POST (context) {
   context.$axios.$post(
-    'categoria',
+    'resolucion_denuncia',
     {
-      IDEN_CATEGORIA_PADRE: context.category.IDEN_CATEGORIA_PADRE,
-      NOMB_CATEGORIA: context.category.NOMB_CATEGORIA
+      IDEN_USUARIO: 1,
+      IDEN_DENUNCIA: context.denounceDetail.IDEN_DENUNCIA,
+      DESC_RESOLUCION: context.denounceresolution.DESC_RESOLUCION
     }
   ).then(response => {
-    context.category = {}
-    context.message = 'Agregado exitosamente!'
+    if (context.isBan) {
+      context.id = context.denounceDetail.IDEN_PUBLICACION ? context.denounceDetail.IDEN_PUBLICACION : context.denounceDetail.IDEN_CALIFICACION ? context.denounceDetail.IDEN_CALIFICACION : context.denounceDetail.IDEN_COMENTARIO
+      context.model = context.denounceDetail.IDEN_PUBLICACION ? 'publicacion' : context.denounceDetail.IDEN_CALIFICACION ? 'calificacion' : 'comentario'
+      this.ban(context)
+    } else {
+      context.$notify.success('Se ha resuelto denuncia.')
+    }
   }).catch(errors => {
-    context.message = errors.response.data.data.message ? errors.response.data.data.message : 'Error inesperado'
+    console.log(errors)
+    context.$notify.danger('Error. Intente más tarde.')
+  })
+}
+
+function ban (context) {
+  console.log('private/' + context.model + '/' + context.id)
+  context.$axios.$put(
+    'private/' + context.model + '/' + context.id,
+    {
+      FLAG_BAN: true
+    }
+  ).then(response => {
+    context.$notify.success('Se ha resuelto denuncia.')
+  }).catch(errors => {
+    context.$notify.danger('Error. Intente más tarde.')
   })
 }
 
@@ -61,15 +67,15 @@ function POST (context) {
 // =======================================================================================
 function PUT (context) {
   context.$axios.$put(
-    'private/categoria/' + context.id,
+    'private/denuncia/' + context.id,
     {
       NOMB_CATEGORIA: context.category.NOMB_CATEGORIA,
       IDEN_CATEGORIA_PADRE: context.category.IDEN_CATEGORIA_PADRE
     }
   ).then(response => {
-    context.message = 'Editado exitosamente!'
+    context.$notify.success('Editado exitosamente.')
   }).catch(errors => {
-    context.message = errors.response.data.data.message ? errors.response.data.data.message : 'Error inesperado'
+    context.$notify.danger('Ha ocurrido un error inesperado. Intenta más tarde.')
   })
 }
 
@@ -82,15 +88,16 @@ function setState (context, category) {
     }
   ).then(response => {
     category.FLAG_VIGENTE = !category.FLAG_VIGENTE
+    context.$notify.success(category.FLAG_VIGENTE ? 'Habilitado correctamente' : 'Deshabilitado correctamente')
   }).catch(errors => {
     console.log(errors)
   })
 }
 
 export default {
-  GET,
   GETAll,
   POST,
   PUT,
-  setState
+  setState,
+  ban
 }
