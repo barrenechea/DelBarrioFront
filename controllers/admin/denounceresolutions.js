@@ -19,23 +19,63 @@ function GETAll (app) {
 // =======================================================================================
 
 function POST (context) {
+  // Generar objeto Dummy
+  let dummyEntity = {
+    DESC_RESOLUCION: context.denounceresolution.DESC_RESOLUCION,
+    FECH_CREACION: new Date().toJSON(),
+    IDEN_DENUNCIA: context.denouncedetail.IDEN_DENUNCIA,
+    IDEN_RESOLUCION_DENUNCIA: 0,
+    IDEN_USUARIO: context.loggedUser.id
+  }
+  // Vaciar el campo de resolución de denuncia
+  context.denounceresolution.DESC_RESOLUCION = ''
+  // Agregar objeto dummy donde corresponda para que se refleje de forma instantánea (si el default molesta, cambiar el switch por if's)
+  switch (context.type) {
+    case 'pub':
+      (context.publicaciones.find(pub => { return pub.IDEN_DENUNCIA === dummyEntity.IDEN_DENUNCIA })).resolucion_denuncia = dummyEntity
+      break
+    case 'com':
+      (context.comentarios.find(com => { return com.IDEN_DENUNCIA === dummyEntity.IDEN_DENUNCIA })).resolucion_denuncia = dummyEntity
+      break
+    case 'cal':
+      (context.calificaciones.find(cal => { return cal.IDEN_DENUNCIA === dummyEntity.IDEN_DENUNCIA })).resolucion_denuncia = dummyEntity
+      break
+    default:
+      // Do nothing
+      break
+  }
   context.$axios.$post(
     'resolucion_denuncia',
     {
-      IDEN_USUARIO: 1,
-      IDEN_DENUNCIA: context.denounceDetail.IDEN_DENUNCIA,
-      DESC_RESOLUCION: context.denounceresolution.DESC_RESOLUCION
+      IDEN_USUARIO: dummyEntity.IDEN_USUARIO,
+      IDEN_DENUNCIA: dummyEntity.IDEN_DENUNCIA,
+      DESC_RESOLUCION: dummyEntity.DESC_RESOLUCION
     }
   ).then(response => {
     if (context.isBan) {
-      context.id = context.denounceDetail.IDEN_PUBLICACION ? context.denounceDetail.IDEN_PUBLICACION : context.denounceDetail.IDEN_CALIFICACION ? context.denounceDetail.IDEN_CALIFICACION : context.denounceDetail.IDEN_COMENTARIO
-      context.model = context.denounceDetail.IDEN_PUBLICACION ? 'publicacion' : context.denounceDetail.IDEN_CALIFICACION ? 'calificacion' : 'comentario'
+      context.id = context.denouncedetail.IDEN_PUBLICACION ? context.denouncedetail.IDEN_PUBLICACION : context.denouncedetail.IDEN_CALIFICACION ? context.denouncedetail.IDEN_CALIFICACION : context.denouncedetail.IDEN_COMENTARIO
+      context.model = context.denouncedetail.IDEN_PUBLICACION ? 'publicacion' : context.denouncedetail.IDEN_CALIFICACION ? 'calificacion' : 'comentario'
       this.ban(context)
     } else {
       context.$notify.success('Se ha resuelto denuncia.')
     }
   }).catch(errors => {
     console.log(errors)
+    // Limpiar objeto dummy
+    switch (context.type) {
+      case 'pub':
+        (context.publicaciones.find(pub => { return pub.IDEN_DENUNCIA === dummyEntity.IDEN_DENUNCIA })).resolucion_denuncia = {}
+        break
+      case 'com':
+        (context.comentarios.find(com => { return com.IDEN_DENUNCIA === dummyEntity.IDEN_DENUNCIA })).resolucion_denuncia = {}
+        break
+      case 'cal':
+        (context.calificaciones.find(cal => { return cal.IDEN_DENUNCIA === dummyEntity.IDEN_DENUNCIA })).resolucion_denuncia = {}
+        break
+      default:
+        // Do nothing
+        break
+    }
     context.$notify.danger('Error. Intente más tarde.')
   })
 }
