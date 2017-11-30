@@ -19,15 +19,22 @@ function GET (app, id) {
 // Param.: context -> Contexto de la vista .vue, contiene los objetos instanciados en "data".
 // Return: lista todas las publicaciones.
 // =======================================================================================
-function GETAll (app) {
-  return app.$axios.$get('publicacion')
-    .then(response => {
-      return {
-        posts: response.data
+function GETAll (app, pageNumber = 1) {
+  return app.$axios.$get(
+    'publicacion',
+    {
+      params: {
+        page: pageNumber
       }
-    }).catch(errors => {
-      console.log(errors)
-    })
+    }
+  ).then(response => {
+    return {
+      posts: response.data,
+      pagination: response.pagination
+    }
+  }).catch(errors => {
+    console.log(errors)
+  })
 }
 
 // Enviar POST request a la fuente.
