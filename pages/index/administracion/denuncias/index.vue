@@ -41,7 +41,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="denounce in publicaciones">
+                    <tr v-for="denounce in publicaciones" :key="denounce.IDEN_DENUNCIA">
                       <td>
                         <nuxt-link :to="'/publicaciones/'+ denounce.publicacion.IDEN_PUBLICACION">{{denounce.publicacion.NOMB_PUBLICACION.substring(0,10)}}</nuxt-link>
                       </td>
@@ -49,7 +49,7 @@
                       <td>{{denounce.usuario.EMAIL_USUARIO}}</td>
                       <td>{{denounce.motivo_denuncia.NOMB_MOTIVO_DENUNCIA.substring(0,10)}}</td>
                       <td>
-                        <p class="label label-success" v-if="denounce.resolucion_denuncia.IDEN_RESOLUCION_DENUNCIA">Resuelto</p>
+                        <p class="label label-success" v-if="Object.keys(denounce.resolucion_denuncia).length !== 0">Resuelto</p>
                         <p class="label label-warning" v-else>Pendiente</p>
                       </td>
                       <td>
@@ -73,13 +73,13 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="denounce in comentarios" :key="denounce.iden_denounce">
+                      <tr v-for="denounce in comentarios" :key="denounce.IDEN_DENUNCIA">
                         <td>{{denounce.FECH_CREACION | dateFormat}}</td>
                         <td>{{denounce.usuario.EMAIL_USUARIO}}</td>
                         <td>{{denounce.motivo_denuncia.NOMB_MOTIVO_DENUNCIA.substring(0,10)}}</td>
                         <td>{{denounce.DESC_DENUNCIA.substring(0,10)}}</td>
                         <td>
-                          <p class="label label-success" v-if="denounce.resolucion_denuncia.IDEN_RESOLUCION_DENUNCIA">Resuelto</p>
+                          <p class="label label-success" v-if="Object.keys(denounce.resolucion_denuncia).length !== 0">Resuelto</p>
                           <p class="label label-warning" v-else>Pendiente</p>
                         </td>
                         <td>
@@ -103,13 +103,13 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="denounce in calificaciones" :key="denounce.iden_denounce">
+                    <tr v-for="denounce in calificaciones" :key="denounce.IDEN_DENUNCIA">
                       <td>{{denounce.FECH_CREACION | dateFormat}}</td>
                       <td>{{denounce.usuario.EMAIL_USUARIO}}</td>
                       <td>{{denounce.motivo_denuncia.NOMB_MOTIVO_DENUNCIA.substring(0,10)}}</td>
                       <td>{{denounce.DESC_DENUNCIA.substring(0,10)}}</td>
                       <td>
-                        <p class="label label-success" v-if="denounce.resolucion_denuncia.IDEN_RESOLUCION_DENUNCIA">Resuelto</p>
+                        <p class="label label-success" v-if="Object.keys(denounce.resolucion_denuncia).length !== 0">Resuelto</p>
                         <p class="label label-warning" v-else>Pendiente</p>
                       </td>
                       <td>
@@ -135,18 +135,18 @@
             <h4 class="modal-title">Detalle de denuncia</h4>
           </div>
           <div class="modal-body">
-            <div v-if="denouncedetail.publicacion.IDEN_PUBLICACION">
+            <div v-if="denouncedetail.publicacion && Object.keys(denouncedetail.publicacion).length !== 0">
               <label>Publicación</label>
               <p>{{denouncedetail.publicacion.NOMB_PUBLICACION}}</p>
             </div>
-            <div v-if="denouncedetail.comentario">
+            <div v-if="denouncedetail.comentario && Object.keys(denouncedetail.comentario).length !== 0">
               <label>Comentario</label>
               <p>{{denouncedetail.comentario.DESC_COMENTARIO}}</p>
             </div>
-            <div v-if="denouncedetail.calificacion">
+            <div v-if="denouncedetail.calificacion && Object.keys(denouncedetail.calificacion).length !== 0">
               <label>Texto de calificación</label>
               <p v-if="denouncedetail.calificacion.DESC_CALIFICACION">{{denouncedetail.calificacion.DESC_CALIFICACION}}</p>
-              <p v-else><i>No hay texto</i></p>
+              <p v-else><i>No posee</i></p>
             </div>
             <label>Usuario denunciante</label>
             <p>{{denouncedetail.usuario.EMAIL_USUARIO}}</p>
@@ -157,13 +157,21 @@
             <label>Descripción de la denuncia</label>
             <p>{{denouncedetail.DESC_DENUNCIA}}</p>
             <hr class="margin-top">
-            <!-- FORM DE RESOLVER DENUNCIA -->
-            <div v-if="!denouncedetail.resolucion_denuncia.IDEN_RESOLUCION_DENUNCIA">
+            <div v-if="denouncedetail.resolucion_denuncia && Object.keys(denouncedetail.resolucion_denuncia).length !== 0">
+              <h4>Resolución de denuncia</h4>
+              <label>Fecha de resolución</label>
+              <p>{{denouncedetail.resolucion_denuncia.FECH_CREACION | dateFormat}}</p>
+              <label>Administrador a cargo</label>
+              <p>{{denouncedetail.resolucion_denuncia.IDEN_USUARIO}}</p>
+              <label>Descripción</label>
+              <p>{{denouncedetail.resolucion_denuncia.DESC_RESOLUCION}}</p>
+            </div>
+            <div v-else>
               <h4 class="margin-top">Resolver denuncia</h4>
               <form @submit.prevent="validate">
                 <div class="form-group">
                   <div class="checkbox">
-                     <label><input type="checkbox" v-model="isBan">Banear {{ type = 'pub' ? 'publicación' : type = 'com' ? 'comentario' : 'calificación' }}</label>
+                    <label><input type="checkbox" v-model="isBan" />Banear {{ type == 'pub' ? 'publicación' : type == 'com' ? 'comentario' : 'calificación' }}</label>
                   </div>
                 </div>
                 <div class="form-group">
@@ -174,16 +182,6 @@
                 </div>
                 <button class="btn btn-default" type="submit">Subir</button>
               </form>
-            </div>
-            <!-- MOSTRAR RESOLUCIÓN DE DENUNCIA -->
-            <div v-else>
-              <h4>Resolución de denuncia</h4>
-              <label>Fecha de resolución</label>
-              <p>{{denouncedetail.resolucion_denuncia.FECH_CREACION | dateFormat}}</p>
-              <label>Administrador a cargo</label>
-              <p>{{denouncedetail.resolucion_denuncia.IDEN_USUARIO}}</p>
-              <label>Descripción</label>
-              <p>{{denouncedetail.resolucion_denuncia.DESC_RESOLUCION}}</p>
             </div>
           </div>
           <div class="modal-footer">
@@ -199,6 +197,7 @@
 import controller from '~/controllers/admin/denounces'
 import resolutioncontroller from '~/controllers/admin/denounceresolutions'
 import moment from 'moment'
+import { mapGetters } from 'vuex'
 
 export default {
   asyncData ({ app }) {
@@ -213,13 +212,18 @@ export default {
       isBan: false
     }
   },
+  computed: mapGetters([
+    'loggedUser'
+  ]),
   methods: {
     setState: client => {
       controller.setState(this, client)
     },
     validate () {
       this.$validator.validateAll().then((result) => {
-        if (result) resolutioncontroller.POST(this)
+        if (result) {
+          resolutioncontroller.POST(this)
+        }
       })
     }
   },

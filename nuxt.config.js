@@ -54,7 +54,8 @@ module.exports = {
     { src: '~/plugins/social-sharing', ssr: true },
     { src: '~/plugins/vue-scrollto', ssr: true },
     { src: '~/plugins/vue2-notify', ssr: false },
-    { src: '~/plugins/vue-awesome', ssr: true }
+    { src: '~/plugins/vue-awesome', ssr: true },
+    { src: '~/plugins/vue-lazyload', ssr: false }
   ],
   /*
   ** Modules initialization
@@ -82,7 +83,8 @@ module.exports = {
       'vue-scrollto',
       'velocity-animate',
       'vue2-notify',
-      'vue-awesome'
+      'vue-awesome',
+      'vue-lazyload'
     ],
     /*
     ** Run ESLint on save
