@@ -10,9 +10,9 @@
         <div class="row">
           <transition-group name="list" tag="div">
             <div class="col-md-2 col-sm-3 col-xs-6 post-item" v-for="p in posts" :key="p.IDEN_PUBLICACION">
-              <nuxt-link :to="{ path: '/publicaciones/'+p.IDEN_PUBLICACION }" class="btn btn-secondary">
-                <img v-if="p.imagenes.length == 0" v-bind:src="'/img/no-image.jpg'" class="img-responsive" alt="">
-                <img v-else v-bind:src="'http://delbarrio.barrenechea.cl/'+p.imagenes[0].URL_IMAGEN" class="img-responsive" alt="">
+              <nuxt-link :to="{ path: '/publicaciones/'+p.IDEN_PUBLICACION }">
+                <img v-if="p.imagenes.length == 0" v-lazy="'/img/no-image.svg'" class="img-responsive" alt="">
+                <img v-else v-lazy="'https://delbarrio.barrenechea.cl/'+p.imagenes[0].URL_IMAGEN" class="img-responsive" alt="">
               </nuxt-link>
               <h4 class="text-center">{{ p.NOMB_PUBLICACION }}</h4> 
               <p class="text-center">{{ p.DESC_PUBLICACION.substring(0,20) }}</p>

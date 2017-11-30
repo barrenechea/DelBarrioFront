@@ -51,7 +51,8 @@ module.exports = {
     { src: '~/plugins/star-rating', ssr: false },
     { src: '~/plugins/social-sharing', ssr: true },
     { src: '~/plugins/vue-scrollto', ssr: true },
-    { src: '~/plugins/vue2-notify', ssr: false }
+    { src: '~/plugins/vue2-notify', ssr: false },
+    { src: '~/plugins/vue-lazyload', ssr: false }
   ],
   /*
   ** Modules initialization
@@ -78,7 +79,8 @@ module.exports = {
       'vue-croppa',
       'vue-scrollto',
       'velocity-animate',
-      'vue2-notify'
+      'vue2-notify',
+      'vue-lazyload'
     ],
     /*
     ** Run ESLint on save
