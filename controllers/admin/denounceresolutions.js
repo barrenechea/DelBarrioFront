@@ -88,9 +88,8 @@ function setState (context, category) {
     }
   ).then(response => {
     category.FLAG_VIGENTE = !category.FLAG_VIGENTE
-    context.$notify.success(category.FLAG_VIGENTE ? 'Habilitado correctamente' : 'Deshabilitado correctamente')
   }).catch(errors => {
-    console.log(errors)
+    context.$notify.danger('Ha ocurrido un error inesperado. Inténtelo más tarde.')
   })
 }
 

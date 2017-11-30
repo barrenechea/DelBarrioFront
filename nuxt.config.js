@@ -1,3 +1,5 @@
+const nodeExternals = require('webpack-node-externals')
+
 module.exports = {
   /*
   ** Router config
@@ -51,7 +53,8 @@ module.exports = {
     { src: '~/plugins/star-rating', ssr: false },
     { src: '~/plugins/social-sharing', ssr: true },
     { src: '~/plugins/vue-scrollto', ssr: true },
-    { src: '~/plugins/vue2-notify', ssr: false }
+    { src: '~/plugins/vue2-notify', ssr: false },
+    { src: '~/plugins/vue-awesome', ssr: true }
   ],
   /*
   ** Modules initialization
@@ -78,7 +81,8 @@ module.exports = {
       'vue-croppa',
       'vue-scrollto',
       'velocity-animate',
-      'vue2-notify'
+      'vue2-notify',
+      'vue-awesome'
     ],
     /*
     ** Run ESLint on save
@@ -91,6 +95,15 @@ module.exports = {
           loader: 'eslint-loader',
           exclude: /(node_modules)/
         })
+      }
+      if (!ctx.isClient) {
+        config.externals = [
+          nodeExternals({
+            // default value for `whitelist` is
+            // [/es6-promise|\.(?!(?:js|json)$).{1,5}$/i]
+            whitelist: [/es6-promise|\.(?!(?:js|json)$).{1,5}$/i, /^vue-awesome/]
+          })
+        ]
       }
     }
   }

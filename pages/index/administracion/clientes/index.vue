@@ -11,7 +11,7 @@
           <form class="input-group text-truncate">
             <input class="form-control" name="search" placeholder="Buscar" autocomplete="off" autofocus="autofocus" type="text">
             <div class="input-group-btn">
-              <button class="btn btn-outline-success" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+              <button class="btn btn-outline-success" type="submit"><icon name="search" :aria-hidden="true"></icon></button>
             </div>
           </form>
         </div>
@@ -30,13 +30,13 @@
             </thead>
             <tbody>
               <tr :key="client.IDEN_PERSONA" v-for="client in clients">
-                <td><i class="fa fa-2x" v-bind:class="client.usuario.FLAG_BAN ? 'fa-times' : 'fa-check'" v-bind:title="client.usuario.FLAG_BAN ? 'Deshabilitado' : 'Habilitado'"></i></td>
+                <td><icon :name="client.usuario.FLAG_BAN ? 'times' : 'check'" :title="client.usuario.FLAG_BAN ? 'Deshabilitado' : 'Habilitado'"></icon></td>
                 <td>{{client.usuario.EMAIL_USUARIO}}</td>
                 <td>{{client.NOMBRES + ' ' + client.APELLIDO_PATERNO+ ' ' +client.APELLIDO_MATERNO}}</td>
                 <td>{{client.FECH_FECHA_NACIMIENTO | dateFormat }}</td>
                 <td>
-                  <a class="btn" v-bind:class="client.usuario.FLAG_BAN ? 'btn-success' : 'btn-danger'" v-on:click="setState(client)" v-bind:title="client.usuario.FLAG_BAN ? 'Habilitar' : 'Deshabilitar'">
-                    <i class="fa" v-bind:class="client.usuario.FLAG_BAN ? 'fa-check' : 'fa-times'"></i>
+                  <a class="btn" :class="client.usuario.FLAG_BAN ? 'btn-success' : 'btn-danger'" @click="setState(client)" :title="client.usuario.FLAG_BAN ? 'Habilitar' : 'Deshabilitar'">
+                    <icon :name="client.usuario.FLAG_BAN ? 'check' : 'times'"></icon>
                   </a>
                 </td>
               </tr>
@@ -47,7 +47,7 @@
             <ul class="pagination">
               <li>
                 <a href="#" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
+                  <span :aria-hidden="true">&laquo;</span>
                 </a>
               </li>
               <li><a href="#">1</a></li>
@@ -55,7 +55,7 @@
               <li><a href="#">3</a></li>
               <li>
                 <a href="#" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
+                  <span :aria-hidden="true">&raquo;</span>
                 </a>
               </li>
             </ul>
@@ -76,7 +76,7 @@ export default {
     return controller.GETAll(app)
   },
   methods: {
-    setState: client => {
+    setState (client) {
       controller.setState(this, client)
     }
   },

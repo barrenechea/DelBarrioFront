@@ -51,12 +51,12 @@ function POST (context) {
       ).then(response => {
         context.client = {}
         // SE TIENE QUE AUTENTICAR AUTOMÁTICAMENTE
-        context.message = 'Agregado exitosamente!'
+        context.$notify.success('Se ha creado tu cuenta exitosamente.')
       }).catch(errors => {
-        context.message = 'Error inesperado'
+        context.$notify.danger('Ha ocurrido un error inesperado. Inténtelo más tarde.')
       })
     }).catch(errors => {
-      context.message = 'Error inesperado'
+      context.$notify.danger('Ha ocurrido un error inesperado. Inténtelo más tarde.')
     })
   } else {
     context.message = 'Ingrese un rut válido'
@@ -97,7 +97,7 @@ function setState (context, client) {
   ).then(response => {
     client.usuario.FLAG_BAN = !client.usuario.FLAG_BAN
   }).catch(errors => {
-    console.log(errors)
+    context.$notify.danger('Ha ocurrido un error inesperado. Inténtelo más tarde.')
   })
 }
 

@@ -42,9 +42,10 @@ function POST (context) {
     }
   ).then(response => {
     context.workfield = {}
-    context.message = 'Agregado exitosamente!'
+    context.$router.push({ path: '/administracion/rubros' })
+    context.$notify.success('Se ha agregado exitosamente.')
   }).catch(errors => {
-    context.message = errors.response.data.message ? errors.response.data.message : 'Error inesperado'
+    context.$notify.danger('Ha ocurrido un error inesperado. Inténtelo más tarde.')
   })
 }
 
@@ -60,9 +61,10 @@ function PUT (context) {
       NOMB_RUBRO: context.workfield.NOMB_RUBRO
     }
   ).then(response => {
-    context.message = 'Editado exitosamente!'
+    context.$router.push({ path: '/administracion/rubros' })
+    context.$notify.success('Se ha editado exitosamente.')
   }).catch(errors => {
-    context.message = errors.response.data.message ? errors.response.data.message : 'Error inesperado'
+    context.$notify.danger('Ha ocurrido un error inesperado. Inténtelo más tarde.')
   })
 }
 
@@ -75,9 +77,8 @@ function setState (context, workfield) {
     }
   ).then(response => {
     workfield.FLAG_VIGENTE = !workfield.FLAG_VIGENTE
-    console.log(response.data)
   }).catch(errors => {
-    console.log(errors)
+    context.$notify.danger('Ha ocurrido un error inesperado. Inténtelo más tarde.')
   })
 }
 

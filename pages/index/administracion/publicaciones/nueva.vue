@@ -10,7 +10,7 @@
                 <input type="file" id="files" name="files" class="input-file ng-pristine ng-valid ng-touched" files-model="" ng-model="project.fileList">
                 <label for="files">
                   <span class="add-image">
-                    <i class="fa fa-camera" aria-hidden="true"></i>
+                    <icon name="camera" :aria-hidden="true"></icon>
                   </span>
                   <output id="list"></output>
                 </label>

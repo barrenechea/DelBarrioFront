@@ -76,7 +76,7 @@ export default {
     return controller.GETAll(app)
   },
   methods: {
-    setState: deactivationreason => {
+    setState (deactivationreason) {
       controller.setState(this, deactivationreason)
     }
   }

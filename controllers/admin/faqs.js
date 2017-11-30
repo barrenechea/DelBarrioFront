@@ -46,9 +46,10 @@ function POST (context) {
     }
   ).then(response => {
     context.f = {}
-    context.message = 'Agregado exitosamente!'
+    context.$router.push({ path: '/administracion/preguntas-frecuentes' })
+    context.$notify.success('Se ha agregado exitosamente.')
   }).catch(errors => {
-    context.message = errors.response.data.message ? errors.response.data.message : 'Error inesperado'
+    context.$notify.danger('Ha ocurrido un error inesperado. Inténtelo más tarde.')
   })
 }
 
@@ -71,9 +72,10 @@ function PUT (context) {
       DESC_FAQ: context.f.DESC_FAQ
     }
   ).then(response => {
-    context.message = 'Editado exitosamente!'
+    context.$router.push({ path: '/administracion/preguntas-frecuentes' })
+    context.$notify.success('Se ha editado exitosamente.')
   }).catch(errors => {
-    context.message = errors.response.data.message ? errors.response.data.message : 'Error inesperado'
+    context.$notify.danger('Ha ocurrido un error inesperado. Inténtelo más tarde.')
   })
 }
 
@@ -82,8 +84,9 @@ function DELETE (f, context) {
     'private/faq/' + f.IDEN_FAQ
   ).then(response => {
     context.faqs = context.faqs.filter(item => item !== f)
+    context.$notify.success('Se ha eliminado exitosamente.')
   }).catch(errors => {
-    console.log(errors)
+    context.$notify.danger('Ha ocurrido un error inesperado. Inténtelo más tarde.')
   })
 }
 

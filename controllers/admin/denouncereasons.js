@@ -28,10 +28,10 @@ function POST (context) {
       NOMB_MOTIVO_DENUNCIA: context.denouncereason.NOMB_MOTIVO_DENUNCIA
     }
   ).then(response => {
-    context.denouncereason = {}
-    context.message = 'Agregado exitosamente!'
+    context.$router.push({ path: '/administracion/razon-denuncia' })
+    context.$notify.success('Se ha agregado exitosamente.')
   }).catch(errors => {
-    context.message = errors.response.data.message ? errors.response.data.message : 'Error inesperado'
+    context.$notify.danger('Ha ocurrido un error inesperado. Inténtelo más tarde.')
   })
 }
 
@@ -44,9 +44,8 @@ function setState (context, denouncereason) {
     }
   ).then(response => {
     denouncereason.FLAG_VIGENTE = !denouncereason.FLAG_VIGENTE
-    console.log(response.data)
   }).catch(errors => {
-    console.log(errors)
+    context.$notify.danger('Ha ocurrido un error inesperado. Inténtelo más tarde.')
   })
 }
 

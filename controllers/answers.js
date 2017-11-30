@@ -38,13 +38,10 @@ function POST (context) {
       }).then(response => {
       console.log(response)
       context.answer = { }
-      context.message.message = 'Se ha enviado tu respuesta'
-      context.message.error = false
-      // ACTUALIZAR LOS MENSAJES DESPUÉS DE AGREGARLOS.
+      // context.$router.push({ path: '/administracion/respuestas' }) toDo
+      context.$notify.success('Se ha enviado tu respuesta.')
     }).catch(errors => {
-      console.log(errors.response)
-      context.message.message = 'Lo sentimos, ha ocurrido un error inesperado.'
-      context.message.error = true
+      context.$notify.danger('Ha ocurrido un error inesperado. Inténtelo zmás tarde.')
     })
   }
 }

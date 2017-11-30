@@ -43,7 +43,6 @@ function POST (context) {
         IDEN_ROL: 2
       }
     ).then(response => {
-      console.log(response.data)
       context.$axios.$post(
         'private/emprendedor',
         {
@@ -56,12 +55,13 @@ function POST (context) {
         }
       ).then(response => {
         context.entrepreneur = {}
-        context.message = 'Agregado exitosamente!'
+        context.$router.push({ path: '/administracion/emprendedores' })
+        context.$notify.success('Se ha agregado exitosamente.')
       }).catch(errors => {
-        context.message = 'Error inesperado'
+        context.$notify.danger('Ha ocurrido un error inesperado. Inténtelo más tarde.')
       })
     }).catch(errors => {
-      context.message = 'Error inesperado'
+      context.$notify.danger('Ha ocurrido un error inesperado. Inténtelo más tarde.')
     })
   } else {
     context.message = 'Ingrese un rut válido'
@@ -90,9 +90,10 @@ function PUT (context) {
       DV_EMPRENDEDOR: context.rut.slice(-1).toUpperCase()
     }
   ).then(response => {
-    context.message = 'Editado exitosamente!'
+    context.$router.push({ path: '/administracion/emprendedores' })
+    context.$notify.success('Se ha editado exitosamente.')
   }).catch(errors => {
-    context.message = errors.response.data.message ? errors.response.data.message : 'Error inesperado'
+    context.$notify.danger('Ha ocurrido un error inesperado. Inténtelo más tarde.')
   })
 }
 
@@ -104,10 +105,9 @@ function setState (context, entrepreneur) {
       FLAG_BAN: !entrepreneur.usuario.FLAG_BAN
     }
   ).then(response => {
-    console.log(response)
     entrepreneur.usuario.FLAG_BAN = !entrepreneur.usuario.FLAG_BAN
   }).catch(errors => {
-    console.log(errors)
+    context.$notify.danger('Ha ocurrido un error inesperado. Inténtelo más tarde.')
   })
 }
 

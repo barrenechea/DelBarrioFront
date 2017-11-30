@@ -50,11 +50,11 @@
     '/administracion/publicaciones/nueva': 'Nueva',
     '/administracion/publicaciones/editar': 'Editar',
     // RAZONES DE DENUNCIA
-    '/administracion/razon-denuncia': 'Rubros',
+    '/administracion/razon-denuncia': 'Razón de denuncia',
     '/administracion/razon-denuncia/nuevo': 'Nueva',
     '/administracion/razon-denuncia/editar': 'Editar',
     // RAZONES DE DESACTIVACION
-    '/administracion/razon-desactivacion': 'Rubros',
+    '/administracion/razon-desactivacion': 'Razón de desactivación',
     '/administracion/razon-desactivacion/nuevo': 'Nuevo',
     '/administracion/razon-desactivacion/editar': 'Editar',
     // TERMINOS Y CONDICIONES

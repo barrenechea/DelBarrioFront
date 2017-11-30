@@ -29,9 +29,10 @@ function POST (context) {
     }
   ).then(response => {
     context.deactivationreason = {}
-    context.message = 'Agregado exitosamente!'
+    context.$router.push({ path: '/administracion/razon-desactivacion' })
+    context.$notify.success('Se ha agregado exitosamente.')
   }).catch(errors => {
-    context.message = errors.response.data.message ? errors.response.data.message : 'Error inesperado'
+    context.$notify.danger('Ha ocurrido un error inesperado. Inténtelo más tarde.')
   })
 }
 
@@ -46,7 +47,7 @@ function setState (context, deactivationreason) {
     deactivationreason.FLAG_VIGENTE = !deactivationreason.FLAG_VIGENTE
     console.log(response.data)
   }).catch(errors => {
-    console.log(errors)
+    context.$notify.danger('Ha ocurrido un error inesperado. Inténtelo más tarde.')
   })
 }
 

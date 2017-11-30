@@ -11,7 +11,7 @@
           <form class="input-group text-truncate">
             <input class="form-control" name="search" placeholder="Buscar" autocomplete="off" autofocus="autofocus" type="text">
             <div class="input-group-btn">
-              <button class="btn btn-outline-success" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+              <button class="btn btn-outline-success" type="submit"><icon name="search" :aria-hidden="true"></icon></button>
             </div>
           </form>
         </div>
@@ -157,7 +157,8 @@
             <label>Descripción de la denuncia</label>
             <p>{{denouncedetail.DESC_DENUNCIA}}</p>
             <hr class="margin-top">
-            <div v-if="!denouncedetail.resolucion_denuncia">
+            <!-- FORM DE RESOLVER DENUNCIA -->
+            <div v-if="!denouncedetail.resolucion_denuncia.IDEN_RESOLUCION_DENUNCIA">
               <h4 class="margin-top">Resolver denuncia</h4>
               <form @submit.prevent="validate">
                 <div class="form-group">
@@ -174,6 +175,7 @@
                 <button class="btn btn-default" type="submit">Subir</button>
               </form>
             </div>
+            <!-- MOSTRAR RESOLUCIÓN DE DENUNCIA -->
             <div v-else>
               <h4>Resolución de denuncia</h4>
               <label>Fecha de resolución</label>

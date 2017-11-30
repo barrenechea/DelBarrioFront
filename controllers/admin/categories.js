@@ -13,7 +13,6 @@ function GET (app, id) {
       console.log(errors)
     })
 }
-
 function GETAll (app) {
   return app.$axios.$get('categoria')
     .then(response => {
@@ -35,16 +34,17 @@ function GETAll (app) {
 // =======================================================================================
 function POST (context) {
   context.$axios.$post(
-    'categoria',
+    'private/categoria',
     {
       IDEN_CATEGORIA_PADRE: context.category.IDEN_CATEGORIA_PADRE,
       NOMB_CATEGORIA: context.category.NOMB_CATEGORIA
     }
   ).then(response => {
     context.category = {}
-    context.message = 'Agregado exitosamente!'
+    context.$router.push({ path: '/administracion/categorias' })
+    context.$notify.success('Se ha agregado exitosamente.')
   }).catch(errors => {
-    context.message = errors.response.data.data.message ? errors.response.data.data.message : 'Error inesperado'
+    context.$notify.danger('Ha ocurrido un error. Inténtelo más tarde.')
   })
 }
 
@@ -67,9 +67,10 @@ function PUT (context) {
       IDEN_CATEGORIA_PADRE: context.category.IDEN_CATEGORIA_PADRE
     }
   ).then(response => {
-    context.message = 'Editado exitosamente!'
+    context.$router.push({ path: '/administracion/categorias' })
+    context.$notify.success('Se ha editado exitosamente.')
   }).catch(errors => {
-    context.message = errors.response.data.data.message ? errors.response.data.data.message : 'Error inesperado'
+    context.$notify.danger('Ha ocurrido un error inesperado. Inténtelo más tarde.')
   })
 }
 
@@ -83,7 +84,7 @@ function setState (context, category) {
   ).then(response => {
     category.FLAG_VIGENTE = !category.FLAG_VIGENTE
   }).catch(errors => {
-    console.log(errors)
+    context.$notify.danger('Ha ocurrido un error inesperado. Inténtelo más tarde.')
   })
 }
 

@@ -7,7 +7,7 @@
           <div id="carousel" class="carousel slide">
             <div class="carousel-inner">
               <div class="item active">
-                <img v-bind:src="post.imagenes.length > 0 ? 'https://delbarrio.barrenechea.cl/' + post.imagenes[0].URL_IMAGEN : '/img/no-image.jpg'" class="img-responsive" alt="">
+                <img v-bind:src="post.imagenes.length > 0 ? 'https://delbarrio.barrenechea.cl/' + post.imagenes[0].URL_IMAGEN : '/img/no-image.svg'" class="img-responsive" alt="">
               </div>
               <div class="item" :key="img.IDEN_IMAGEN" v-for="img in post.imagenes">
                 <img v-bind:src="'https://delbarrio.barrenechea.cl/' + img.URL_IMAGEN" class="img-responsive" alt="">
@@ -15,7 +15,7 @@
             </div>
           </div><!--- Carrousel Grande -->
           <div class="clearfix">
-            <div id="thumbcarousel" class="carousel slide" data-interval="false">
+            <div id="thumbcarousel" class="carousel slide" :data-interval="false">
               <div class="carousel-inner">
                 <div class="item active" v-if="post.imagenes.length>1" >
                   <div data-target="#carousel" :data-slide-to="img.$index" class="thumb" v-bind:key="img.IDEN_IMAGEN" v-for="img in post.imagenes">
@@ -41,13 +41,18 @@
             <p v-if="post.calificaciones.length < 5">Aún no hay suficientes calificaciones</p>
             <p v-else><a href="#" data-toggle="modal" data-target="#modal"> ({{ post.calificaciones.length }} {{ post.calificaciones.length === 1 ? 'calificación' : 'calificaciones' }})</a></p>
           </div>
-          <p class="margin-top-20"><i class="fa fa-eye" aria-hidden="true"></i> ({{post.NUMR_CONTADOR}})</p>
+          <p class="margin-top-20"><icon name="eye"></icon> ({{post.NUMR_CONTADOR}})</p>
           <a v-if="isAuthenticated" href="#" v-scroll-to="'#comentarios'">({{ post.comentarios.length }} {{ post.comentarios.length === 1 ? 'comentario' : 'comentarios' }})</a>
           <a v-else data-toggle="modal" data-target="#modal">({{ post.comentarios.length }} {{ post.comentarios.length === 1 ? 'comentario' : 'comentarios' }})</a>
           <h3>$ {{ post.NUMR_PRECIO.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.") }}</h3>
           <h4>Descripción</h4>                    
           <p class="info-prod">{{post.DESC_PUBLICACION}}</p>
-          <button type="button" class="btn btn-default margin-top-20">Contactar Vendedor</button>
+          <hr>
+          <div>
+            <h4>Información del vendedor</h4>
+            <p><nuxt-link :to="'/emprendedores/' + post.emprendedor.IDEN_EMPRENDEDOR">{{post.emprendedor.DESC_NOMBRE_FANTASIA}}</nuxt-link></p>
+            <p></p>
+          </div>
           <social-sharing
                       v-bind:title="post.NOMB_PUBLICACION + ' | Del Barrio - Providencia'"
                       description="Portal de emprendimientos en Providencia."
@@ -55,8 +60,8 @@
                       hashtags="delbarrio,providencia"
                       inline-template>
               <div class="redes-sociales">
-                <network network="facebook"><a style="cursor:pointer;"><i class="fa fa-facebook-square" aria-hidden="true"></i></a></network>
-                <network network="twitter"><a style="cursor:pointer;"><i class="fa fa-twitter-square" aria-hidden="true"></i></a></network>
+                <network network="facebook"><a style="cursor:pointer;"><icon name="facebook-square" :aria-hidden="true"></icon></a></network>
+                <network network="twitter"><a style="cursor:pointer;"><icon name="twitter-square" :aria-hidden="true"></icon></a></network>
             </div>
           </social-sharing>
           <a href="#" @click="type = 'pub'" class="margin-top" data-toggle="modal" :data-target= "isAuthenticated ? '#denounceModal' : '#modal'">Denunciar</a>
@@ -79,7 +84,7 @@
                 v-model="rating.NUMR_VALOR"
                 :increment="1"
                 :star-size="35"
-                v-validate data-vv-rules="'required'"
+                v-validate data-vv-rules="required"
                 data-vv-name="value"
                 name="value">
               </star-rating>
@@ -127,7 +132,14 @@
           <!--FORM DE COMENTAR-->
           <form @submit.prevent="validateComment">
             <div class="form-group margin-top-20">
-              <textarea class="form-control" rows="3" v-validate data-vv-rules="required" data-vv-as="comentario" name="com" v-model="comment.DESC_COMENTARIO"></textarea>
+              <textarea 
+                class="form-control"
+                :rows="3"
+                v-validate data-vv-rules="required"
+                data-vv-as="comentario"
+                name="com"
+                v-model="comment.DESC_COMENTARIO">
+              </textarea>
             </div>
             <small class="text-danger" v-show="errors.has('com')">{{ errors.first('com') }}</small>
             <p><button type="submit" class="btn btn-default">Comentar</button></p>
@@ -138,18 +150,18 @@
         <div id="listComentarios" class="row margin-top" v-for="c in post.comentarios" :key="c.IDEN_COMENTARIO">
           <div v-if="c.FLAG_BAN" class="col-xs-12 contorno ban">
             <p class="margin-top-20">
-              <i class="fa fa-info-circle"> </i>
+              <icon name="info-circle"> </icon>
               <span> Este comentario ha sido eliminado por no cumplir con los <a>términos y condiciones</a> del sitio</span>
             </p>
           </div>
           <div v-else class="col-xs-12 contorno">
             <p class="margin-top-20">
-              <i class="fa fa-comment"> </i>
+              <icon name="comment"> </icon>
               <small class="margin-left"> {{c.FECH_CREACION | dateFormat}}</small>
               {{c.DESC_COMENTARIO}}
             </p>
             <p v-if="c.respuesta.DESC_RESPUESTA" class="margin-top-20">
-              <i class="fa fa-comments-o"> </i>
+              <icon name="comments-o"> </icon>
               <small> {{c.respuesta.FECH_CREACION | dateFormat}}</small>
               {{c.respuesta.DESC_RESPUESTA}}
             </p>
@@ -203,7 +215,7 @@
             <h4 class="modal-title">Denunciar {{type == 'pub' ? 'publicación' : type == 'cal' ? 'calificación' : 'comentario'}}</h4>
           </div>
           <div class="modal-body">
-            <form @submit.prevent="denouncePOST()">
+            <form @submit.prevent="validateDenounce()">
               <h5>Selecciona tu motivo de denuncia</h5>
               <div class="form-group" :key="denouncereason.IDEN_MOTIVO_DENUNCIA" v-for="denouncereason in denouncereasons">
                 <div class="radio">
@@ -214,10 +226,19 @@
               </div>
               <div class="form-group margin-top">
                 <label for="denounceComment">Más detalles</label>
-                <textarea id="denounceComment" class="form-control" rows="5" v-model="denounce.DESC_DENUNCIA"></textarea>
-                <span :class="denounce.DESC_DENUNCIA.length > 250 ? 'text-danger' : ''">{{denounce.DESC_DENUNCIA.length}} de 250 caracteres</span>
+                <textarea 
+                  class="form-control"
+                  :rows="5"
+                  v-validate data-vv-rules="required"
+                  name="description"
+                  v-model="denounce.DESC_DENUNCIA">
+                </textarea>
+                <span :class="denounce.DESC_DENUNCIA.length > 250 || denounce.DESC_DENUNCIA.length < 10 ? 'text-danger' : ''">{{denounce.DESC_DENUNCIA.length}} de 250 caracteres</span>
               </div>
+              <small class="text-danger" v-show="errors.has('description')">{{ errors.first('description') }}</small>
+              <div>
                 <button type="submit" class="btn btn-default">Enviar</button>
+              </div>
             </form>
           </div>
           <div class="modal-footer">
@@ -276,7 +297,6 @@ export default {
   data () {
     return {
       comment: {},
-      message: {message: '', error: false, commentmessage: ''},
       rating: {},
       type: '',
       denounce: { DESC_DENUNCIA: '' },
@@ -289,17 +309,20 @@ export default {
   ]),
   methods: {
     validateComment () {
-      this.$validator.validate('com', this.com).then((result) => {
+      this.$validator.validate('com').then((result) => {
+        console.log(result)
         if (result) commentscontroller.POST(this)
       })
     },
     validateRating () {
-      this.$validator.validate('value', this.value).then((result) => {
+      this.$validator.validate('value').then((result) => {
         if (result) ratingscontroller.POST(this)
       })
     },
-    denouncePOST () {
-      denouncecontroller.POST(this)
+    validateDenounce () {
+      this.$validator.validate('description').then((result) => {
+        if (result) denouncecontroller.POST(this)
+      })
     }
   },
   filters: {

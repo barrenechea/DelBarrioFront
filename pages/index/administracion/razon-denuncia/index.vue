@@ -8,13 +8,13 @@
       </div>
       <div class="row">
         <div class="col-md-4 col-sm-6 margin-top">
-          <nuxt-link :to="{ path: '/administracion/razon-denuncia/nuevo' }" class="btn btn-tabla"><i class="fa fa-plus"></i> Agregar</nuxt-link>
+          <nuxt-link :to="{ path: '/administracion/razon-denuncia/nuevo' }" class="btn btn-tabla"><icon name="plus"></icon> Agregar</nuxt-link>
         </div>
         <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 margin-top">
           <form class="input-group text-truncate">
             <input class="form-control" name="search" placeholder="Buscar" autocomplete="off" autofocus="autofocus" type="text">
             <div class="input-group-btn">
-              <button class="btn btn-outline-success" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+              <button class="btn btn-outline-success" type="submit"><icon name="search" :aria-hidden="true"></icon></button>
             </div>
           </form>
         </div>
@@ -32,13 +32,13 @@
         <tbody>
           <tr :key="denouncereason.IDEN_MOTIVO_DENUNCIA" v-for="denouncereason in denouncereasons">
             <td>
-              <i class="fa fa-check fa-2x" title="Habilitado" v-show='denouncereason.FLAG_VIGENTE'></i>
-              <i class="fa fa-times fa-2x" title="Deshabilitado" v-show='!denouncereason.FLAG_VIGENTE'></i>
+              <icon name="check" title="Habilitado" v-show='denouncereason.FLAG_VIGENTE'></icon>
+              <icon name="times" title="Deshabilitado" v-show='!denouncereason.FLAG_VIGENTE'></icon>
             </td>
             <td>{{denouncereason.NOMB_MOTIVO_DENUNCIA}}</td>
             <td>
-              <a class="btn" v-bind:class="denouncereason.FLAG_VIGENTE ? 'btn-danger' : 'btn-success'" v-on:click="setState(denouncereason)" v-bind:title="denouncereason.FLAG_VIGENTE ? 'Deshabilitar' : 'Habilitar'">
-                <i class="fa" v-bind:class="denouncereason.FLAG_VIGENTE ? 'fa-times' : 'fa-check'"></i>
+              <a class="btn" :class="denouncereason.FLAG_VIGENTE ? 'btn-danger' : 'btn-success'" v-on:click="setState(denouncereason)" :title="denouncereason.FLAG_VIGENTE ? 'Deshabilitar' : 'Habilitar'">
+                <icon :name="denouncereason.FLAG_VIGENTE ? 'times' : 'check'"></icon>
               </a>
             </td>
           </tr>
@@ -48,7 +48,7 @@
             <ul class="pagination">
               <li>
                 <a href="#" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
+                  <span :aria-hidden="true">&laquo;</span>
                 </a>
               </li>
               <li><a href="#">1</a></li>
@@ -56,7 +56,7 @@
               <li><a href="#">3</a></li>
               <li>
                 <a href="#" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
+                  <span :aria-hidden="true">&raquo;</span>
                 </a>
               </li>
             </ul>
@@ -75,7 +75,7 @@ export default {
     return controller.GETAll(app)
   },
   methods: {
-    setState: denouncereason => {
+    setState (denouncereason) {
       controller.setState(this, denouncereason)
     }
   }

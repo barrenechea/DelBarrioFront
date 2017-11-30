@@ -7,9 +7,9 @@ function saveTermsConditions (context) {
   formData.append('TERMINOS_CONDICIONES', context.file, context.file.name)
   return context.$axios.$post('private/terminos_condiciones/', formData)
     .then(res => {
-      console.log(res)
+      context.$notify.success('Se ha agregado exitosamente.')
     }).catch(errors => {
-      console.log(errors)
+      context.$notify.danger('Ha ocurrido un error inesperado. Inténtelo más tarde.')
     })
 }
 

@@ -8,13 +8,13 @@
       </div>
       <div class="row">
         <div class="col-md-4 col-sm-6 margin-top">
-          <nuxt-link :to="{ path: '/administracion/emprendedores/nuevo' }" class="btn btn-tabla"><i class="fa fa-plus"></i> Agregar</nuxt-link>
+          <nuxt-link :to="{ path: '/administracion/emprendedores/nuevo' }" class="btn btn-tabla"><icon name="plus"></icon> Agregar</nuxt-link>
         </div>
         <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 margin-top">
           <form class="input-group text-truncate">
             <input class="form-control" name="search" placeholder="Buscar" autocomplete="off" autofocus="autofocus" type="text">
             <div class="input-group-btn">
-              <button class="btn btn-outline-success" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+              <button class="btn btn-outline-success" type="submit"><icon name="search" :aria-hidden="true"></icon></button>
             </div>
           </form>
         </div>
@@ -32,15 +32,15 @@
             <tbody>
               <tr :key="entrepreneur.IDEN_CATEGORIA" v-for="entrepreneur in entrepreneurs">
                 <td>
-                  <i class="fa fa-2x" v-bind:class="entrepreneur.usuario.FLAG_BAN ? 'fa-times' : 'fa-check'" v-bind:title="entrepreneur.FLAG_BAN ? 'Deshabilitado' : 'Habilitado'"></i>
+                  <icon :name="entrepreneur.usuario.FLAG_BAN ? 'times' : 'check'" :title="entrepreneur.FLAG_BAN ? 'Deshabilitado' : 'Habilitado'"></icon>
                 </td>
                 <td><nuxt-link :to="{ path: '/emprendedores/' + entrepreneur.IDEN_EMPRENDEDOR }">{{entrepreneur.DESC_NOMBRE_FANTASIA}}</nuxt-link></td>
                 <td>
                   <nuxt-link :to="{ path: '/administracion/emprendedores/editar/'+entrepreneur.IDEN_EMPRENDEDOR }" class="btn btn-secondary">
-                    <i class="fa fa-pencil-square-o" title="Editar"></i>
+                    <icon name="pencil-square-o" title="Editar"></icon>
                   </nuxt-link>
-                  <a class="btn" v-bind:class="entrepreneur.usuario.FLAG_BAN ? 'btn-success' : 'btn-danger'" v-on:click="setState(entrepreneur)" v-bind:title="entrepreneur.usuario.FLAG_BAN ? 'Deshabilitar' : 'Habilitar'">
-                    <i class="fa" v-bind:class="entrepreneur.usuario.FLAG_BAN ? 'fa-check' : 'fa-times'"></i>
+                  <a class="btn" :class="entrepreneur.usuario.FLAG_BAN ? 'btn-success' : 'btn-danger'" @click="setState(entrepreneur)" :title="entrepreneur.usuario.FLAG_BAN ? 'Deshabilitar' : 'Habilitar'">
+                    <icon :name="entrepreneur.usuario.FLAG_BAN ? 'check' : 'times'"></icon>
                   </a>
                 </td>
               </tr>
@@ -50,7 +50,7 @@
             <ul class="pagination">
               <li>
                 <a href="#" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
+                  <span :aria-hidden="true">&laquo;</span>
                 </a>
               </li>
               <li><a href="#">1</a></li>
@@ -58,7 +58,7 @@
               <li><a href="#">3</a></li>
               <li>
                 <a href="#" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
+                  <span :aria-hidden="true">&raquo;</span>
                 </a>
               </li>
             </ul>
@@ -77,7 +77,7 @@ export default {
     return controller.GETAll(app)
   },
   methods: {
-    setState: entrepreneur => {
+    setState (entrepreneur) {
       controller.setState(this, entrepreneur)
     }
   }
