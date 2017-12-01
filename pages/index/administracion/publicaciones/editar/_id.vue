@@ -13,7 +13,9 @@
                           placeholder="Subir imagen"
                           :placeholder-font-size="18"
                           :prevent-white-space="true"
-                          :initial-image="post.imagenes.length > 0 ? 'https://delbarrio.barrenechea.cl/'+post.imagenes[0].URL_IMAGEN : ''"
+                          v-bind:initial-image="post.imagenes.length > 0 ? 'https://delbarrio.barrenechea.cl/'+post.imagenes[0].URL_IMAGEN : ''"
+                          @image-remove="imageRemoveCheck(0)"
+                          @file-choose="imageChangeCheck(0)"
                           ></croppa>
                 </div>
                 <div class="col-sm-3">
@@ -24,6 +26,8 @@
                           :placeholder-font-size="18"
                           :prevent-white-space="true"
                           :initial-image="post.imagenes.length > 1 ? 'https://delbarrio.barrenechea.cl/'+post.imagenes[1].URL_IMAGEN : ''"
+                          @image-remove="imageRemoveCheck(1)"
+                          @file-choose="imageChangeCheck(1)"
                           ></croppa>
                 </div>
                 <div class="col-sm-3">
@@ -34,6 +38,8 @@
                           :placeholder-font-size="18"
                           :prevent-white-space="true"
                           :initial-image="post.imagenes.length > 2 ? 'https://delbarrio.barrenechea.cl/'+post.imagenes[2].URL_IMAGEN : ''"
+                          @image-remove="imageRemoveCheck(2)"
+                          @file-choose="imageChangeCheck(2)"
                           ></croppa>
                 </div>
                 <div class="col-sm-3">
@@ -44,6 +50,8 @@
                           :placeholder-font-size="18"
                           :prevent-white-space="true"
                           :initial-image="post.imagenes.length > 3 ? 'https://delbarrio.barrenechea.cl/'+post.imagenes[3].URL_IMAGEN : ''"
+                          @image-remove="imageRemoveCheck(3)"
+                          @file-choose="imageChangeCheck(3)"
                           ></croppa>
                 </div>
               </div>
@@ -116,7 +124,9 @@ export default {
     return {
       message: false,
       images: {},
-      subcategorias: {}
+      subcategorias: {},
+      deletedImages: [],
+      changedImages: []
     }
   },
   asyncData ({ app, params }) {
@@ -135,12 +145,19 @@ export default {
   },
   methods: {
     validateBeforeSubmit () {
-      this.$validator.validateAll().then((result) => {
+      this.$validator.validateAll().then(async (result) => {
         if (result) {
-          if (this.images !== {}) {
-            this.images.generateBlob((blob) => {
-              controller.PUT(this, blob)
-            })
+          let blobs = []
+          // Recorrer directamente los componentes, en vez de los modelos
+          for (var key in this.$children) {
+            // Validar que efectivamente contiene los atributos que corresponden a un componente vue-croppa y que la imagen no sea inicial
+            if (this.$children[key] && this.$children[key].$children && this.$children[key].$children[0] && this.$children[key].$children[0].imageSet && !this.$children[key].$children[0].currentIsInitial) {
+              let blob = await this.$children[key].$children[0].promisedBlob()
+              blobs.push(blob)
+            }
+          }
+          if (blobs.length > 0) {
+            controller.PUT(this, blobs)
           } else {
             controller.PUT(this)
           }
@@ -149,6 +166,21 @@ export default {
     },
     selected (i) {
       this.subcategorias = i
+    },
+    imageRemoveCheck (index) {
+      // Si se encuentra en miágenes con cambios pendientes, eliminar, sino
+      // verificar que se encuentre en la cola para eliminar
+      if (this.changedImages.indexOf(index) !== -1) {
+        this.changedImages.splice(this.changedImages.indexOf(index), 1)
+      } else {
+        this.deletedImages.push(index)
+      }
+    },
+    imageChangeCheck (index) {
+      this.changedImages.push(index)
+    },
+    confirmImages () {
+      console.log('placeholder')
     }
   }
 }

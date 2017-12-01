@@ -92,7 +92,7 @@ function POST (context, blobs = undefined) {
 //                      id:     int (req | post-exists)
 //                    }
 // =======================================================================================
-function PUT (context) {
+function PUT (context, blobs = undefined) {
   if (this.validate(context)) {
     context.$axios.$put(
       'private/publicacion/' + context.post.IDEN_PUBLICACION,
@@ -104,8 +104,15 @@ function PUT (context) {
         NUMR_PRECIO: context.post.NUMR_PRECIO,
         FLAG_CONTENIDO_ADULTO: context.post.FLAG_CONTENIDO_ADULTO
       }
-    ).then(response => {
-      console.log(response.data)
+    ).then(async response => {
+      if (context.deletedImages.length > 0) {
+        for (let i = 0; i < context.deletedImages.length; i++) {
+          await imagecontroller.DELETE(context, response.data.imagenes[i].IDEN_IMAGEN)
+        }
+      }
+      if (blobs !== undefined) {
+        imagecontroller.POST(context, response.data.IDEN_PUBLICACION, blobs)
+      }
     }).catch(errors => {
       console.log(errors)
     })
