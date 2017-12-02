@@ -50,7 +50,8 @@ module.exports = {
     { src: '~/plugins/auth', ssr: false },
     { src: '~/plugins/star-rating', ssr: false },
     { src: '~/plugins/social-sharing', ssr: true },
-    { src: '~/plugins/vue-scrollto', ssr: true }
+    { src: '~/plugins/vue-scrollto', ssr: true },
+    { src: '~/plugins/vue-input-tag', ssr: true }
   ],
   /*
   ** Modules initialization
@@ -75,7 +76,8 @@ module.exports = {
       'axios',
       'vee-validate',
       'vue-croppa',
-      'vue-scrollto'
+      'vue-scrollto',
+      'vue-input-tag'
     ],
     /*
     ** Run ESLint on save

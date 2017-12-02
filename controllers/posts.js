@@ -7,8 +7,10 @@ import imagecontroller from '~/controllers/images'
 function GET (app, id) {
   return app.$axios.$get('publicacion/' + id)
     .then(response => {
+      let postAux = response.data
+      postAux.ETIQUETAS = response.data.etiquetas.map(pair => pair.NOMB_ETIQUETA)
       return {
-        post: response.data
+        post: postAux
       }
     }).catch(errors => {
       console.log(errors)
@@ -52,7 +54,8 @@ function POST (context, blobs = undefined) {
       DESC_PUBLICACION: context.post.DESC_PUBLICACION,
       NUMR_PRECIO: parseInt(context.post.NUMR_PRECIO),
       FLAG_CONTENIDO_ADULTO: context.post.FLAG_CONTENIDO_ADULTO,
-      IDEN_EMPRENDEDOR: 1
+      IDEN_EMPRENDEDOR: 1,
+      ETIQUETAS: context.post.ETIQUETAS
     }).then(response => {
     console.log(blobs)
     if (blobs !== undefined) {
@@ -61,7 +64,7 @@ function POST (context, blobs = undefined) {
     if (context.isSale) {
       this.addSale(context, response.data.IDEN_PUBLICACION)
         .then(response => {
-          context.post = { FLAG_CONTENIDO_ADULTO: false }
+          context.post = { FLAG_CONTENIDO_ADULTO: false, ETIQUETAS: [] }
         }).catch(errors => {
           context.error = 'Error inesperado al ingresar oferta'
         })
@@ -93,32 +96,29 @@ function POST (context, blobs = undefined) {
 //                    }
 // =======================================================================================
 function PUT (context, blobs = undefined) {
-  if (this.validate(context)) {
-    context.$axios.$put(
-      'private/publicacion/' + context.post.IDEN_PUBLICACION,
-      {
-        IDEN_TIPO_PUBLICACION: context.post.IDEN_TIPO_PUBLICACION,
-        IDEN_CATEGORIA: context.post.IDEN_CATEGORIA,
-        NOMB_PUBLICACION: context.post.NOMB_PUBLICACION,
-        DESC_PUBLICACION: context.post.DESC_PUBLICACION,
-        NUMR_PRECIO: context.post.NUMR_PRECIO,
-        FLAG_CONTENIDO_ADULTO: context.post.FLAG_CONTENIDO_ADULTO
+  context.$axios.$put(
+    'private/publicacion/' + context.post.IDEN_PUBLICACION,
+    {
+      IDEN_TIPO_PUBLICACION: context.post.IDEN_TIPO_PUBLICACION,
+      IDEN_CATEGORIA: context.post.IDEN_CATEGORIA,
+      NOMB_PUBLICACION: context.post.NOMB_PUBLICACION,
+      DESC_PUBLICACION: context.post.DESC_PUBLICACION,
+      NUMR_PRECIO: context.post.NUMR_PRECIO,
+      FLAG_CONTENIDO_ADULTO: context.post.FLAG_CONTENIDO_ADULTO,
+      ETIQUETAS: context.post.ETIQUETAS
+    }
+  ).then(async response => {
+    if (context.deletedImages.length > 0) {
+      for (let i = 0; i < context.deletedImages.length; i++) {
+        await imagecontroller.DELETE(context, response.data.imagenes[i].IDEN_IMAGEN)
       }
-    ).then(async response => {
-      if (context.deletedImages.length > 0) {
-        for (let i = 0; i < context.deletedImages.length; i++) {
-          await imagecontroller.DELETE(context, response.data.imagenes[i].IDEN_IMAGEN)
-        }
-      }
-      if (blobs !== undefined) {
-        imagecontroller.POST(context, response.data.IDEN_PUBLICACION, blobs)
-      }
-    }).catch(errors => {
-      console.log(errors)
-    })
-  } else {
-    return false
-  }
+    }
+    if (blobs !== undefined) {
+      imagecontroller.POST(context, response.data.IDEN_PUBLICACION, blobs)
+    }
+  }).catch(errors => {
+    console.log(errors)
+  })
 }
 
 function addSale (context, id) {

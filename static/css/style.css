@@ -634,3 +634,13 @@ footer{
     text-align:center;
     padding: 50px 0;
 }
+
+.vue-input-tag-wrapper .input-tag {
+    background-color: #e0daca !important;
+    border: 1px solid #4f4344 !important;
+    color: #000 !important;
+}
+
+.vue-input-tag-wrapper .input-tag .remove {
+    color: #4f4344 !important;
+}

@@ -146,6 +146,12 @@
                   <small class="text-danger" v-show="errors.has('end_date')">{{ errors.first('end_date') }}</small>
                 </div>
               </div>
+              <div class="row">
+                <div class="form-group">
+                  <label for="tags">Tags (separar por coma)</label>
+                  <input-tag id="tags" :tags="post.ETIQUETAS"></input-tag>
+                </div>
+              </div>
               <div v-if='message'>
                 <span>{{message}}</span>
               </div>
@@ -169,7 +175,7 @@ export default {
   data () {
     return {
       format: 'dd MMM, yyyy',
-      post: { FLAG_CONTENIDO_ADULTO: false },
+      post: { FLAG_CONTENIDO_ADULTO: false, ETIQUETAS: [] },
       sale: { },
       subcategorias: {},
       message: false,
