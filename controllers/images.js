@@ -22,6 +22,19 @@ function POST (context, id, blobs) {
   })
 }
 
+function DELETE (context, id) {
+  context.error = false
+
+  context.$axios.$delete(
+    'private/imagen/' + id + '/'
+  ).then(response => {
+    context.error = response.error
+  }).catch(errors => {
+    context.error = true
+  })
+}
+
 export default {
-  POST
+  POST,
+  DELETE
 }
