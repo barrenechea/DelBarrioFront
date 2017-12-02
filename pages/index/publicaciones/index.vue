@@ -61,7 +61,7 @@
                 <div class="item active">
                   <div class="col-md-2 col-sm-6">
                     <nuxt-link :to="{ path: '/emprendedor' }">
-                      <img v-bind:src="'/img/no-image.jpg'" class="img-responsive" alt="">
+                      <img v-bind:src="'/img/no-image.svg'" class="img-responsive" alt="">
                     </nuxt-link>
                     <h4 class="text-center">Listado de emprendedores</h4>
                   </div>
@@ -69,7 +69,7 @@
                 <div class="item">
                   <div class="col-md-2 col-sm-6">
                     <nuxt-link :to="{ path: '/emprendedor' }">
-                      <img v-bind:src="'/img/no-image.jpg'" class="img-responsive" alt="">
+                      <img v-bind:src="'/img/no-image.svg'" class="img-responsive" alt="">
                     </nuxt-link>
                     <h4 class="text-center">Emprendedor 2</h4>
                   </div>

@@ -15,6 +15,10 @@ import 'vue-awesome/icons/camera'
 import 'vue-awesome/icons/info-circle'
 import 'vue-awesome/icons/comment'
 import 'vue-awesome/icons/comments-o'
+import 'vue-awesome/icons/twitter-square'
+import 'vue-awesome/icons/facebook-square'
+import 'vue-awesome/icons/phone'
+import 'vue-awesome/icons/envelope-o'
 
 /* Register component with one of 2 methods */
 import Icon from 'vue-awesome/components/Icon'

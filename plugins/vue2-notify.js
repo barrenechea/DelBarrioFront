@@ -1,4 +1,4 @@
 import Vue from 'vue'
 import Notify from 'vue2-notify'
 
-Vue.use(Notify)
+Vue.use(Notify, { position: 'top-full' })

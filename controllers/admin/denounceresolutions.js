@@ -45,7 +45,7 @@ function POST (context) {
       break
   }
   context.$axios.$post(
-    'resolucion_denuncia',
+    'private/resolucion_denuncia',
     {
       IDEN_USUARIO: dummyEntity.IDEN_USUARIO,
       IDEN_DENUNCIA: dummyEntity.IDEN_DENUNCIA,
@@ -119,24 +119,9 @@ function PUT (context) {
   })
 }
 
-// comentarios
-function setState (context, category) {
-  context.$axios.$put(
-    'private/categoria/' + category.IDEN_CATEGORIA,
-    {
-      FLAG_VIGENTE: !category.FLAG_VIGENTE
-    }
-  ).then(response => {
-    category.FLAG_VIGENTE = !category.FLAG_VIGENTE
-  }).catch(errors => {
-    context.$notify.danger('Ha ocurrido un error inesperado. Inténtelo más tarde.')
-  })
-}
-
 export default {
   GETAll,
   POST,
   PUT,
-  setState,
   ban
 }

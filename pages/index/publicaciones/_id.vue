@@ -48,11 +48,25 @@
           <h4>Descripción</h4>                    
           <p class="info-prod">{{post.DESC_PUBLICACION}}</p>
           <hr>
-          <div>
-            <h4>Información del vendedor</h4>
-            <p><nuxt-link :to="'/emprendedores/' + post.emprendedor.IDEN_EMPRENDEDOR">{{post.emprendedor.DESC_NOMBRE_FANTASIA}}</nuxt-link></p>
-            <p></p>
+          <!-- DATOS DEL EMPRENDEDOR -->
+          <h4>Información del vendedor</h4>
+          <div v-if="isAuthenticated">
+            <p><label>{{post.emprendedor.DESC_NOMBRE_FANTASIA}}</label></p>
+            <p>{{post.emprendedor.DESC_EMPRENDEDOR}}</p>
+            <!-- Listado de números de contacto -->
+            <p v-if="post.emprendedor.usuario.telefonos.length != 0">{{post.emprendedor.usuario.telefonos.length == 1 ? 'Teléfono' : 'Teléfonos'}}</p>
+            <ul class="list-unstyled" v-for="phone in post.emprendedor.usuario.telefonos" :key="phone.IDEN_FONO">
+              <li> <a :href="'tel:'+phone.NUMR_FONO">{{phone.NUMR_FONO}}</a></li>
+            </ul>
+            <p><small>{{post.emprendedor.rubro.NOMB_RUBRO}}</small></p>
+            <p><nuxt-link :to="'/emprendedores/' + post.emprendedor.IDEN_EMPRENDEDOR">Ver más</nuxt-link></p>
           </div>
+          <!-- Mensaje de no iniciado sesión-->
+          <div v-else>
+            <p>Debes <nuxt-link to="/autenticar">iniciar sesión</nuxt-link> para visualizar esta funcionalidad</p>
+            <p>¿No tienes cuenta aún? <nuxt-link to="/registro">¡Regístrate!</nuxt-link></p>
+          </div>
+          <hr>
           <social-sharing
                       v-bind:title="post.NOMB_PUBLICACION + ' | Del Barrio - Providencia'"
                       description="Portal de emprendimientos en Providencia."
@@ -60,8 +74,8 @@
                       hashtags="delbarrio,providencia"
                       inline-template>
               <div class="redes-sociales">
-                <network network="facebook"><a style="cursor:pointer;"><icon name="facebook-square" :aria-hidden="true"></icon></a></network>
-                <network network="twitter"><a style="cursor:pointer;"><icon name="twitter-square" :aria-hidden="true"></icon></a></network>
+                <network network="facebook"><a style="cursor:pointer;"><icon :scale="2" name="facebook-square" :aria-hidden="true"></icon></a></network>
+                <network network="twitter"><a style="cursor:pointer;"><icon :scale="2" name="twitter-square" :aria-hidden="true"></icon></a></network>
             </div>
           </social-sharing>
           <a href="#" @click="type = 'pub'" class="margin-top" data-toggle="modal" :data-target= "isAuthenticated ? '#denounceModal' : '#modal'">Denunciar</a>
@@ -236,6 +250,7 @@
                 <span :class="denounce.DESC_DENUNCIA.length > 250 || denounce.DESC_DENUNCIA.length < 10 ? 'text-danger' : ''">{{denounce.DESC_DENUNCIA.length}} de 250 caracteres</span>
               </div>
               <small class="text-danger" v-show="errors.has('description')">{{ errors.first('description') }}</small>
+              <small class="text-danger" v-show="error.length">{{ error }}</small>
               <div>
                 <button type="submit" class="btn btn-default">Enviar</button>
               </div>
@@ -258,7 +273,7 @@
           </div>
           <div class="modal-body">
             <p>Debes <nuxt-link to="/autenticar">iniciar sesión</nuxt-link> para visualizar esta funcionalidad</p>
-              <p>¿No tienes cuenta aún? <nuxt-link to="/registro">¡Regístrate!</nuxt-link></p>
+            <p>¿No tienes cuenta aún? <nuxt-link to="/registro">¡Regístrate!</nuxt-link></p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Volver</button>
@@ -300,7 +315,8 @@ export default {
       rating: {},
       type: '',
       denounce: { DESC_DENUNCIA: '' },
-      iden: ''
+      iden: '',
+      error: ''
     }
   },
   computed: mapGetters([

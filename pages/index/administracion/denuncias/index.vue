@@ -135,6 +135,12 @@
             <h4 class="modal-title">Detalle de denuncia</h4>
           </div>
           <div class="modal-body">
+            <!-- DATOS DEL DENUNCIANTE -->
+            <label>Email de denunciante</label>
+            <p>{{denouncedetail.usuario.EMAIL_USUARIO}}</p>
+            <label>Nombre de denunciante</label>
+            <p>{{Object.keys(denouncedetail.usuario.persona && denouncedetail.usuario.persona).length !== 0? denouncedetail.usuario.persona.NOMBRES + ' ' + denouncedetail.usuario.persona.APELLIDO_PATERNO : denouncedetail.usuario.emprendedor.DESC_NOMBRE_EMPRESA}}</p>
+            <!-- DATOS DE LA PUBLICACIÓN, COMENTARIO O CALIFICACIÓN DENUNCIADOS -->
             <div v-if="denouncedetail.publicacion && Object.keys(denouncedetail.publicacion).length !== 0">
               <label>Publicación</label>
               <p>{{denouncedetail.publicacion.NOMB_PUBLICACION}}</p>
@@ -148,8 +154,6 @@
               <p v-if="denouncedetail.calificacion.DESC_CALIFICACION">{{denouncedetail.calificacion.DESC_CALIFICACION}}</p>
               <p v-else><i>No posee</i></p>
             </div>
-            <label>Usuario denunciante</label>
-            <p>{{denouncedetail.usuario.EMAIL_USUARIO}}</p>
             <label>Fecha de creación</label>
             <p>{{denouncedetail.FECH_CREACION | dateFormat}}</p>
             <label>Motivo de denuncia</label>
@@ -157,15 +161,17 @@
             <label>Descripción de la denuncia</label>
             <p>{{denouncedetail.DESC_DENUNCIA}}</p>
             <hr class="margin-top">
+            <!-- RESOLUCIÓN DE LA DENUNCIA (SI EXISTE) -->
             <div v-if="denouncedetail.resolucion_denuncia && Object.keys(denouncedetail.resolucion_denuncia).length !== 0">
               <h4>Resolución de denuncia</h4>
               <label>Fecha de resolución</label>
               <p>{{denouncedetail.resolucion_denuncia.FECH_CREACION | dateFormat}}</p>
               <label>Administrador a cargo</label>
-              <p>{{denouncedetail.resolucion_denuncia.IDEN_USUARIO}}</p>
+              <p>{{denouncedetail.resolucion_denuncia.usuario.persona.NOMBRES +' '+ denouncedetail.resolucion_denuncia.usuario.persona.APELLIDO_PATERNO}} ({{denouncedetail.resolucion_denuncia.usuario.EMAIL_USUARIO}})</p>
               <label>Descripción</label>
               <p>{{denouncedetail.resolucion_denuncia.DESC_RESOLUCION}}</p>
             </div>
+            <!-- SI NO EXISTE DENUNCIA, FORMULARIO DE RESOLUCIÓN -->
             <div v-else>
               <h4 class="margin-top">Resolver denuncia</h4>
               <form @submit.prevent="validate">
@@ -205,7 +211,7 @@ export default {
   },
   data () {
     return {
-      denouncedetail: { usuario: {}, publicacion: {}, motivo_denuncia: {}, calificacion: {}, resolucion_denuncia: {} },
+      denouncedetail: { usuario: { emprendedor: {}, persona: {} }, publicacion: {}, motivo_denuncia: {}, calificacion: {}, resolucion_denuncia: {} },
       open: false,
       denounceresolution: {DESC_RESOLUCION: ''},
       type: '',

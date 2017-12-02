@@ -85,7 +85,7 @@
                     <li><nuxt-link to="/preguntas-frecuentes" title="Preguntas frecuentes"><i class="fa fa-question-circle" :aria-hidden="true"></i></nuxt-link></li>
                 </ul>
                 <ul class="nav navbar-nav nav-admin">
-                    <li><nuxt-link to="/administracion/publicaciones">Publicaciones</nuxt-link></li>
+                    <li><nuxt-link to="/administracion/publicaciones">Mis publicaciones</nuxt-link></li>
                     <li><nuxt-link to="/administracion/ofertas">Ofertas</nuxt-link></li>
                 </ul>
                 <form class="input-group text-truncate">
