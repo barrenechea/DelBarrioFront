@@ -9,8 +9,13 @@ function GET (app, id) {
     .then(response => {
       let postAux = response.data
       postAux.ETIQUETAS = response.data.etiquetas.map(pair => pair.NOMB_ETIQUETA)
+      let saleAux = false
+      if (postAux.oferta.IDEN_OFERTA !== undefined) {
+        saleAux = true
+      }
       return {
-        post: postAux
+        post: postAux,
+        isSale: saleAux
       }
     }).catch(errors => {
       console.log(errors)
@@ -129,6 +134,13 @@ function addSale (context, id) {
       FECH_INICIO: moment(new Date(context.sale.FECH_INICIO)).toJSON(),
       FECH_TERMINO: new Date(context.sale.FECH_TERMINO).toJSON(),
       NUMR_PRECIO: parseInt(context.sale.NUMR_PRECIO)
+    })
+    .then(response => {
+      console.log(response)
+      context.messageOferta = 'Oferta agregada con éxito'
+    })
+    .catch(errors => {
+      context.error = 'Error al agregar oferta'
     })
 }
 // comentarios
