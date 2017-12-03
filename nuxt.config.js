@@ -51,7 +51,8 @@ module.exports = {
     { src: '~/plugins/star-rating', ssr: false },
     { src: '~/plugins/social-sharing', ssr: true },
     { src: '~/plugins/vue-scrollto', ssr: true },
-    { src: '~/plugins/vue-input-tag', ssr: true }
+    { src: '~/plugins/vue-input-tag', ssr: true },
+    { src: '~/plugins/vue-google-maps', ssr: true }
   ],
   /*
   ** Modules initialization
@@ -82,13 +83,22 @@ module.exports = {
     /*
     ** Run ESLint on save
     */
+
     extend (config, ctx) {
       if (ctx.dev && ctx.isClient) {
         config.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
-          exclude: /(node_modules)/
+          exclude: function (path) {
+            if (/vue2-google-maps/.test(path)) {
+              return false
+            }
+            if (/node_modules/.test(path)) {
+              return true
+            }
+            return false
+          }
         })
       }
     }
