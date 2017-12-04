@@ -116,6 +116,7 @@
 <script>
 import controller from '~/controllers/admin/entrepreneurs'
 import locationController from '~/controllers/location'
+import { mapGetters } from 'vuex'
 
 export default {
   asyncData ({ app, params }) {
