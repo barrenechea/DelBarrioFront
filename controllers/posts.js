@@ -143,6 +143,24 @@ function addSale (context, id) {
       context.error = 'Error al agregar oferta'
     })
 }
+
+function updateSale (context, id) {
+  context.$axios.$put(
+    'private/oferta/' + id,
+    {
+      IDEN_PUBLICACION: context.sale.IDEN_PUBLICACION,
+      FECH_INICIO: moment(new Date(context.sale.FECH_INICIO)).toJSON(),
+      FECH_TERMINO: new Date(context.sale.FECH_TERMINO).toJSON(),
+      NUMR_PRECIO: parseInt(context.sale.NUMR_PRECIO)
+    })
+    .then(response => {
+      console.log(response)
+      context.messageOferta = 'Oferta modificada con éxito'
+    })
+    .catch(errors => {
+      context.error = 'Error al agregar oferta'
+    })
+}
 // comentarios
 function setState (context, post) {
   if (!post.FLAG_BAN) {
@@ -165,5 +183,6 @@ export default {
   POST,
   PUT,
   addSale,
+  updateSale,
   setState
 }

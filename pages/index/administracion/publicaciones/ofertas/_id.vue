@@ -170,7 +170,11 @@ export default {
         }
 
         if (result) {
-          controller.addSale(this, this.post.IDEN_PUBLICACION)
+          if (this.post.oferta.IDEN_OFERTA !== undefined) {
+            controller.updateSale(this, this.post.oferta.IDEN_OFERTA)
+          } else {
+            controller.addSale(this, this.post.IDEN_PUBLICACION)
+          }
         }
       })
     }
