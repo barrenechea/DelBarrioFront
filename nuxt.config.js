@@ -55,7 +55,9 @@ module.exports = {
     { src: '~/plugins/vue-scrollto', ssr: true },
     { src: '~/plugins/vue2-notify', ssr: false },
     { src: '~/plugins/vue-awesome', ssr: true },
-    { src: '~/plugins/vue-lazyload', ssr: false }
+    { src: '~/plugins/vue-lazyload', ssr: false },
+    { src: '~/plugins/vue-input-tag', ssr: true },
+    { src: '~/plugins/vue-google-maps', ssr: true }
   ],
   /*
   ** Modules initialization
@@ -84,18 +86,28 @@ module.exports = {
       'velocity-animate',
       'vue2-notify',
       'vue-awesome',
-      'vue-lazyload'
+      'vue-lazyload',
+      'vue-input-tag'
     ],
     /*
     ** Run ESLint on save
     */
+
     extend (config, ctx) {
       if (ctx.dev && ctx.isClient) {
         config.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
-          exclude: /(node_modules)/
+          exclude: function (path) {
+            if (/vue2-google-maps/.test(path)) {
+              return false
+            }
+            if (/node_modules/.test(path)) {
+              return true
+            }
+            return false
+          }
         })
       }
       if (!ctx.isClient) {

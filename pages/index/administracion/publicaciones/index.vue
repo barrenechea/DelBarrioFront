@@ -43,8 +43,11 @@
                 <nuxt-link :to="{ path: '/administracion/publicaciones/editar/'+post.IDEN_PUBLICACION }" class="btn btn-secondary">
                   <icon name="pencil-square-o" title="Editar"></icon>
                 </nuxt-link>
-                <a class="btn" v-if="!post.FLAG_BAN" :class="post.FLAG_VIGENTE ? 'btn-danger' : 'btn-success'" @click="setState(post)" :title="post.FLAG_VIGENTE ? 'Deshabilitar' : 'Habilitar'">
-                  <i class="fa" :class="post.FLAG_VIGENTE ? 'fa-times' : 'fa-check'"></i>
+                <nuxt-link :to="{ path: '/administracion/publicaciones/ofertas/'+post.IDEN_PUBLICACION }" class="btn btn-secondary">
+                  <i class="fa fa-money" title="Oferta"></i>
+                </nuxt-link>
+                <a class="btn" v-if="!post.FLAG_BAN" v-bind:class="post.FLAG_VIGENTE ? 'btn-danger' : 'btn-success'" @click="setState(post)" v-bind:title="post.FLAG_VIGENTE ? 'Deshabilitar' : 'Habilitar'">
+                  <i class="fa" v-bind:class="post.FLAG_VIGENTE ? 'fa-times' : 'fa-check'"></i>
                 </a>
               </td>
             </tr>

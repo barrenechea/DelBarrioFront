@@ -32,7 +32,7 @@
               </div>              
               <div class="form-group">
                 <label for="price">Precio</label>
-                <input type="text" class="form-control" v-model="post.NUMR_PRECIO" v-validate data-vv-rules="required|numeric" data-vv-as="precio" name="price">
+                <input type="text" class="form-control" v-model="post.NUMR_PRECIO" v-validate data-vv-rules="required|numeric|between:1,1000000000" data-vv-as="precio" name="price">
                 <small class="text-danger" v-show="errors.has('price')">{{ errors.first('price') }}</small>
               </div>              
               <div class="form-group">
@@ -116,7 +116,7 @@
                 <h3>Datos de la Oferta</h3>
                 <div class="form-group">
                   <label for="precio-oferta">Precio Oferta</label>
-                  <input type="text" name="price" class="form-control" v-validate :data-vv-rules="isSale ? 'required|numeric|min:0|max:2.000.000.000': ''" />
+                  <input type="text" v-model="sale.NUMR_PRECIO" name="price" class="form-control" v-validate :data-vv-rules="isSale ? 'required|numeric|between:1,1000000000': ''" />
                   <small class="text-danger" v-show="errors.has('price')">{{ errors.first('price') }}</small>
                 </div>
                 <div class="form-group">
@@ -125,12 +125,9 @@
                     language="es"
                     :format='format'
                     v-model="sale.FECH_INICIO"
-                    v-validate :data-vv-rules="isSale ? 'required': ''"
-                    data-vv-value-path="innerValue"
-                    :name= "'start_date'"
                     :bootstrapStyling = "true"
                   ></datepicker>
-                  <small class="text-danger" v-show="errors.has('start_date')">{{ errors.first('start_date') }}</small>
+                  <small class="text-danger" v-if="errorMsgs.start_date != undefined">{{ errorMsgs.start_date }}</small>
                 </div>
                 <div class="form-group">
                   <label for="fecha-termino">Fecha Término</label>
@@ -138,12 +135,15 @@
                     language="es"
                     :format='format'
                     v-model="sale.FECH_TERMINO"
-                    v-validate :data-vv-rules="isSale ? 'required': ''"
-                    data-vv-value-path="innerValue"
-                    name= "end_date"
                     :bootstrapStyling="true"
                   ></datepicker>
-                  <small class="text-danger" v-show="errors.has('end_date')">{{ errors.first('end_date') }}</small>
+                  <small class="text-danger" v-if="errorMsgs.end_date != undefined">{{ errorMsgs.end_date }}</small>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group">
+                  <label for="tags">Tags (separar por coma)</label>
+                  <input-tag id="tags" :tags="post.ETIQUETAS"></input-tag>
                 </div>
               </div>
               <div v-if='message'>
@@ -163,18 +163,21 @@
 <script>
 import controller from '~/controllers/posts'
 import categoriescontroller from '~/controllers/admin/categories'
+import customvalidations from '~/controllers/customvalidations'
 import Datepicker from 'vuejs-datepicker'
 
 export default {
   data () {
     return {
       format: 'dd MMM, yyyy',
-      post: { FLAG_CONTENIDO_ADULTO: false },
+      post: { FLAG_CONTENIDO_ADULTO: false, ETIQUETAS: [] },
       sale: { },
       subcategorias: {},
       message: false,
       selectedIndex: null,
-      isSale: false
+      isSale: false,
+      // Mensajes de error para validaciones manuales
+      errorMsgs: {}
       // Se elimina modelo images, ya que no se utilizará
     }
   },
@@ -191,6 +194,39 @@ export default {
     },
     validateBeforeSubmit () {
       this.$validator.validateAll().then(async (result) => {
+        // Validar fechas de forma manual [Incompatibilidad con VV]
+        if (this.isSale) {
+          let errorMessages = {}
+          if (customvalidations.isDefined(this.sale.FECH_INICIO)) {
+            if (!customvalidations.isDate(this.sale.FECH_INICIO)) {
+              errorMessages.start_date = 'Este campo no corresponde a una fecha'
+            }
+          } else {
+            errorMessages.start_date = 'Este campo es obligatorio'
+          }
+
+          if (customvalidations.isDefined(this.sale.FECH_TERMINO)) {
+            if (!customvalidations.isDate(this.sale.FECH_TERMINO)) {
+              errorMessages.end_date = 'Este campo no corresponde a una fecha'
+            } else {
+              // Si la fecha de inicio existe y es válida, comparar que el término sea posterior al inicio
+              if (!errorMessages.start_date) {
+                if (!customvalidations.isDateAfter(this.sale.FECH_INICIO, this.sale.FECH_TERMINO)) {
+                  errorMessages.end_date = 'La fecha de término debe ser posterior a la de inicio'
+                }
+              }
+            }
+          } else {
+            errorMessages.end_date = 'Este campo es obligatorio'
+          }
+
+          if (errorMessages.start_date || errorMessages.end_date) {
+            result = undefined
+            this.errorMsgs.start_date = errorMessages.start_date
+            this.errorMsgs.end_date = errorMessages.end_date
+          }
+        }
+
         if (result) {
           let blobs = []
           // Recorrer directamente los componentes, en vez de los modelos
