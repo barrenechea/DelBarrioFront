@@ -21,7 +21,7 @@
           </transition-group>
         <!-- Productos -->
         </div><!-- /row -->
-        <nav aria-label="Navegación de páginas">
+        <nav aria-label="Navegación de páginas" style="text-align: center">
           <ul class="pagination">
             <li>
               <a v-if="pagination.page !== 1" href="#" aria-label="Previa">

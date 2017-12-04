@@ -19,6 +19,8 @@ import 'vue-awesome/icons/twitter-square'
 import 'vue-awesome/icons/facebook-square'
 import 'vue-awesome/icons/phone'
 import 'vue-awesome/icons/envelope-o'
+import 'vue-awesome/icons/exclamation-circle'
+import 'vue-awesome/icons/square'
 
 /* Register component with one of 2 methods */
 import Icon from 'vue-awesome/components/Icon'

@@ -78,7 +78,8 @@
                 <network network="twitter"><a style="cursor:pointer;"><icon :scale="2" name="twitter-square" :aria-hidden="true"></icon></a></network>
             </div>
           </social-sharing>
-          <a href="#" @click="type = 'pub'" class="margin-top" data-toggle="modal" :data-target= "isAuthenticated ? '#denounceModal' : '#modal'">Denunciar</a>
+          <a href="#" @click="type = 'pub'" class="margin-top label label-danger" data-toggle="modal" :data-target= "isAuthenticated ? '#denounceModal' : '#modal'"><icon name="exclamation-circle"></icon><span style="vertical-align: super"> Denunciar</span></a>
+          <p v-if="!post.FLAG_VALIDADO" class="margin-top">Esta publicación ha sido aceptada automáticamente y no ha pasado por moderación</p>
         </div>
       </div>
     </div><!-- /container -->

@@ -328,6 +328,10 @@ footer{
     color: gray;
 }
 
+.pricerange {
+    margin-left: -15px;
+    margin-right: -15px;
+}
 
 #el-emprendedor .btn-default, #el-producto .btn-default, #publicacion .btn-default, #registro-empresa .btn-default, #configuracion .btn-default, #busqueda .btn-default, #admin-agregar-faq .btn-default{
     background-color: #4f4344;
