@@ -133,6 +133,7 @@
                     <li><nuxt-link to="/administracion/denuncias">Denuncias</nuxt-link></li>
                     <li><nuxt-link to="/administracion/emprendedores">Emprendedores</nuxt-link></li>
                     <li><nuxt-link to="/administracion/clientes">Clientes</nuxt-link></li>
+                    <li v-if="loggedUser.rol === 104"><nuxt-link to="/administracion/administradores">Administradores</nuxt-link></li>
                     <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" :aria-haspopup="true" :aria-expanded="false">Administración <span class="caret"></span></a>
                       <ul class="dropdown-menu">
