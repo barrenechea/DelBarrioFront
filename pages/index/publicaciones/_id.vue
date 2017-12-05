@@ -7,10 +7,17 @@
           <div id="carousel" class="carousel slide">
             <div class="carousel-inner">
               <div class="item active">
+<<<<<<< HEAD
                 <img :src="post.imagenes.length > 0 ? 'https://delbarrio.barrenechea.cl/' + post.imagenes[0].URL_IMAGEN : '/img/no-image.svg'" class="img-responsive" alt="">
               </div>
               <div class="item" :key="img.IDEN_IMAGEN" v-for="img in post.imagenes">
                 <img :src="'https://delbarrio.barrenechea.cl/' + img.URL_IMAGEN" class="img-responsive" alt="">
+=======
+                <img v-bind:src="imageUrl + post.imagenes[0].URL_IMAGEN" class="img-responsive" alt="">
+              </div>
+              <div class="item" :key="img.IDEN_IMAGEN" v-for="img in post.imagenes">
+                <img v-bind:src="imageUrl + img.URL_IMAGEN" class="img-responsive" alt="">
+>>>>>>> origin/Development
               </div>
             </div>
           </div><!--- Carrousel Grande -->
@@ -19,7 +26,7 @@
               <div class="carousel-inner">
                 <div class="item active" v-if="post.imagenes.length>1" >
                   <div data-target="#carousel" :data-slide-to="img.$index" class="thumb" v-bind:key="img.IDEN_IMAGEN" v-for="img in post.imagenes">
-                      <img v-bind:src="'http://delbarrio.barrenechea.cl/' + img.URL_IMAGEN" class="img-responsive" alt="">
+                      <img v-bind:src="imageUrl + img.URL_IMAGEN" class="img-responsive" alt="">
                   </div>                
                 </div><!-- /item -->
               </div><!-- /carousel-inner -->
@@ -323,6 +330,7 @@ export default {
       denounce: { DESC_DENUNCIA: '' },
       iden: '',
       error: ''
+      imageUrl: process.env.imagesUrl
     }
   },
   computed: mapGetters([

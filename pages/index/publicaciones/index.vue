@@ -52,6 +52,11 @@
 <script>
 import controller from '~/controllers/posts'
 export default {
+  data () {
+    return {
+      imageUrl: process.env.imagesUrl
+    }
+  },
   asyncData ({ app }) {
     return controller.GETAll(app)
   },

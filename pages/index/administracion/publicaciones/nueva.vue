@@ -32,7 +32,7 @@
               </div>              
               <div class="form-group">
                 <label for="price">Precio</label>
-                <input type="text" class="form-control" v-model="post.NUMR_PRECIO" v-validate data-vv-rules="required|numeric|between:1,1000000000" data-vv-as="precio" name="price">
+                <input type="text" class="form-control" v-model="post.NUMR_PRECIO" v-validate data-vv-rules="required|numeric|between:0,1000000000" data-vv-as="precio" name="price">
                 <small class="text-danger" v-show="errors.has('price')">{{ errors.first('price') }}</small>
               </div>              
               <div class="form-group">
@@ -74,6 +74,7 @@
                   <no-ssr>
                   <croppa :width="200"
                           :height="200"
+                          :quality="3.6"
                           placeholder="Subir Imagen"
                           :placeholder-font-size="18"
                           :prevent-white-space="true"
@@ -84,6 +85,7 @@
                   <no-ssr>
                   <croppa :width="200"
                           :height="200"
+                          :quality="3.6"
                           placeholder="Subir Imagen"
                           :placeholder-font-size="18"
                           :prevent-white-space="true"
@@ -94,6 +96,7 @@
                   <no-ssr>
                   <croppa :width="200"
                           :height="200"
+                          :quality="3.6"
                           placeholder="Subir Imagen"
                           :placeholder-font-size="18"
                           :prevent-white-space="true"
@@ -104,6 +107,7 @@
                   <no-ssr>
                   <croppa :width="200"
                           :height="200"
+                          :quality="3.6"
                           placeholder="Subir Imagen"
                           :placeholder-font-size="18"
                           :prevent-white-space="true"
@@ -116,7 +120,7 @@
                 <h3>Datos de la Oferta</h3>
                 <div class="form-group">
                   <label for="precio-oferta">Precio Oferta</label>
-                  <input type="text" v-model="sale.NUMR_PRECIO" name="price" class="form-control" v-validate :data-vv-rules="isSale ? 'required|numeric|between:1,1000000000': ''" />
+                  <input type="text" v-model="sale.NUMR_PRECIO" name="price" class="form-control" v-validate :data-vv-rules="isSale ? 'required|numeric|between:0,1000000000': ''" />
                   <small class="text-danger" v-show="errors.has('price')">{{ errors.first('price') }}</small>
                 </div>
                 <div class="form-group">
