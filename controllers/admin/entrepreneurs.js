@@ -1,27 +1,37 @@
-import axios from 'axios'
-import { CFG } from '~/controllers/_helpers'
-
 // Obtener categoría especifica según id.
 // Param.: context -> Contexto de la vista .vue, contiene los objetos instanciados en "data".
 // Return: Promise
 // =======================================================================================
-function GET (id = undefined) {
-  return axios.get(CFG.apiUrl + 'emprendedor/' + id)
+function GET (app, id) {
+  return app.$axios.$get('emprendedor/' + id)
     .then(res => {
       return {
         id: id,
-        entrepreneur: res.data.data
+        entrepreneur: res.data
       }
     }).catch(errors => {
       console.log(errors)
     })
 }
-
-function GETAll () {
-  return axios.get(CFG.apiUrl + 'emprendedor')
+/*
+function GETData (app, context) {
+  // console.log(sessionStorage)
+  // let token = sessionStorage.getItem('id_token')
+  return app.$axios.$get('cliente')
+    .then(res => {
+      return {
+        client: res.data
+      }
+    }).catch(errors => {
+      console.log(errors)
+    })
+}
+*/
+function GETAll (app) {
+  return app.$axios.$get('emprendedor')
     .then(response => {
       return {
-        entrepreneurs: response.data.data
+        entrepreneurs: response.data
       }
     }).catch(errors => {
       console.log(errors)
@@ -37,20 +47,19 @@ function GETAll () {
 //                    }
 // =======================================================================================
 function POST (context) {
-  if (RutValidation(context.entrepreneur.RUT_USUARIO)) {
-    axios.post(
-      CFG.apiUrl + 'usuario',
+  if (RutValidation(context.entrepreneur.RUT_EMPRENDEDOR)) {
+    context.$axios.$post(
+      'usuario',
       {
         EMAIL_USUARIO: context.entrepreneur.EMAIL_USUARIO,
         DESC_PASSWORD: context.entrepreneur.DESC_PASSWORD,
         IDEN_ROL: 2
       }
     ).then(response => {
-      console.log(response.data)
-      axios.post(
-        CFG.apiUrl + 'emprendedor',
+      context.$axios.$post(
+        'private/emprendedor',
         {
-          IDEN_USUARIO: response.data.data.IDEN_USUARIO,
+          IDEN_USUARIO: response.data.IDEN_USUARIO,
           DESC_EMPRENDEDOR: context.entrepreneur.DESC_EMPRENDEDOR,
           DESC_NOMBRE_FANTASIA: context.entrepreneur.DESC_NOMBRE_FANTASIA,
           DESC_NOMBRE_EMPRESA: context.entrepreneur.DESC_NOMBRE_EMPRESA,
@@ -59,16 +68,13 @@ function POST (context) {
         }
       ).then(response => {
         context.entrepreneur = {}
-        context.message = 'Agregado exitosamente!'
+        context.$router.push({ path: '/administracion/emprendedores' })
+        context.$notify.success('Se ha agregado exitosamente.')
       }).catch(errors => {
-        console.log(errors.response)
-        console.log(errors.request)
-        context.message = 'Error inesperado'
+        context.$notify.danger('Ha ocurrido un error inesperado. Inténtelo más tarde.')
       })
     }).catch(errors => {
-      console.log(errors)
-      console.log(errors)
-      context.message = 'Error inesperado'
+      context.$notify.danger('Ha ocurrido un error inesperado. Inténtelo más tarde.')
     })
   } else {
     context.message = 'Ingrese un rut válido'
@@ -87,8 +93,8 @@ function POST (context) {
 //                    }
 // =======================================================================================
 function PUT (context) {
-  axios.put(
-    CFG.apiUrl + 'emprendedor/' + context.id,
+  context.$axios.$put(
+    'private/emprendedor/' + context.id,
     {
       DESC_EMPRENDEDOR: context.entrepreneur.DESC_EMPRENDEDOR,
       DESC_NOMBRE_FANTASIA: context.entrepreneur.DESC_NOMBRE_FANTASIA,
@@ -97,24 +103,24 @@ function PUT (context) {
       DV_EMPRENDEDOR: context.rut.slice(-1).toUpperCase()
     }
   ).then(response => {
-    context.message = 'Editado exitosamente!'
+    context.$router.push({ path: '/administracion/emprendedores' })
+    context.$notify.success('Se ha editado exitosamente.')
   }).catch(errors => {
-    context.message = errors.response.data.data.message ? errors.response.data.data.message : 'Error inesperado'
+    context.$notify.danger('Ha ocurrido un error inesperado. Inténtelo más tarde.')
   })
 }
 
 // estado emprendedor
-function setState (entrepreneur) {
-  axios.put(
-    CFG.apiUrl + 'usuario/' + entrepreneur.IDEN_USUARIO,
+function setState (context, entrepreneur) {
+  context.$axios.$put(
+    'private/usuario/' + entrepreneur.usuario.IDEN_USUARIO,
     {
-      FLAG_VIGENTE: !entrepreneur.usuario.FLAG_VIGENTE
+      FLAG_BAN: !entrepreneur.usuario.FLAG_BAN
     }
   ).then(response => {
-    console.log('funciona :)')
-    entrepreneur.usuario.FLAG_VIGENTE = !entrepreneur.usuario.FLAG_VIGENTE
+    entrepreneur.usuario.FLAG_BAN = !entrepreneur.usuario.FLAG_BAN
   }).catch(errors => {
-    console.log(errors)
+    context.$notify.danger('Ha ocurrido un error inesperado. Inténtelo más tarde.')
   })
 }
 
@@ -182,4 +188,5 @@ export default {
   PUT,
   setState,
   RutValidation
+  // GETData
 }

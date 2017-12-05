@@ -1,16 +1,13 @@
-import axios from 'axios'
-import { CFG } from '~/controllers/_helpers'
-
 // Obtener categoria especifica según id.
 // Param.: context -> Contexto de la vista .vue, contiene los objetos instanciados en "data".
 // Return: Promise
 // =======================================================================================
-function GET (id) {
-  return axios.get(CFG.apiUrl + 'faq/' + id)
+function GET (app, id) {
+  return app.$axios.$get('faq/' + id)
     .then(res => {
       return {
         id: id,
-        f: res.data.data
+        f: res.data
       }
     }).catch(errors => {
       console.log(errors)
@@ -21,11 +18,11 @@ function GET (id) {
 // Param.: context -> Contexto de la vista .vue, contiene los objetos instanciados en "data".
 // Return: Promise
 // =======================================================================================
-function GETAll () {
-  return axios.get(CFG.apiUrl + 'faq')
+function GETAll (app) {
+  return app.$axios.$get('faq')
     .then(response => {
       return {
-        faqs: response.data.data
+        faqs: response.data
       }
     }).catch(errors => {
       console.log(errors)
@@ -41,17 +38,18 @@ function GETAll () {
 //                    }
 // =======================================================================================
 function POST (context) {
-  axios.post(
-    CFG.apiUrl + 'faq',
+  context.$axios.$post(
+    'private/faq',
     {
       NOMB_FAQ: context.f.NOMB_FAQ,
       DESC_FAQ: context.f.DESC_FAQ
     }
   ).then(response => {
     context.f = {}
-    context.message = 'Agregado exitosamente!'
+    context.$router.push({ path: '/administracion/preguntas-frecuentes' })
+    context.$notify.success('Se ha agregado exitosamente.')
   }).catch(errors => {
-    context.message = errors.response.data.data.message ? errors.response.data.data.message : 'Error inesperado'
+    context.$notify.danger('Ha ocurrido un error inesperado. Inténtelo más tarde.')
   })
 }
 
@@ -67,26 +65,28 @@ function POST (context) {
 //                    }
 // =======================================================================================
 function PUT (context) {
-  axios.put(
-    CFG.apiUrl + 'faq/' + context.id,
+  context.$axios.$put(
+    'private/faq/' + context.id,
     {
       NOMB_FAQ: context.f.NOMB_FAQ,
       DESC_FAQ: context.f.DESC_FAQ
     }
   ).then(response => {
-    context.message = 'Editado exitosamente!'
+    context.$router.push({ path: '/administracion/preguntas-frecuentes' })
+    context.$notify.success('Se ha editado exitosamente.')
   }).catch(errors => {
-    context.message = errors.response.data.data.message ? errors.response.data.data.message : 'Error inesperado'
+    context.$notify.danger('Ha ocurrido un error inesperado. Inténtelo más tarde.')
   })
 }
 
 function DELETE (f, context) {
-  axios.delete(
-    CFG.apiUrl + 'faq/' + f.IDEN_FAQ
+  context.$axios.$delete(
+    'private/faq/' + f.IDEN_FAQ
   ).then(response => {
     context.faqs = context.faqs.filter(item => item !== f)
+    context.$notify.success('Se ha eliminado exitosamente.')
   }).catch(errors => {
-    console.log(errors)
+    context.$notify.danger('Ha ocurrido un error inesperado. Inténtelo más tarde.')
   })
 }
 

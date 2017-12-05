@@ -1,4 +1,12 @@
+const nodeExternals = require('webpack-node-externals')
+
 module.exports = {
+  /*
+  ** Router config
+  */
+  router: {
+    middleware: 'check-auth'
+  },
   /*
   ** Headers of the page
   */
@@ -7,9 +15,7 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Nuxt.js project' },
-      // Que es este meta?
-      { property: 'og:image', content: 'http://delbarrio.barrenechea.cl/static/img/logo-del-barrio.png' }
+      { hid: 'description', name: 'description', content: 'Nuxt.js project' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -41,8 +47,37 @@ module.exports = {
   */
   plugins: [
     { src: '~/plugins/vee-validate', ssr: true },
-    { src: '~/plugins/croppa', ssr: false }
+    { src: '~/plugins/croppa', ssr: false },
+    { src: '~/plugins/breadcrumb', ssr: true },
+    { src: '~/plugins/auth', ssr: false },
+    { src: '~/plugins/star-rating', ssr: false },
+    { src: '~/plugins/social-sharing', ssr: true },
+    { src: '~/plugins/vue-scrollto', ssr: true },
+    { src: '~/plugins/vue2-notify', ssr: false },
+    { src: '~/plugins/vue-awesome', ssr: true },
+    { src: '~/plugins/vue-lazyload', ssr: false },
+    { src: '~/plugins/vue-input-tag', ssr: true },
+    { src: '~/plugins/vue-google-maps', ssr: true },
+    { src: '~/plugins/vue-carousel', ssr: false }
   ],
+  /*
+  ** Modules initialization
+  */
+  modules: [
+    '@nuxtjs/axios'
+  ],
+  /*
+  ** Axios configuration
+  */
+  axios: {
+    baseURL: 'https://delbarrio.barrenechea.cl/api' // CAMBIAR EN PRODUCTIVO #########################
+  },
+  /*
+  ** URLs como variables globales
+  */
+  env: {
+    imagesUrl: 'https://delbarrio.barrenechea.cl/' // CAMBIAR EN PRODUCTIVO #########################
+  },
   /*
   ** Build configuration
   */
@@ -53,19 +88,44 @@ module.exports = {
     vendor: [
       'axios',
       'vee-validate',
-      'vue-croppa'
+      'vue-croppa',
+      'vue-scrollto',
+      'velocity-animate',
+      'vue2-notify',
+      'vue-awesome',
+      'vue-lazyload',
+      'vue-input-tag',
+      'vue-carousel'
     ],
     /*
     ** Run ESLint on save
     */
+
     extend (config, ctx) {
       if (ctx.dev && ctx.isClient) {
         config.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
-          exclude: /(node_modules)/
+          exclude: function (path) {
+            if (/vue2-google-maps/.test(path)) {
+              return false
+            }
+            if (/node_modules/.test(path)) {
+              return true
+            }
+            return false
+          }
         })
+      }
+      if (!ctx.isClient) {
+        config.externals = [
+          nodeExternals({
+            // default value for `whitelist` is
+            // [/es6-promise|\.(?!(?:js|json)$).{1,5}$/i]
+            whitelist: [/es6-promise|\.(?!(?:js|json)$).{1,5}$/i, /^vue-awesome/]
+          })
+        ]
       }
     }
   }

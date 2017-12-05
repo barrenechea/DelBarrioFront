@@ -1,17 +1,21 @@
-import axios from 'axios'
 import moment from 'moment'
-import { CFG } from '~/controllers/_helpers'
 import imagecontroller from '~/controllers/images'
-
 // Obtener categoria especifica según id.
 // Param.: context -> Contexto de la vista .vue, contiene los objetos instanciados en "data".
 // Return: Obtiene objeto de la categoría específica seleccionada en la vista "ListPosts"
 // =======================================================================================
-function GET (id) {
-  return axios.get(CFG.apiUrl + 'publicacion/' + id)
+function GET (app, id) {
+  return app.$axios.$get('publicacion/' + id)
     .then(response => {
+      let postAux = response.data
+      postAux.ETIQUETAS = response.data.etiquetas.map(pair => pair.NOMB_ETIQUETA)
+      let saleAux = false
+      if (postAux.oferta.IDEN_OFERTA !== undefined) {
+        saleAux = true
+      }
       return {
-        post: response.data.data
+        post: postAux,
+        isSale: saleAux
       }
     }).catch(errors => {
       console.log(errors)
@@ -22,15 +26,22 @@ function GET (id) {
 // Param.: context -> Contexto de la vista .vue, contiene los objetos instanciados en "data".
 // Return: lista todas las publicaciones.
 // =======================================================================================
-function GETAll () {
-  return axios.get(CFG.apiUrl + 'publicacion')
-    .then(response => {
-      return {
-        posts: response.data.data
+function GETAll (app, pageNumber = 1) {
+  return app.$axios.$get(
+    'publicacion',
+    {
+      params: {
+        page: pageNumber
       }
-    }).catch(errors => {
-      console.log(errors)
-    })
+    }
+  ).then(response => {
+    return {
+      posts: response.data,
+      pagination: response.pagination
+    }
+  }).catch(errors => {
+    console.log(errors)
+  })
 }
 
 // Enviar POST request a la fuente.
@@ -46,8 +57,8 @@ function GETAll () {
 //                    }
 // =======================================================================================
 function POST (context, blobs = undefined) {
-  axios.post(
-    CFG.apiUrl + 'publicacion',
+  context.$axios.$post(
+    'private/publicacion',
     {
       CODI_TIPO_PUBLICACION: context.post.CODI_TIPO_PUBLICACION,
       IDEN_CATEGORIA: context.post.IDEN_SUBCATEGORIA == null ? context.post.IDEN_CATEGORIA : context.post.IDEN_SUBCATEGORIA,
@@ -55,16 +66,17 @@ function POST (context, blobs = undefined) {
       DESC_PUBLICACION: context.post.DESC_PUBLICACION,
       NUMR_PRECIO: parseInt(context.post.NUMR_PRECIO),
       FLAG_CONTENIDO_ADULTO: context.post.FLAG_CONTENIDO_ADULTO,
-      IDEN_EMPRENDEDOR: 1
+      IDEN_EMPRENDEDOR: 1,
+      ETIQUETAS: context.post.ETIQUETAS
     }).then(response => {
+    console.log(blobs)
     if (blobs !== undefined) {
-      imagecontroller.POST(context, response.data.data.IDEN_PUBLICACION, blobs)
+      imagecontroller.POST(context, response.data.IDEN_PUBLICACION, blobs)
     }
     if (context.isSale) {
-      console.log(new Date(context.sale.FECH_INICIO))
-      this.addSale(context, response.data.data.IDEN_PUBLICACION)
+      this.addSale(context, response.data.IDEN_PUBLICACION)
         .then(response => {
-          context.post = { FLAG_CONTENIDO_ADULTO: false }
+          context.post = { FLAG_CONTENIDO_ADULTO: false, ETIQUETAS: [] }
         }).catch(errors => {
           context.error = 'Error inesperado al ingresar oferta'
         })
@@ -76,6 +88,7 @@ function POST (context, blobs = undefined) {
       image3: {},
       image4: {}
     }
+    context.message = 'Se ha agregado con éxito'
   }).catch(errors => {
     console.log(errors + 'catch')
     context.error = 'Error inesperado al ingresar Publicación'
@@ -94,43 +107,72 @@ function POST (context, blobs = undefined) {
 //                      id:     int (req | post-exists)
 //                    }
 // =======================================================================================
-function PUT (context) {
-  if (this.validate(context)) {
-    axios.put(
-      CFG.apiUrl + 'publicacion/' + context.post.IDEN_PUBLICACION,
-      {
-        IDEN_TIPO_PUBLICACION: context.post.IDEN_TIPO_PUBLICACION,
-        IDEN_CATEGORIA: context.post.IDEN_CATEGORIA,
-        NOMB_PUBLICACION: context.post.NOMB_PUBLICACION,
-        DESC_PUBLICACION: context.post.DESC_PUBLICACION,
-        NUMR_PRECIO: context.post.NUMR_PRECIO,
-        FLAG_CONTENIDO_ADULTO: context.post.FLAG_CONTENIDO_ADULTO
+function PUT (context, blobs = undefined) {
+  context.$axios.$put(
+    'private/publicacion/' + context.post.IDEN_PUBLICACION,
+    {
+      IDEN_TIPO_PUBLICACION: context.post.IDEN_TIPO_PUBLICACION,
+      IDEN_CATEGORIA: context.post.IDEN_CATEGORIA,
+      NOMB_PUBLICACION: context.post.NOMB_PUBLICACION,
+      DESC_PUBLICACION: context.post.DESC_PUBLICACION,
+      NUMR_PRECIO: context.post.NUMR_PRECIO,
+      FLAG_CONTENIDO_ADULTO: context.post.FLAG_CONTENIDO_ADULTO,
+      ETIQUETAS: context.post.ETIQUETAS
+    }
+  ).then(async response => {
+    if (context.deletedImages.length > 0) {
+      for (let i = 0; i < context.deletedImages.length; i++) {
+        await imagecontroller.DELETE(context, response.data.imagenes[i].IDEN_IMAGEN)
       }
-    ).then(response => {
-      console.log(response.data)
-    }).catch(errors => {
-      console.log(errors)
-    })
-  } else {
-    return false
-  }
+    }
+    if (blobs !== undefined) {
+      imagecontroller.POST(context, response.data.IDEN_PUBLICACION, blobs)
+    }
+  }).catch(errors => {
+    console.log(errors)
+  })
 }
 
 function addSale (context, id) {
-  return axios.post(
-    CFG.apiUrl + 'oferta',
+  context.$axios.$post(
+    'private/oferta',
     {
       IDEN_PUBLICACION: parseInt(id),
       FECH_INICIO: moment(new Date(context.sale.FECH_INICIO)).toJSON(),
       FECH_TERMINO: new Date(context.sale.FECH_TERMINO).toJSON(),
       NUMR_PRECIO: parseInt(context.sale.NUMR_PRECIO)
     })
+    .then(response => {
+      console.log(response)
+      context.messageOferta = 'Oferta agregada con éxito'
+    })
+    .catch(errors => {
+      context.error = 'Error al agregar oferta'
+    })
+}
+
+function updateSale (context, id) {
+  context.$axios.$put(
+    'private/oferta/' + id,
+    {
+      IDEN_PUBLICACION: context.sale.IDEN_PUBLICACION,
+      FECH_INICIO: moment(new Date(context.sale.FECH_INICIO)).toJSON(),
+      FECH_TERMINO: new Date(context.sale.FECH_TERMINO).toJSON(),
+      NUMR_PRECIO: parseInt(context.sale.NUMR_PRECIO)
+    })
+    .then(response => {
+      console.log(response)
+      context.messageOferta = 'Oferta modificada con éxito'
+    })
+    .catch(errors => {
+      context.error = 'Error al agregar oferta'
+    })
 }
 // comentarios
-function setState (post) {
+function setState (context, post) {
   if (!post.FLAG_BAN) {
-    axios.put(
-      CFG.apiUrl + 'publicacion/' + post.IDEN_PUBLICACION,
+    context.$axios.$put(
+      'private/publicacion/' + post.IDEN_PUBLICACION,
       {
         FLAG_VIGENTE: !post.FLAG_VIGENTE
       }
@@ -148,5 +190,6 @@ export default {
   POST,
   PUT,
   addSale,
+  updateSale,
   setState
 }

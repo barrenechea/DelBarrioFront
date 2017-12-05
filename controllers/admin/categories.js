@@ -1,27 +1,23 @@
-import axios from 'axios'
-import { CFG } from '~/controllers/_helpers'
-
 // Obtener categoría especifica según id.
 // Param.: context -> Contexto de la vista .vue, contiene los objetos instanciados en "data".
 // Return: Promise
 // =======================================================================================
-function GET (id = undefined) {
-  return axios.get(CFG.apiUrl + 'categoria/' + id)
+function GET (app, id) {
+  return app.$axios.$get('categoria/' + id)
     .then(res => {
       return {
         id: id,
-        category: res.data.data
+        category: res.data
       }
     }).catch(errors => {
       console.log(errors)
     })
 }
-
-function GETAll () {
-  return axios.get(CFG.apiUrl + 'categoria')
+function GETAll (app) {
+  return app.$axios.$get('categoria')
     .then(response => {
       return {
-        categories: response.data.data
+        categories: response.data
       }
     }).catch(errors => {
       console.log(errors)
@@ -37,17 +33,18 @@ function GETAll () {
 //                    }
 // =======================================================================================
 function POST (context) {
-  axios.post(
-    CFG.apiUrl + 'categoria',
+  context.$axios.$post(
+    'private/categoria',
     {
       IDEN_CATEGORIA_PADRE: context.category.IDEN_CATEGORIA_PADRE,
       NOMB_CATEGORIA: context.category.NOMB_CATEGORIA
     }
   ).then(response => {
     context.category = {}
-    context.message = 'Agregado exitosamente!'
+    context.$router.push({ path: '/administracion/categorias' })
+    context.$notify.success('Se ha agregado exitosamente.')
   }).catch(errors => {
-    context.message = errors.response.data.data.message ? errors.response.data.data.message : 'Error inesperado'
+    context.$notify.danger('Ha ocurrido un error. Inténtelo más tarde.')
   })
 }
 
@@ -63,31 +60,31 @@ function POST (context) {
 //                    }
 // =======================================================================================
 function PUT (context) {
-  axios.put(
-    CFG.apiUrl + 'categoria/' + context.id,
+  context.$axios.$put(
+    'private/categoria/' + context.id,
     {
       NOMB_CATEGORIA: context.category.NOMB_CATEGORIA,
       IDEN_CATEGORIA_PADRE: context.category.IDEN_CATEGORIA_PADRE
     }
   ).then(response => {
-    context.message = 'Editado exitosamente!'
+    context.$router.push({ path: '/administracion/categorias' })
+    context.$notify.success('Se ha editado exitosamente.')
   }).catch(errors => {
-    context.message = errors.response.data.data.message ? errors.response.data.data.message : 'Error inesperado'
+    context.$notify.danger('Ha ocurrido un error inesperado. Inténtelo más tarde.')
   })
 }
 
 // comentarios
-function setState (category) {
-  axios.put(
-    CFG.apiUrl + 'categoria/' + category.IDEN_CATEGORIA,
+function setState (context, category) {
+  context.$axios.$put(
+    'private/categoria/' + category.IDEN_CATEGORIA,
     {
       FLAG_VIGENTE: !category.FLAG_VIGENTE
     }
   ).then(response => {
     category.FLAG_VIGENTE = !category.FLAG_VIGENTE
-    console.log(response.data)
   }).catch(errors => {
-    console.log(errors)
+    context.$notify.danger('Ha ocurrido un error inesperado. Inténtelo más tarde.')
   })
 }
 

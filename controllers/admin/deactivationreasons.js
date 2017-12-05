@@ -1,15 +1,12 @@
-import axios from 'axios'
-import { CFG } from '~/controllers/_helpers'
-
 // Obtener todas las categorías de la api.
 // Param.: context -> Contexto de la vista .vue, contiene los objetos instanciados en "data".
 // Return: lista todas las categorías.
 // =======================================================================================
-function GETAll (context) {
-  return axios.get(CFG.apiUrl + 'motivo_deshabilitacion')
+function GETAll (app) {
+  return app.$axios.$get('private/motivo_deshabilitacion')
     .then(response => {
       return {
-        deactivationreasons: response.data.data
+        deactivationreasons: response.data
       }
     }).catch(errors => {
       console.log(errors)
@@ -25,23 +22,24 @@ function GETAll (context) {
 //                    }
 // =======================================================================================
 function POST (context) {
-  axios.post(
-    CFG.apiUrl + 'motivo_deshabilitacion',
+  context.$axios.$post(
+    'private/motivo_deshabilitacion',
     {
       NOMB_MOTIVO_DESHABILITACION: context.deactivationreason.NOMB_MOTIVO_DESHABILITACION
     }
   ).then(response => {
     context.deactivationreason = {}
-    context.message = 'Agregado exitosamente!'
+    context.$router.push({ path: '/administracion/razon-desactivacion' })
+    context.$notify.success('Se ha agregado exitosamente.')
   }).catch(errors => {
-    context.message = errors.response.data.data.message ? errors.response.data.data.message : 'Error inesperado'
+    context.$notify.danger('Ha ocurrido un error inesperado. Inténtelo más tarde.')
   })
 }
 
 // comentarios
-function setState (deactivationreason) {
-  axios.put(
-    CFG.apiUrl + 'motivo_deshabilitacion/' + deactivationreason.IDEN_MOTIVO_DESHABILITACION,
+function setState (context, deactivationreason) {
+  context.$axios.$put(
+    'private/motivo_deshabilitacion/' + deactivationreason.IDEN_MOTIVO_DESHABILITACION,
     {
       FLAG_VIGENTE: !deactivationreason.FLAG_VIGENTE
     }
@@ -49,7 +47,7 @@ function setState (deactivationreason) {
     deactivationreason.FLAG_VIGENTE = !deactivationreason.FLAG_VIGENTE
     console.log(response.data)
   }).catch(errors => {
-    console.log(errors)
+    context.$notify.danger('Ha ocurrido un error inesperado. Inténtelo más tarde.')
   })
 }
 
