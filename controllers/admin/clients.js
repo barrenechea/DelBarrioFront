@@ -15,7 +15,7 @@ function GET (app, id) {
 }
 
 function GETAll (app) {
-  return app.$axios.$get('persona')
+  return app.$axios.$get('private/clientes')
     .then(response => {
       return {
         clients: response.data
@@ -82,6 +82,7 @@ function PUT (context) {
     }
   ).then(response => {
     context.message = 'Editado exitosamente!'
+    context.$router.push({ path: '/administracion/clientes' })
   }).catch(errors => {
     context.message = errors.response.data.message ? errors.response.data.message : 'Error inesperado'
   })
@@ -89,7 +90,7 @@ function PUT (context) {
 
 // estado persona
 function setState (context, client) {
-  context.$axios.$post(
+  context.$axios.$put(
     'private/usuario/' + client.usuario.IDEN_USUARIO,
     {
       FLAG_BAN: !client.usuario.FLAG_BAN

@@ -7,9 +7,6 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-4 col-sm-6 margin-top">
-          <nuxt-link :to="{ path: '/administracion/publicaciones/nueva' }" class="btn btn-tabla"><icon name="plus"></icon> Agregar</nuxt-link>
-        </div>
         <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 margin-top">
           <form class="input-group text-truncate">
             <input class="form-control" name="search" placeholder="Buscar" autocomplete="off" autofocus="autofocus" type="text">

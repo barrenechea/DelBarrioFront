@@ -3,20 +3,56 @@
     <section id="publicacion" class="container-fluid">
       <div class="container">
         <div class="row">
-          <div class="col-md-6 col-md-offset-3 fondo-beige">
+          <div class="col-md-10 col-md-offset-1 fondo-beige">
             <h2 class="text-center">Nueva Publicación</h2>            
             <form class="margin-top" @submit.prevent="validateBeforeSubmit">
-              <div class="upload" upload-image="">
-                <input type="file" id="files" name="files" class="input-file ng-pristine ng-valid ng-touched" files-model="" ng-model="project.fileList">
-                <label for="files">
-                  <span class="add-image">
-                    <icon name="camera" :aria-hidden="true"></icon>
-                  </span>
-                  <output id="list"></output>
-                </label>
+              <div class="row margin-top"> <!-- Corregir estilos -->
+                <div class="col-sm-3">
+                <no-ssr>
+                  <croppa :width="200"
+                          :height="200"
+                          :quality="3.6"
+                          placeholder="Subir Imagen"
+                          :placeholder-font-size="18"
+                          :prevent-white-space="true"
+                          ></croppa>
+                  </no-ssr>
+                </div>
+                <div class="col-sm-3">
+                  <no-ssr>
+                  <croppa :width="200"
+                          :height="200"
+                          :quality="3.6"
+                          placeholder="Subir Imagen"
+                          :placeholder-font-size="18"
+                          :prevent-white-space="true"
+                          ></croppa>
+                  </no-ssr>
+                </div>
+                <div class="col-sm-3">
+                  <no-ssr>
+                  <croppa :width="200"
+                          :height="200"
+                          :quality="3.6"
+                          placeholder="Subir Imagen"
+                          :placeholder-font-size="18"
+                          :prevent-white-space="true"
+                          ></croppa>
+                  </no-ssr>
+                </div>
+                <div class="col-sm-3">
+                  <no-ssr>
+                  <croppa :width="200"
+                          :height="200"
+                          :quality="3.6"
+                          placeholder="Subir Imagen"
+                          :placeholder-font-size="18"
+                          :prevent-white-space="true"
+                          ></croppa>
+                  </no-ssr>
+                </div>
               </div>
-              <p class="help-block text-center">Selecciona una imagen desde tu ordenador.</p>                        
-              <div class="form-group">
+              <div class="form-group margin-top">
                 <label for="tipo">Tipo</label>
                 <select v-model="post.CODI_TIPO_PUBLICACION" v-validate data-vv-rules="required" data-vv-as="tipo de publicación" name="type" class="form-control">
                   <option value="undefined">Seleccionar</option>
@@ -32,7 +68,7 @@
               </div>              
               <div class="form-group">
                 <label for="price">Precio</label>
-                <input type="text" class="form-control" v-model="post.NUMR_PRECIO" v-validate data-vv-rules="required|numeric|between:0,1000000000" data-vv-as="precio" name="price">
+                <input type="text" class="form-control" v-model="post.NUMR_PRECIO" v-validate data-vv-rules="required|numeric" data-vv-as="precio" name="price">
                 <small class="text-danger" v-show="errors.has('price')">{{ errors.first('price') }}</small>
               </div>              
               <div class="form-group">
@@ -59,96 +95,14 @@
                   </div>
                 </div>
               </div>
+              <div class="form-group">
+                <label for="tags">Tags (separar por coma)</label>
+                <input-tag id="tags" :tags="post.ETIQUETAS" class="form-control"></input-tag>
+              </div>
               <div class="checkbox">
                 <label>
                   <input type="checkbox" v-model="post.FLAG_CONTENIDO_ADULTO">Producto para mayores de 18
                 </label>
-              </div>
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" v-model="isSale"> Oferta
-                </label>
-              </div>
-              <div class="row"> <!-- Corregir estilos -->
-                <div class="col-sm-6">
-                  <no-ssr>
-                  <croppa :width="200"
-                          :height="200"
-                          :quality="3.6"
-                          placeholder="Subir Imagen"
-                          :placeholder-font-size="18"
-                          :prevent-white-space="true"
-                          ></croppa>
-                  </no-ssr>
-                </div>
-                <div class="col-sm-6">
-                  <no-ssr>
-                  <croppa :width="200"
-                          :height="200"
-                          :quality="3.6"
-                          placeholder="Subir Imagen"
-                          :placeholder-font-size="18"
-                          :prevent-white-space="true"
-                          ></croppa>
-                  </no-ssr>
-                </div>
-                <div class="col-sm-6">
-                  <no-ssr>
-                  <croppa :width="200"
-                          :height="200"
-                          :quality="3.6"
-                          placeholder="Subir Imagen"
-                          :placeholder-font-size="18"
-                          :prevent-white-space="true"
-                          ></croppa>
-                  </no-ssr>
-                </div>
-                <div class="col-sm-6">
-                  <no-ssr>
-                  <croppa :width="200"
-                          :height="200"
-                          :quality="3.6"
-                          placeholder="Subir Imagen"
-                          :placeholder-font-size="18"
-                          :prevent-white-space="true"
-                          ></croppa>
-                  </no-ssr>
-                </div>
-              </div>          
-              <div v-if="isSale">
-                <hr>
-                <h3>Datos de la Oferta</h3>
-                <div class="form-group">
-                  <label for="precio-oferta">Precio Oferta</label>
-                  <input type="text" v-model="sale.NUMR_PRECIO" name="price" class="form-control" v-validate :data-vv-rules="isSale ? 'required|numeric|between:0,1000000000': ''" />
-                  <small class="text-danger" v-show="errors.has('price')">{{ errors.first('price') }}</small>
-                </div>
-                <div class="form-group">
-                  <label for="fecha-inicio">Fecha Inicio</label>
-                  <datepicker 
-                    language="es"
-                    :format='format'
-                    v-model="sale.FECH_INICIO"
-                    :bootstrapStyling = "true"
-                  ></datepicker>
-                  <small class="text-danger" v-if="errorMsgs.start_date != undefined">{{ errorMsgs.start_date }}</small>
-                </div>
-                <div class="form-group">
-                  <label for="fecha-termino">Fecha Término</label>
-                  <datepicker 
-                    language="es"
-                    :format='format'
-                    v-model="sale.FECH_TERMINO"
-                    :bootstrapStyling="true"
-                  ></datepicker>
-                  <small class="text-danger" v-if="errorMsgs.end_date != undefined">{{ errorMsgs.end_date }}</small>
-                </div>
-              </div>
-              <div class="row">
-                <div class="form-group">
-                  <label for="tags">Tags (separar por coma)</label>
-                  <input-tag id="tags" :tags="post.ETIQUETAS"></input-tag>
-                </div>
               </div>
               <div v-if='message'>
                 <span>{{message}}</span>

@@ -88,10 +88,10 @@ function POST (context, blobs = undefined) {
       image3: {},
       image4: {}
     }
-    context.message = 'Se ha agregado con éxito'
+    context.$router.push({ path: '/administracion/publicaciones' })
+    context.$notify.success('Se ha agregado exitosamente.')
   }).catch(errors => {
-    console.log(errors + 'catch')
-    context.error = 'Error inesperado al ingresar Publicación'
+    context.$notify.danger('Ha ocurrido un error inesperado.')
   })
 }
 
@@ -128,8 +128,10 @@ function PUT (context, blobs = undefined) {
     if (blobs !== undefined) {
       imagecontroller.POST(context, response.data.IDEN_PUBLICACION, blobs)
     }
+    context.$router.push({ path: '/administracion/publicaciones' })
+    context.$notify.success('Se ha editado exitosamente.')
   }).catch(errors => {
-    console.log(errors)
+    context.$notify.danger('Ha ocurrido un error inesperado.')
   })
 }
 

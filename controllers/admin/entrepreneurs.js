@@ -13,20 +13,7 @@ function GET (app, id) {
       console.log(errors)
     })
 }
-/*
-function GETData (app, context) {
-  // console.log(sessionStorage)
-  // let token = sessionStorage.getItem('id_token')
-  return app.$axios.$get('cliente')
-    .then(res => {
-      return {
-        client: res.data
-      }
-    }).catch(errors => {
-      console.log(errors)
-    })
-}
-*/
+
 function GETAll (app) {
   return app.$axios.$get('emprendedor')
     .then(response => {
@@ -188,5 +175,4 @@ export default {
   PUT,
   setState,
   RutValidation
-  // GETData
 }
