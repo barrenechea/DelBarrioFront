@@ -44,7 +44,6 @@
         <div class="col-xs-12">
           <h3><span style="vertical-align: super"> Mis datos</span></h3>
           <hr>
-          
         </div>
       </div>
       
