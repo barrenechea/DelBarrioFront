@@ -57,7 +57,8 @@ module.exports = {
     { src: '~/plugins/vue-awesome', ssr: true },
     { src: '~/plugins/vue-lazyload', ssr: false },
     { src: '~/plugins/vue-input-tag', ssr: true },
-    { src: '~/plugins/vue-google-maps', ssr: true }
+    { src: '~/plugins/vue-google-maps', ssr: true },
+    { src: '~/plugins/vue-carousel', ssr: false }
   ],
   /*
   ** Modules initialization
@@ -87,7 +88,8 @@ module.exports = {
       'vue2-notify',
       'vue-awesome',
       'vue-lazyload',
-      'vue-input-tag'
+      'vue-input-tag',
+      'vue-carousel'
     ],
     /*
     ** Run ESLint on save

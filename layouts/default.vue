@@ -29,16 +29,16 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-left">
-                    <li><nuxt-link to="/"><i class="fa fa-home" :aria-hidden="true"></i></nuxt-link></li>
+                    <li><nuxt-link to="/"><icon name="home" :aria-hidden="true"></icon></nuxt-link></li>
                 </ul>
                 
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle usuario" data-toggle="dropdown" role="button" :aria-haspopup="true" :aria-expanded="false">{{ loggedUser.nombre }} <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><nuxt-link to="/"><i class="fa fa-wrench" :aria-hidden="true"></i> Configuración</nuxt-link></li>
-                            <li><nuxt-link to="/sign-out"><i class="fa fa-sign-out" :aria-hidden="true"></i> Cerrar Sesión</nuxt-link></li>
+                            <li><nuxt-link to="/mi-cuenta"><i class="fa fa-wrench" :aria-hidden="true"></i> Mi cuenta</nuxt-link></li>
                             <li role="separator" class="divider"></li>
+                            <li><nuxt-link to="/sign-out"><i class="fa fa-sign-out" :aria-hidden="true"></i> Cerrar Sesión</nuxt-link></li>
                         </ul>
                     </li>
                     <li><nuxt-link to="/preguntas-frecuentes" title="Preguntas frecuentes"><i class="fa fa-question-circle" :aria-hidden="true"></i></nuxt-link></li>
@@ -77,7 +77,6 @@
                         <a href="#" class="dropdown-toggle usuario" data-toggle="dropdown" role="button" :aria-haspopup="true" :aria-expanded="false">{{ loggedUser.nombre }} <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><nuxt-link to="/mi-cuenta"><i class="fa fa-wrench" :aria-hidden="true"></i> Mi cuenta</nuxt-link></li>
-                            <li><a href="#"><i class="fa fa-wrench" :aria-hidden="true"></i> Configuración</a></li>
                             <li role="separator" class="divider"></li>
                             <li><nuxt-link to="/sign-out"><i class="fa fa-sign-out" :aria-hidden="true"></i> Cerrar Sesión</nuxt-link></li>
                         </ul>
@@ -173,12 +172,12 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><nuxt-link to="/autenticar">Inicia sesión</nuxt-link></li>
                     <li><nuxt-link to="/registro">Regístrate</nuxt-link></li>
-                    <li><nuxt-link to="/preguntas-frecuentes" title="Preguntas frecuentes"><i class="fa fa-question-circle" :aria-hidden="true"></i></nuxt-link></li>
+                    <li><nuxt-link to="/preguntas-frecuentes" title="Preguntas frecuentes"><icon name="question-circle" :aria-hidden="true"></icon></nuxt-link></li>
                 </ul>
                 <form class="input-group text-truncate">
                     <input class="form-control" name="search" placeholder="Buscar" autocomplete="off" autofocus="autofocus" type="text">
                     <div class="input-group-btn">
-                        <button class="btn btn-outline-success" type="submit"><i class="fa fa-search" :aria-hidden="true"></i></button>
+                        <button class="btn btn-outline-success" type="submit"><icon name="search" :aria-hidden="true"></icon></button>
                     </div>
                 </form>
             </div><!-- /.navbar-collapse -->

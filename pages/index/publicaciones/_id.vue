@@ -7,10 +7,10 @@
           <div id="carousel" class="carousel slide">
             <div class="carousel-inner">
               <div class="item active">
-                <img v-bind:src="post.imagenes.length > 0 ? 'https://delbarrio.barrenechea.cl/' + post.imagenes[0].URL_IMAGEN : '/img/no-image.svg'" class="img-responsive" alt="">
+                <img :src="post.imagenes.length > 0 ? 'https://delbarrio.barrenechea.cl/' + post.imagenes[0].URL_IMAGEN : '/img/no-image.svg'" class="img-responsive" alt="">
               </div>
               <div class="item" :key="img.IDEN_IMAGEN" v-for="img in post.imagenes">
-                <img v-bind:src="'https://delbarrio.barrenechea.cl/' + img.URL_IMAGEN" class="img-responsive" alt="">
+                <img :src="'https://delbarrio.barrenechea.cl/' + img.URL_IMAGEN" class="img-responsive" alt="">
               </div>
             </div>
           </div><!--- Carrousel Grande -->
@@ -99,16 +99,21 @@
                 v-model="rating.NUMR_VALOR"
                 :increment="1"
                 :star-size="35"
-                v-validate data-vv-rules="required"
                 data-vv-name="value"
-                name="value">
+                name="value"
+                v-validate data-vv-rules="required">
               </star-rating>
             </no-ssr>
             <form @submit.prevent="validateRating">
               <div class="form-group margin-top-20">
-                <textarea class="form-control" rows="3" v-model="rating.DESC_CALIFICACION"></textarea>
+                <textarea class="form-control" 
+                  :rows="3"
+                  v-model="rating.DESC_CALIFICACION"
+                  v-validate data-vv-rules="min:10|max:250"
+                ></textarea>
               </div>
-              <small class="text-danger" v-show="errors.has('value')"><p>{{ errors.first('value') }}</p></small>
+              <small class="text-danger" v-show="errors.has('value')">{{ errors.first('value') }}</small>
+
               <button type="submit" class="btn btn-default">Calificar</button>
             </form>
           </div>
@@ -150,7 +155,7 @@
               <textarea 
                 class="form-control"
                 :rows="3"
-                v-validate data-vv-rules="required"
+                v-validate data-vv-rules="required|min:10|max:250"
                 data-vv-as="comentario"
                 name="com"
                 v-model="comment.DESC_COMENTARIO">
@@ -327,14 +332,15 @@ export default {
   methods: {
     validateComment () {
       this.$validator.validate('com').then((result) => {
-        console.log(result)
         if (result) commentscontroller.POST(this)
       })
     },
     validateRating () {
-      this.$validator.validate('value').then((result) => {
-        if (result) ratingscontroller.POST(this)
-      })
+      if (this.rating.NUMR_VALOR != null) {
+        ratingscontroller.POST(this)
+      } else {
+        console.log('')
+      }
     },
     validateDenounce () {
       this.$validator.validate('description').then((result) => {

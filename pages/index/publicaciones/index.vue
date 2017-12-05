@@ -46,44 +46,6 @@
         </nav>
       </div><!-- /container -->
     </section><!-- /Producto -->
-
-    <section id="emprendedores" class="container-fluid">
-      <div class="container">
-        <div class="row">
-          <div class="col-xs-12">
-            <h2>Emprendedores</h2>
-          </div>
-        </div>
-        <div class="row margin-top">
-          <div class="col-xs-12">
-            <div class="carousel carousel-showmanymoveone slide" id="itemslider">
-              <div class="carousel-inner">
-                <div class="item active">
-                  <div class="col-md-2 col-sm-6">
-                    <nuxt-link :to="{ path: '/emprendedor' }">
-                      <img v-bind:src="'/img/no-image.svg'" class="img-responsive" alt="">
-                    </nuxt-link>
-                    <h4 class="text-center">Listado de emprendedores</h4>
-                  </div>
-                </div>
-                <div class="item">
-                  <div class="col-md-2 col-sm-6">
-                    <nuxt-link :to="{ path: '/emprendedor' }">
-                      <img v-bind:src="'/img/no-image.svg'" class="img-responsive" alt="">
-                    </nuxt-link>
-                    <h4 class="text-center">Emprendedor 2</h4>
-                  </div>
-                </div>
-              </div>
-              <div id="slider-control">
-                <a class="left carousel-control" href="#itemslider" data-slide="prev"><img src="https://s12.postimg.org/uj3ffq90d/arrow_left.png" alt="Left" class="img-responsive"></a>
-                <a class="right carousel-control" href="#itemslider" data-slide="next"><img src="https://s12.postimg.org/djuh0gxst/arrow_right.png" alt="Right" class="img-responsive"></a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div><!-- /container -->
-    </section><!-- /Emprendedores -->
   </div>
 </template>
 

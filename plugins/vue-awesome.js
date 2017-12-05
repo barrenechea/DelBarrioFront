@@ -21,6 +21,9 @@ import 'vue-awesome/icons/phone'
 import 'vue-awesome/icons/envelope-o'
 import 'vue-awesome/icons/exclamation-circle'
 import 'vue-awesome/icons/square'
+import 'vue-awesome/icons/question-circle'
+import 'vue-awesome/icons/home'
+import 'vue-awesome/icons/wrench'
 
 /* Register component with one of 2 methods */
 import Icon from 'vue-awesome/components/Icon'
