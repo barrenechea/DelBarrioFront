@@ -258,10 +258,7 @@ export default {
   },
   head () {
     return {
-      title: 'Nueva publicación - Del Barrio',
-      meta: [
-        { hid: 'description', name: 'description', content: 'My custom description' }
-      ]
+      title: 'Nueva publicación'
     }
   }
 }

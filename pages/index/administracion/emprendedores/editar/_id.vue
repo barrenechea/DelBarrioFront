@@ -25,6 +25,15 @@
               <textarea v-validate data-vv-rules="required" data-vv-as="descripción" name="description" type="text" v-model="entrepreneur.DESC_EMPRENDEDOR" class="form-control"></textarea>
               <small class="text-danger" v-show="errors.has('description')">{{ errors.first('description') }}</small>
             </div>
+            <div class="form-group margin-top">
+              <label for="workfield">Rubro</label>
+              <select v-model="entrepreneur.IDEN_RUBRO" class="form-control" v-validate data-vv-rules="required" :size="5" name="workfield">
+                <option v-for="workfield in workfields" v-if="workfield.FLAG_VIGENTE" :key="workfield.IDEN_RUBRO" :value="workfield.IDEN_RUBRO">
+                  {{workfield.NOMB_RUBRO}}
+                </option>
+              </select>
+              <small class="text-danger" v-show="errors.has('workfield')">{{ errors.first('workfield') }}</small>
+            </div>
             <button type="submit" class="btn btn-default">Guardar</button>
           </form>
           <div v-if='message'>
@@ -39,6 +48,7 @@
 
 <script>
 import controller from '~/controllers/admin/entrepreneurs'
+import workfieldcontroller from '~/controllers/admin/workfields'
 
 export default {
   data () {
@@ -47,13 +57,17 @@ export default {
     }
   },
   asyncData ({app, params}) {
-    return controller.GET(app, params.id)
-      .then(entrepreneur => {
-        return {
-          id: entrepreneur.id,
-          entrepreneur: entrepreneur.entrepreneur,
-          rut: entrepreneur.entrepreneur.RUT_EMPRENDEDOR + entrepreneur.entrepreneur.DV_EMPRENDEDOR
-        }
+    return workfieldcontroller.GETAll(app)
+      .then(workfields => {
+        return controller.GET(app, params.id)
+          .then(entrepreneur => {
+            return {
+              id: entrepreneur.id,
+              entrepreneur: entrepreneur.entrepreneur,
+              rut: entrepreneur.entrepreneur.RUT_EMPRENDEDOR + entrepreneur.entrepreneur.DV_EMPRENDEDOR,
+              workfields: workfields.workfields
+            }
+          })
       })
   },
   methods: {
@@ -61,6 +75,11 @@ export default {
       this.$validator.validateAll().then((result) => {
         if (result) controller.PUT(this)
       })
+    }
+  },
+  head () {
+    return {
+      title: 'Editar Emprendedor'
     }
   }
 }

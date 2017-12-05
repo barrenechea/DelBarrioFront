@@ -37,6 +37,11 @@ export default {
         if (result) controller.POST(this)
       })
     }
+  },
+  head () {
+    return {
+      title: 'Nueva razón denuncia'
+    }
   }
 }
 </script>

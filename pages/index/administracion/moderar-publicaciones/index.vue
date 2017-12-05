@@ -88,6 +88,11 @@ export default {
     dateFormat: function (date) {
       return moment(String(date)).format('DD/MM/YYYY HH:mm')
     }
+  },
+  head () {
+    return {
+      title: 'Moderar publicaciones'
+    }
   }
 }
 </script>

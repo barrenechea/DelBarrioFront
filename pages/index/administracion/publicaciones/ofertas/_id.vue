@@ -172,6 +172,11 @@ export default {
         }
       })
     }
+  },
+  head () {
+    return {
+      title: 'Editar Oferta'
+    }
   }
 }
 </script>

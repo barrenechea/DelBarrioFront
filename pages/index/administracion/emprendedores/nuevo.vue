@@ -27,6 +27,15 @@
               <textarea v-validate data-vv-rules="required" data-vv-as="descripción" name="description" type="text" v-model="entrepreneur.DESC_EMPRENDEDOR" class="form-control"></textarea>
               <small class="text-danger" v-show="errors.has('description')">{{ errors.first('description') }}</small>
             </div>
+            <div class="form-group margin-top">
+              <label for="workfield">Rubro</label>
+              <select v-model="entrepreneur.IDEN_RUBRO" class="form-control" v-validate data-vv-rules="required" :size="5" name="workfield">
+                <option v-for="workfield in workfields" v-if="workfield.FLAG_VIGENTE" :key="workfield.IDEN_RUBRO" :value="workfield.IDEN_RUBRO">
+                  {{workfield.NOMB_RUBRO}}
+                </option>
+              </select>
+              <small class="text-danger" v-show="errors.has('workfield')">{{ errors.first('workfield') }}</small>
+            </div>
             <hr>
             <h4>Datos de emprendedor</h4>
             <div class="form-group margin-top">
@@ -54,6 +63,7 @@
 
 <script>
 import controller from '~/controllers/admin/entrepreneurs'
+import workfieldcontroller from '~/controllers/admin/workfields'
 
 export default {
   data () {
@@ -63,7 +73,16 @@ export default {
     }
   },
   asyncData ({ app }) {
-    return controller.GETAll(app)
+    return workfieldcontroller.GETAll(app)
+      .then(workfields => {
+        return controller.GETAll(app)
+          .then(entrepreneurs => {
+            return {
+              entrepreneurs: entrepreneurs.entrepreneurs,
+              workfields: workfields
+            }
+          })
+      })
   },
   methods: {
     validateBeforeSubmit () {
@@ -72,6 +91,11 @@ export default {
           controller.POST(this)
         }
       })
+    }
+  },
+  head () {
+    return {
+      title: 'Nuevo Emprendedor'
     }
   }
 }

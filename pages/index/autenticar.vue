@@ -49,6 +49,11 @@ export default {
           }
         })
     }
+  },
+  head () {
+    return {
+      title: 'Inicia Sesión'
+    }
   }
 }
 </script>

@@ -68,6 +68,11 @@ export default {
   computed: mapGetters([
     'isAuthenticated',
     'loggedUser'
-  ])
+  ]),
+  head () {
+    return {
+      title: 'Mi Cuenta'
+    }
+  }
 }
 </script>

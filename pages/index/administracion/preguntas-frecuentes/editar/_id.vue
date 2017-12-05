@@ -50,6 +50,11 @@ export default {
         if (result) controller.PUT(this)
       })
     }
+  },
+  head () {
+    return {
+      title: 'Editar Preguntas Frecuentes'
+    }
   }
 }
 </script>

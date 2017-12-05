@@ -7,17 +7,10 @@
           <div id="carousel" class="carousel slide">
             <div class="carousel-inner">
               <div class="item active">
-<<<<<<< HEAD
-                <img :src="post.imagenes.length > 0 ? 'https://delbarrio.barrenechea.cl/' + post.imagenes[0].URL_IMAGEN : '/img/no-image.svg'" class="img-responsive" alt="">
+                <img :src="post.imagenes.length > 0 ? imageUrl + post.imagenes[0].URL_IMAGEN : '/img/no-image.svg'" class="img-responsive" alt="">
               </div>
               <div class="item" :key="img.IDEN_IMAGEN" v-for="img in post.imagenes">
                 <img :src="'https://delbarrio.barrenechea.cl/' + img.URL_IMAGEN" class="img-responsive" alt="">
-=======
-                <img v-bind:src="imageUrl + post.imagenes[0].URL_IMAGEN" class="img-responsive" alt="">
-              </div>
-              <div class="item" :key="img.IDEN_IMAGEN" v-for="img in post.imagenes">
-                <img v-bind:src="imageUrl + img.URL_IMAGEN" class="img-responsive" alt="">
->>>>>>> origin/Development
               </div>
             </div>
           </div><!--- Carrousel Grande -->
@@ -363,9 +356,12 @@ export default {
   },
   head () {
     return {
-      title: this.post.NOMB_PUBLICACION + ' - Del Barrio',
+      title: this.post.NOMB_PUBLICACION,
       meta: [
-        { hid: 'description', name: 'description', content: 'My custom description' }
+        { hid: 'description', name: 'description', content: this.post.DESC_PUBLICACION },
+        { property: 'og:title', content: this.post.NOMB_PUBLICACION },
+        { property: 'og:description', content: this.post.DESC_PUBLICACION },
+        { property: 'og:image', content: this.post.imagenes[0].URL_IMAGEN }
       ]
     }
   }

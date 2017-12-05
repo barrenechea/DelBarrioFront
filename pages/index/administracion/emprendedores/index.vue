@@ -80,6 +80,11 @@ export default {
     setState (entrepreneur) {
       controller.setState(this, entrepreneur)
     }
+  },
+  head () {
+    return {
+      title: 'Emprendedores'
+    }
   }
 }
 </script>

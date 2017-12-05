@@ -79,6 +79,11 @@ export default {
     deleteFaq: function (f) {
       controller.DELETE(f, this)
     }
+  },
+  head () {
+    return {
+      title: 'Preguntas Frecuentes'
+    }
   }
 }
 </script>

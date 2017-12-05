@@ -237,6 +237,14 @@ export default {
     dateFormat: function (date) {
       return moment(String(date)).format('DD/MM/YYYY HH:mm')
     }
+  },
+  head () {
+    return {
+      title: 'Denuncias',
+      meta: [
+        { hid: 'description', name: 'description', content: 'description' }
+      ]
+    }
   }
 }
 </script>

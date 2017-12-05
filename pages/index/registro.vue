@@ -16,6 +16,11 @@
 export default {
   middleware: 'anonymous',
   components: {
+  },
+  head () {
+    return {
+      title: 'Registro'
+    }
   }
 }
 </script>

@@ -191,6 +191,11 @@ export default {
     confirmImages () {
       console.log('placeholder')
     }
+  },
+  head () {
+    return {
+      title: 'Editar Publicación'
+    }
   }
 }
 </script>

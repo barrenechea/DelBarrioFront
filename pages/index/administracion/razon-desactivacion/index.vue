@@ -79,6 +79,11 @@ export default {
     setState (deactivationreason) {
       controller.setState(this, deactivationreason)
     }
+  },
+  head () {
+    return {
+      title: 'Razones de desactivación de cuentas'
+    }
   }
 }
 </script>

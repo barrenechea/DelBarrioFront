@@ -51,6 +51,11 @@ export default {
         }
       })
     }
+  },
+  head () {
+    return {
+      title: 'Nueva Pregunta Frecuentes'
+    }
   }
 }
 </script>

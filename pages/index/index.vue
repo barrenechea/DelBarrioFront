@@ -5,5 +5,11 @@
 </template>
 
 <script>
-
+export default {
+  head () {
+    return {
+      title: 'Inicio'
+    }
+  }
+}
 </script>

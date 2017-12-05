@@ -86,6 +86,14 @@ export default {
     setState (category) {
       controller.setState(this, category)
     }
+  },
+  head () {
+    return {
+      title: 'Categorías',
+      meta: [
+        { hid: 'description', name: 'description', content: 'description' }
+      ]
+    }
   }
 }
 </script>

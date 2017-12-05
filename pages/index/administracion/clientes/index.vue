@@ -84,6 +84,14 @@ export default {
     dateFormat: function (date) {
       return moment(String(date)).format('DD/MM/YYYY')
     }
+  },
+  head () {
+    return {
+      title: 'Clientes',
+      meta: [
+        { hid: 'description', name: 'description', content: 'description' }
+      ]
+    }
   }
 }
 </script>
