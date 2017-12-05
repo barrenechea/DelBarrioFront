@@ -3,7 +3,7 @@
 // Return: lista todas las categorías.
 // =======================================================================================
 function GETAll (app) {
-  return app.$axios.$get('private/motivo_denuncia')
+  return app.$axios.$get('motivo_denuncia')
     .then(response => {
       return {
         denouncereasons: response.data
