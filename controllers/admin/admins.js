@@ -35,7 +35,7 @@ function GETAll (app) {
 // =======================================================================================
 function POST (context) {
   context.$notify.success('Se ha agregado exitosamente')
-  context.$router.push({ path: '/administracion/administradores' })
+  context.$router.push({ path: '/administracion' })
   /*
   if (RutValidation(context.client.RUT_USUARIO)) {
     context.$axios.$post(
@@ -80,7 +80,7 @@ function POST (context) {
 // =======================================================================================
 function PUT (context) {
   context.$notify.success('Se ha modificado exitosamente')
-  context.$router.push({ path: '/administracion/administradores' })
+  context.$router.push({ path: '/administracion' })
   /*
   context.$axios.$put(
     'private/persona/' + context.id,

@@ -137,6 +137,7 @@
                     <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" :aria-haspopup="true" :aria-expanded="false">Administración <span class="caret"></span></a>
                       <ul class="dropdown-menu">
+                          <li><nuxt-link to="/administracion">Reportes</nuxt-link></li>
                         <li><nuxt-link to="/administracion/categorias">Categorías</nuxt-link></li>
                         <li><nuxt-link to="/administracion/rubros">Rubros</nuxt-link></li>
                         <li><nuxt-link to="/administracion/razon-denuncia">Razón de denuncia</nuxt-link></li>
