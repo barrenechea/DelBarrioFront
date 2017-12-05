@@ -329,7 +329,7 @@ export default {
       type: '',
       denounce: { DESC_DENUNCIA: '' },
       iden: '',
-      error: ''
+      error: '',
       imageUrl: process.env.imagesUrl
     }
   },
