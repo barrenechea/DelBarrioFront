@@ -55,7 +55,7 @@ Donde:
 
 * layouts               :  Templates generales
 
-* pages					:  Componentes corresponientes a cada vista
+* pages					:  Componentes correspondientes a cada vista
 
 * static			    :  Carpeta en la cual se encuentran elementos estáticos como .css y plugins .js que no corresponden a módulos npm
 
