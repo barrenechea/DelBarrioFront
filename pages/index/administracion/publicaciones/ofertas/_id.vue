@@ -6,18 +6,9 @@
             <h2 class="text-center">Editar Oferta</h2>            
             <form class="margin-top" @submit.prevent="validateBeforeSubmit">
               <h3>Publicación</h3>
-              <div class="row margin-top" v-if="post.imagenes.length > 0"> <!-- Corregir estilos -->
-                <div class="col-sm-3">
-                  <!-- Imagen 1 -->
-                </div>
-                <div class="col-sm-3">
-                  <!-- Imagen 2 -->
-                </div>
-                <div class="col-sm-3">
-                  <!-- Imagen 3 -->
-                </div>
-                <div class="col-sm-3">
-                  <!-- Imagen 4 -->
+              <div class="row margin-top" v-if="post.imagenes.length > 0" style="text-align:center"> <!-- Corregir estilos -->
+                <div class="col-sm-3" v-for="img in post.imagenes">
+                  <img :src="imageUrl+img.URL_IMAGEN" style="width: 200px" />
                 </div>
               </div>
               <div class="row margin-top">
@@ -69,7 +60,7 @@
                 <h3>Datos de la Oferta</h3>
                 <div class="form-group">
                   <label for="precio-oferta">Precio Oferta</label>
-                  <input type="text" v-model="sale.NUMR_PRECIO" name="price" class="form-control" v-validate :data-vv-rules="isSale ? 'required|numeric|between:1,1000000000': ''" />
+                  <input type="text" v-model="sale.NUMR_PRECIO" name="price" class="form-control" v-validate :data-vv-rules="isSale ? 'required|numeric|between:0,1000000000': ''" />
                   <small class="text-danger" v-show="errors.has('price')">{{ errors.first('price') }}</small>
                 </div>
                 <div class="form-group">
@@ -118,7 +109,8 @@ export default {
       sale: {},
       errorMsgs: {},
       format: 'dd MMM, yyyy',
-      error: {}
+      error: {},
+      imageUrl: process.env.imagesUrl
     }
   },
   asyncData ({ app, params }) {
@@ -152,9 +144,11 @@ export default {
           if (!customvalidations.isDate(this.sale.FECH_TERMINO)) {
             errorMessages.end_date = 'Este campo no corresponde a una fecha'
           } else {
-            // Si la fecha de inicio existe y es válida, comparar que el término sea posterior al inicio
+            // Si la fecha de inicio existe y es válida, comparar que el inicio sea posterior a ayer y término sea posterior al inicio
             if (!errorMessages.start_date) {
-              if (!customvalidations.isDateAfter(this.sale.FECH_INICIO, this.sale.FECH_TERMINO)) {
+              if (!customvalidations.isDateAfter((new Date()).getDate() - 1, this.sale.FECH_INICIO)) {
+                errorMessages.start_date = 'La fecha de inicio debe ser igual o posterior a la de hoy'
+              } else if (!customvalidations.isDateAfter(this.sale.FECH_INICIO, this.sale.FECH_TERMINO)) {
                 errorMessages.end_date = 'La fecha de término debe ser posterior a la de inicio'
               }
             }
@@ -192,6 +186,6 @@ export default {
 }
 .data {
   display:block;
-  font-size: 1.25vw;
+  font-size: 1.25em;
 }
 </style>

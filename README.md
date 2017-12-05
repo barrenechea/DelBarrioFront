@@ -5,24 +5,23 @@ v1.0
 
 Se consideran las siguientes tecnologías para el desarrollo del cliente REST.
 
-* Vuejs 2.4.2
+* Vuejs 2.4
 * Node 8+
-* Vue-router 2.7.0
-* Axios 0.16.2
-
-* Test: Karma 1.4 | Mocha 3.2 | Chai 4.1
+* Nuxt 1.0.0 - RC11
+* Nuxt/Axios 4.5.0
+* JWT-Decode 2.2.0
+* Js-Cookie
+* Vee-Validate
 
 ### Caracteristicas consideradas:
-* Separación de componentes en estructura de carpetas
+* Separación de rutas en estructura de carpetas
 * Vista por componente
-* Lógica separada de componentes
-* Validaciones por modelo junto a controladores
-* Permisos de ruta por JWT -> LocalStorage + SessionStorage
-* Formato establecido para descripciones de métodos
+* Lógica de modelos separada de componentes
+* Permisos de ruta por JWT -> LocalStorage
 * Utilización de ES6
 
 ___________________________________________________________________________
-## INSTALACION  ##
+## INSTALACION EENTORNO DE DESARROLLO  ##
 
 (Ver Documentación API)
 
@@ -31,36 +30,36 @@ ___________________________________________________________________________
 ## EJECUCION ENTORNO DE DESARROLLO  ##
 
 
-1.- Estructura de carpetas`:  Se considero el uso de la siguiente estructura 
+1.- Estructura de carpetas`:  Se presentan las siguientes carpetas y documentos relevantes
 	
 ```
-│   ├── build
-│   ├── config
-│   ├── node_modules
-│   └── src
-│       ├── assets
-│       ├── components
-│       ├── router
-│       ├── App.vue
-│       └── main.js
+├── .nuxt
+├── assets
+├── node_modules
+├── controllers
+├── layouts
+├── pages
 ├── static
-├── test
-├── index.html
+├── nuxt.config.js
 ├── package.json
 └── ---
 ```
 
 Donde:
 
-* src					:  Carpeta donde se encuentra el código fuente de la aplicación	
+* .nuxt                 :  Generada por nuxt
+
+* assets                :  Assets a compilar
+
+* controllers           :  Archivos de controladores de modelos y utilitarios
+
+* layouts               :  Templates generales
+
+* pages					:  Componentes corresponientes a cada vista
 
 * static			    :  Carpeta en la cual se encuentran elementos estáticos como .css y plugins .js que no corresponden a módulos npm
 
-* index.html			:  Archivo base donde se cargan elementos estáticos como las hojas de estilo .css, jquery y otros. Tiene el contenedor con id #app dentro del cual occurre la ejecución de la aplicación
-
-* config				:  Carpeta que contiene los archivos de configuración para entornos productivos y de desarrollo
-
-* components			:  Carpeta que contiene los módulos o "Componentes" de la aplicación
+* nuxt.config.js		:  Archivo de configuración de Nuxt
 
 
 ___________________________________________________________________________
@@ -68,11 +67,4 @@ ___________________________________________________________________________
 * GET:      Consultar y leer recursos
 * POST:     Permite crear un nuevo recurso
 * PUT:      Permite editar un recurso
-* DELETE:   Elimina un recurso  
-* PATCH:    Permite editar partes concretas de un recurso
-
-
-___________________________________________________________________________
-## TEST  ##
-
-*Pendiente*
+* DELETE:   Elimina un recurso

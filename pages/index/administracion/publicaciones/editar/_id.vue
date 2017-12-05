@@ -7,16 +7,18 @@
             <form class="margin-top" @submit.prevent="validateBeforeSubmit">
               <div class="row margin-top"> <!-- Corregir estilos -->
                 <div class="col-sm-3">
+                <no-ssr>
                   <croppa v-model="images.image1"
                           :width="200"
                           :height="200"
                           placeholder="Subir imagen"
                           :placeholder-font-size="18"
                           :prevent-white-space="true"
-                          v-bind:initial-image="post.imagenes.length > 0 ? 'https://delbarrio.barrenechea.cl/'+post.imagenes[0].URL_IMAGEN : ''"
+                          v-bind:initial-image="post.imagenes.length > 0 ? imageUrl+post.imagenes[0].URL_IMAGEN : ''"
                           @image-remove="imageRemoveCheck(0)"
                           @file-choose="imageChangeCheck(0)"
                           ></croppa>
+                </no-ssr>
                 </div>
                 <div class="col-sm-3">
                   <croppa v-model="images.image2"
@@ -25,7 +27,7 @@
                           placeholder="Subir imagen"
                           :placeholder-font-size="18"
                           :prevent-white-space="true"
-                          :initial-image="post.imagenes.length > 1 ? 'https://delbarrio.barrenechea.cl/'+post.imagenes[1].URL_IMAGEN : ''"
+                          :initial-image="post.imagenes.length > 1 ? imageUrl+post.imagenes[1].URL_IMAGEN : ''"
                           @image-remove="imageRemoveCheck(1)"
                           @file-choose="imageChangeCheck(1)"
                           ></croppa>
@@ -37,7 +39,7 @@
                           placeholder="Subir imagen"
                           :placeholder-font-size="18"
                           :prevent-white-space="true"
-                          :initial-image="post.imagenes.length > 2 ? 'https://delbarrio.barrenechea.cl/'+post.imagenes[2].URL_IMAGEN : ''"
+                          :initial-image="post.imagenes.length > 2 ? imageUrl+post.imagenes[2].URL_IMAGEN : ''"
                           @image-remove="imageRemoveCheck(2)"
                           @file-choose="imageChangeCheck(2)"
                           ></croppa>
@@ -49,7 +51,7 @@
                           placeholder="Subir imagen"
                           :placeholder-font-size="18"
                           :prevent-white-space="true"
-                          :initial-image="post.imagenes.length > 3 ? 'https://delbarrio.barrenechea.cl/'+post.imagenes[3].URL_IMAGEN : ''"
+                          :initial-image="post.imagenes.length > 3 ? imageUrl+post.imagenes[3].URL_IMAGEN : ''"
                           @image-remove="imageRemoveCheck(3)"
                           @file-choose="imageChangeCheck(3)"
                           ></croppa>
@@ -132,7 +134,8 @@ export default {
       images: {},
       subcategorias: {},
       deletedImages: [],
-      changedImages: []
+      changedImages: [],
+      imageUrl: process.env.imagesUrl
     }
   },
   asyncData ({ app, params }) {

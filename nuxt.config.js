@@ -64,7 +64,13 @@ module.exports = {
   ** Axios configuration
   */
   axios: {
-    baseURL: 'https://delbarrio.barrenechea.cl/api'
+    baseURL: 'https://delbarrio.barrenechea.cl/api' // CAMBIAR EN PRODUCTIVO #########################
+  },
+  /*
+  ** URLs como variables globales
+  */
+  env: {
+    imagesUrl: 'https://delbarrio.barrenechea.cl/' // CAMBIAR EN PRODUCTIVO #########################
   },
   /*
   ** Build configuration
