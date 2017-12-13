@@ -87,6 +87,11 @@ export default {
     setState (post) {
       controller.setState(this, post)
     }
+  },
+  head () {
+    return {
+      title: 'Publicaciones'
+    }
   }
 }
 </script>

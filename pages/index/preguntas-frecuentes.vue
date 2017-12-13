@@ -29,6 +29,11 @@ import controller from '~/controllers/admin/faqs'
 export default {
   asyncData ({ app }) {
     return controller.GETAll(app)
+  },
+  head () {
+    return {
+      title: 'Preguntas Frecuentes'
+    }
   }
 }
 </script>

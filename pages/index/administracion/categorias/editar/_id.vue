@@ -56,6 +56,14 @@ export default {
         if (result) controller.PUT(this)
       })
     }
+  },
+  head () {
+    return {
+      title: 'Editar categoría',
+      meta: [
+        { hid: 'description', name: 'description', content: 'description' }
+      ]
+    }
   }
 }
 </script>

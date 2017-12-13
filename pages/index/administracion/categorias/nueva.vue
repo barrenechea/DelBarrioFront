@@ -48,6 +48,14 @@ export default {
         }
       })
     }
+  },
+  head () {
+    return {
+      title: 'Nueva categoría',
+      meta: [
+        { hid: 'description', name: 'description', content: 'description' }
+      ]
+    }
   }
 }
 </script>

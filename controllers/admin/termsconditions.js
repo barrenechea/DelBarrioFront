@@ -8,6 +8,7 @@ function saveTermsConditions (context) {
   return context.$axios.$post('private/terminos_condiciones/', formData)
     .then(res => {
       context.$notify.success('Se ha agregado exitosamente.')
+      context.$router.push({ path: '/' })
     }).catch(errors => {
       context.$notify.danger('Ha ocurrido un error inesperado. Inténtelo más tarde.')
     })

@@ -100,16 +100,14 @@
                   </div>
                 </div>
               </div>
+              <div class="form-group">
+                <label for="tags">Tags (separar por coma)</label>
+                <input-tag id="tags" :tags="post.ETIQUETAS" class="form-control"></input-tag>
+              </div>
               <div class="checkbox">
                 <label>
                   <input type="checkbox" v-model="post.FLAG_CONTENIDO_ADULTO">Producto para mayores de 18
                 </label>
-              </div>
-              <div class="row">
-                <div class="form-group">
-                  <label for="tags">Tags (separar por coma)</label>
-                  <input-tag id="tags" :tags="post.ETIQUETAS"></input-tag>
-                </div>
               </div>
               <div v-if='message'>
                 <span>{{message}}</span>
@@ -190,6 +188,11 @@ export default {
     },
     confirmImages () {
       console.log('placeholder')
+    }
+  },
+  head () {
+    return {
+      title: 'Editar Publicación'
     }
   }
 }

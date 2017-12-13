@@ -43,6 +43,11 @@ export default {
       e.preventDefault()
       controller.saveTermsConditions(this)
     }
+  },
+  head () {
+    return {
+      title: 'Términos y condiciones'
+    }
   }
 }
 </script>

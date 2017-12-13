@@ -44,7 +44,7 @@
                     <li><nuxt-link to="/preguntas-frecuentes" title="Preguntas frecuentes"><i class="fa fa-question-circle" :aria-hidden="true"></i></nuxt-link></li>
                 </ul>
                 <form class="input-group text-truncate">
-                    <input class="form-control" name="search" placeholder="Buscar" autocomplete="off" autofocus="autofocus" type="text">
+                    <input class="form-control" name="search" placeholder="Buscar" autocomplete="off" autofocus="autofocus" type="text" v-model="search">
                     <div class="input-group-btn">
                         <button class="btn btn-outline-success" type="submit"><i class="fa fa-search" :aria-hidden="true"></i></button>
                     </div>
@@ -88,7 +88,7 @@
                     <li><nuxt-link to="/administracion/ofertas">Ofertas</nuxt-link></li>
                 </ul>
                 <form class="input-group text-truncate">
-                    <input class="form-control" name="search" placeholder="Buscar" autocomplete="off" autofocus="autofocus" type="text">
+                    <input class="form-control" name="search" placeholder="Buscar" autocomplete="off" autofocus="autofocus" type="text" v-model="search">
                     <div class="input-group-btn">
                         <button class="btn btn-outline-success" type="submit"><i class="fa fa-search" :aria-hidden="true"></i></button>
                     </div>
@@ -133,9 +133,11 @@
                     <li><nuxt-link to="/administracion/denuncias">Denuncias</nuxt-link></li>
                     <li><nuxt-link to="/administracion/emprendedores">Emprendedores</nuxt-link></li>
                     <li><nuxt-link to="/administracion/clientes">Clientes</nuxt-link></li>
+                    <li v-if="loggedUser.rol === 104"><nuxt-link to="/administracion/administradores">Administradores</nuxt-link></li>
                     <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" :aria-haspopup="true" :aria-expanded="false">Administración <span class="caret"></span></a>
                       <ul class="dropdown-menu">
+                          <li><nuxt-link to="/administracion">Reportes</nuxt-link></li>
                         <li><nuxt-link to="/administracion/categorias">Categorías</nuxt-link></li>
                         <li><nuxt-link to="/administracion/rubros">Rubros</nuxt-link></li>
                         <li><nuxt-link to="/administracion/razon-denuncia">Razón de denuncia</nuxt-link></li>
@@ -175,7 +177,7 @@
                     <li><nuxt-link to="/preguntas-frecuentes" title="Preguntas frecuentes"><icon name="question-circle" :aria-hidden="true"></icon></nuxt-link></li>
                 </ul>
                 <form class="input-group text-truncate">
-                    <input class="form-control" name="search" placeholder="Buscar" autocomplete="off" autofocus="autofocus" type="text">
+                    <input class="form-control" name="search" placeholder="Buscar" autocomplete="off" autofocus="autofocus" type="text" v-model="search">
                     <div class="input-group-btn">
                         <button class="btn btn-outline-success" type="submit"><icon name="search" :aria-hidden="true"></icon></button>
                     </div>
@@ -197,6 +199,11 @@ import { mapGetters } from 'vuex'
 import controller from '~/controllers/auth.js'
 
 export default {
+  data () {
+    return {
+      search: ''
+    }
+  },
   computed: mapGetters([
     'isAuthenticated',
     'loggedUser'

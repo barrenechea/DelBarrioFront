@@ -141,10 +141,14 @@ export default {
   ]),
   head () {
     return {
-      title: 'Emprendedor - Del Barrio', // this.emp.NOMB_FANTASIA + ' - Del Barrio',
+      title: 'Nuevo rubro',
       meta: [
-        { hid: 'description', name: 'description', content: 'My custom description' }
+        { hid: 'description', name: 'description', content: this.entrepreneur.DESC_EMPRENDEDOR },
+        { property: 'og:title', content: this.entrepreneur.NOMB_FANTASIA },
+        { property: 'og:description', content: this.entrepreneur.DESC_EMPRENDEDOR },
+        { property: 'og:image', content: this.entrepreneur.imagen.URL_IMAGEN }
       ]
+
     }
   }
 }

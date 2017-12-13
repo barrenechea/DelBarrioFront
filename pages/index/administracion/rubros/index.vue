@@ -80,6 +80,11 @@ export default {
     setState (workfield) {
       controller.setState(this, workfield)
     }
+  },
+  head () {
+    return {
+      title: 'Rubros'
+    }
   }
 }
 </script>

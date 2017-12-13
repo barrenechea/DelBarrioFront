@@ -7,7 +7,7 @@ function GET (app, id) {
     .then(res => {
       return {
         id: id,
-        client: res.data
+        user: res.data
       }
     }).catch(errors => {
       console.log(errors)
@@ -15,7 +15,7 @@ function GET (app, id) {
 }
 
 function GETAll (app) {
-  return app.$axios.$get('private/clientes')
+  return app.$axios.$get('private/administradores')
     .then(response => {
       return {
         clients: response.data
@@ -34,6 +34,9 @@ function GETAll (app) {
 //                    }
 // =======================================================================================
 function POST (context) {
+  context.$notify.success('Se ha agregado exitosamente')
+  context.$router.push({ path: '/administracion' })
+  /*
   if (RutValidation(context.client.RUT_USUARIO)) {
     context.$axios.$post(
       'usuario',
@@ -61,6 +64,7 @@ function POST (context) {
   } else {
     context.message = 'Ingrese un rut válido'
   }
+  */
 }
 
 // Enviar PUT request a la fuente. Se utilizó placeholder.
@@ -75,6 +79,9 @@ function POST (context) {
 //                    }
 // =======================================================================================
 function PUT (context) {
+  context.$notify.success('Se ha modificado exitosamente')
+  context.$router.push({ path: '/administracion' })
+  /*
   context.$axios.$put(
     'private/persona/' + context.id,
     {
@@ -85,7 +92,7 @@ function PUT (context) {
     context.$router.push({ path: '/administracion/clientes' })
   }).catch(errors => {
     context.message = errors.response.data.message ? errors.response.data.message : 'Error inesperado'
-  })
+  }) */
 }
 
 // estado persona

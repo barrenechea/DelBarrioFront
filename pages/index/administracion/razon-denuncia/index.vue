@@ -78,6 +78,11 @@ export default {
     setState (denouncereason) {
       controller.setState(this, denouncereason)
     }
+  },
+  head () {
+    return {
+      title: 'Razones de denuncia'
+    }
   }
 }
 </script>

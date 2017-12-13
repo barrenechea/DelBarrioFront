@@ -40,6 +40,11 @@ export default {
         }
       })
     }
+  },
+  head () {
+    return {
+      title: 'Nuevo rubro'
+    }
   }
 }
 </script>

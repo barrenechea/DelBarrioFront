@@ -166,6 +166,11 @@ export default {
         sale: false
       }
     }
+  },
+  head () {
+    return {
+      title: 'Búsqueda avanzada'
+    }
   }
 }
 </script>

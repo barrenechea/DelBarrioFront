@@ -75,10 +75,7 @@ export default {
   },
   head () {
     return {
-      title: 'Publicaciones - Del Barrio',
-      meta: [
-        { hid: 'description', name: 'description', content: 'My custom description' }
-      ]
+      title: 'Publicaciones'
     }
   }
 }

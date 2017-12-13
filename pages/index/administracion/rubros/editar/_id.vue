@@ -40,6 +40,11 @@ export default {
         if (result) controller.PUT(this)
       })
     }
+  },
+  head () {
+    return {
+      title: 'Editar Rubro'
+    }
   }
 }
 </script>
